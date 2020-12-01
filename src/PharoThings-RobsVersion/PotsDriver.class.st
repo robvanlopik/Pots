@@ -8,6 +8,7 @@ I have two main responsibilities:
 Almost all of my methods are subclass responsibility
 Especially instance creation is specific for the real driver/board combination
 
+The instance variable baseDriver holds the ""real"" driver
 
 For the Collaborators Part: State my main collaborators and one line about how I interact with them. 
 
@@ -27,5 +28,18 @@ Internal Representation and Key Implementation Points.
 Class {
 	#name : #PotsDriver,
 	#superclass : #Object,
+	#instVars : [
+		'baseDriver'
+	],
 	#category : #'PharoThings-RobsVersion'
 }
+
+{ #category : #'as yet unclassified' }
+PotsDriver >> providePinInfo [
+	
+]
+
+{ #category : #'as yet unclassified' }
+PotsDriver >> startBaseDriver [
+	"init the base driver with de parameters inmy instance vars"
+]

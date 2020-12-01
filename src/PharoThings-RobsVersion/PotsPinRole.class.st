@@ -5,9 +5,9 @@ I represent the different roles a pin can play
 there are two kinds:
 - `SoloRole` that is the pin itself is responsible for its actions
 - ensembleRole where the pin is part of a set of pins that perform certain actions or protocols (eg I2C)
-The name role is chosen asan alternative for ""mode"" or ""function"".
+The name role is chosen as an alternative for ""mode"" or ""function"".
 
-A role also contains information about eg the resolution of
+A role also contains information about eg the resolution of de function performed
 
 For the Responsibility part: Three sentences about my main responsibilities - what I do, what I know.
 

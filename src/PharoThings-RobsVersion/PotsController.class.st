@@ -6,8 +6,10 @@ I initiate the communication with the hardware, hold the pins that eventually in
 Pins are my external interface, that may be detailed by a layout (where is each pin locatedd on the board or device?))
 
 In a sense I am an intermediate between pins and the drivers that talk to the hardware.
-I also hold devices that are complexer objects that manipulate my pins, be it directly or through some protocol (like I2C).)
+I also hold devices that are mor complex objects that manipulate my pins, be it directly or through some protocol (like I2C).)
 
+A controller is created by naming its potsDriver:, including th
+PotsController 
 - message one   
 - message two 
 - (for bonus points) how to create instances.
@@ -39,7 +41,7 @@ Class {
 
 { #category : #controlling }
 PotsController >> connectDriver [
-	driver connectToController
+	driver startBaseDriver
 ]
 
 { #category : #'io protocols' }
@@ -55,7 +57,16 @@ PotsController >> driver [
 { #category : #accessing }
 PotsController >> driver: aControllerDriver [
 	driver := aControllerDriver.
-	self connectDriver
+	self connectDriver.
+	self getPinInfo
+]
+
+{ #category : #'as yet unclassified' }
+PotsController >> getPinInfo [
+	"comment stating purpose of instance-side message"
+	"scope: class-variables  &  instance-variables"	
+			
+	pins := driver ProvidePinInfo
 ]
 
 { #category : #accessing }
