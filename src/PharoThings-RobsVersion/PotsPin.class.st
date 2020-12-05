@@ -38,3 +38,13 @@ Class {
 	],
 	#category : #'PharoThings-RobsVersion'
 }
+
+{ #category : #accessing }
+PotsPin >> controller [
+	^ controller
+]
+
+{ #category : #accessing }
+PotsPin >> controller: anObject [
+	controller := anObject
+]

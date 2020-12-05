@@ -3,3 +3,8 @@ Class {
 	#superclass : #PotsEnsemblePinRole,
 	#category : #'PharoThings-RobsVersion'
 }
+
+{ #category : #'accessing structure variables' }
+PotsStepperRole class >> short [
+	^'Step'
+]

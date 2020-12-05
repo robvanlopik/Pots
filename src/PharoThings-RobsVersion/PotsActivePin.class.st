@@ -30,3 +30,46 @@ Class {
 	],
 	#category : #'PharoThings-RobsVersion'
 }
+
+{ #category : #adding }
+PotsActivePin >> addRole: aPotsPinRole [
+	"add thi role to the roles dictionary. The key i provides by the class method #short"
+	roles at: (aPotsPinRole class short) put: aPotsPinRole.
+]
+
+{ #category : #accessing }
+PotsActivePin >> currentRole [
+	^ currentRole
+]
+
+{ #category : #accessing }
+PotsActivePin >> currentRole: anObject [
+	currentRole := anObject
+]
+
+{ #category : #accessing }
+PotsActivePin >> id [
+	^ id
+]
+
+{ #category : #accessing }
+PotsActivePin >> id: anObject [
+	id := anObject
+]
+
+{ #category : #initialization }
+PotsActivePin >> initialize [
+	super initialize.
+	currentRole := PotsPinRole new.
+	roles := Dictionary new.
+]
+
+{ #category : #accessing }
+PotsActivePin >> roles [
+	^ roles
+]
+
+{ #category : #accessing }
+PotsActivePin >> roles: anObject [
+	roles := anObject
+]

@@ -66,7 +66,7 @@ PotsController >> getPinInfo [
 	"comment stating purpose of instance-side message"
 	"scope: class-variables  &  instance-variables"	
 			
-	pins := driver ProvidePinInfo
+	pins := driver providePinInfo
 ]
 
 { #category : #accessing }

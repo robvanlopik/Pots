@@ -31,3 +31,11 @@ Class {
 	#superclass : #Object,
 	#category : #'PharoThings-RobsVersion'
 }
+
+{ #category : #'accessing structure variables' }
+PotsPinRole class >> short [
+	"return an abbreviation of this dunction, for use in
+	layout and dictioannie of roles"
+	"default is NA for Not Available/Active/Attributed"
+	^'NA'
+]
