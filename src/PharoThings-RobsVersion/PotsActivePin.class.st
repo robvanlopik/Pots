@@ -60,7 +60,7 @@ PotsActivePin >> id: anObject [
 { #category : #initialization }
 PotsActivePin >> initialize [
 	super initialize.
-	currentRole := PotsPinRole new.
+	"currentRole := PotsPinRole new."
 	roles := Dictionary new.
 ]
 
@@ -72,4 +72,15 @@ PotsActivePin >> roles [
 { #category : #accessing }
 PotsActivePin >> roles: anObject [
 	roles := anObject
+]
+
+{ #category : #evaluating }
+PotsActivePin >> value [ 
+	"relay to my currentRole"
+	currentRole valueForPin: self
+]
+
+{ #category : #accessing }
+PotsActivePin >> value: aNumber [
+	currentRole value: aNumber forPin: self
 ]

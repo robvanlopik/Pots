@@ -21,3 +21,11 @@ PotsAnalogInputRole >> resolution [
 PotsAnalogInputRole >> resolution: anObject [
 	resolution := anObject
 ]
+
+{ #category : #'as yet unclassified' }
+PotsAnalogInputRole >> valueForPin: aPin [
+	"get an analog input value 
+	use Firmata-like selector"
+	| driver |
+	driver := 1
+]

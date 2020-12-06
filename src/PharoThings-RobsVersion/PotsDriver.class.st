@@ -40,6 +40,22 @@ PotsDriver >> providePinInfo [
 ]
 
 { #category : #'as yet unclassified' }
+PotsDriver >> readAnalogValueFrom: aPin [
+]
+
+{ #category : #operations }
+PotsDriver >> readDigitalValueFrom: aPin [
+]
+
+{ #category : #'as yet unclassified' }
 PotsDriver >> startBaseDriver [
 	"init the base driver with de parameters inmy instance vars"
+]
+
+{ #category : #writing }
+PotsDriver >> writeDigitalValue: oneOrZero into: aPin [
+]
+
+{ #category : #writing }
+PotsDriver >> writePWMValue: aNumber into: aPin [
 ]

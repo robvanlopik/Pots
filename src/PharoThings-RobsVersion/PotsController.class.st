@@ -63,10 +63,11 @@ PotsController >> driver: aControllerDriver [
 
 { #category : #'as yet unclassified' }
 PotsController >> getPinInfo [
-	"comment stating purpose of instance-side message"
-	"scope: class-variables  &  instance-variables"	
+	"let the driver provide the pin info"
+	"AND take ownership of the pins"	
 			
-	pins := driver providePinInfo
+	pins := driver providePinInfo.
+	pins do: [ :pin | pin controller: self ]
 ]
 
 { #category : #accessing }
