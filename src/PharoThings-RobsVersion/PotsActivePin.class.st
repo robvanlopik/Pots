@@ -77,7 +77,7 @@ PotsActivePin >> roles: anObject [
 { #category : #evaluating }
 PotsActivePin >> value [ 
 	"relay to my currentRole"
-	currentRole valueForPin: self
+	^currentRole valueForPin: self
 ]
 
 { #category : #accessing }

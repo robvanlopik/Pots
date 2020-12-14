@@ -8,3 +8,10 @@ Class {
 PotsDigitalInputRole class >> short [ 
 	^'DI'
 ]
+
+{ #category : #'as yet unclassified' }
+PotsDigitalInputRole >> valueForPin: aPin [
+	| driver |
+	driver := aPin controller driver.
+	^driver readDigitalValueFrom: aPin
+]
