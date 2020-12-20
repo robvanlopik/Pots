@@ -8,3 +8,8 @@ Class {
 PotsDigitalOutputRole class >> short [ 
 	^'DO'
 ]
+
+{ #category : #'as yet unclassified' }
+PotsDigitalOutputRole >> activateOn: aPin [
+	aPin controller driver beDigitalOutputOnPin: aPin
+]

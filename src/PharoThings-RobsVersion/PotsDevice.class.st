@@ -35,6 +35,11 @@ Class {
 	#category : #'PharoThings-RobsVersion'
 }
 
+{ #category : #'as yet unclassified' }
+PotsDevice >> claimPins [
+	self subclassResponsibility 
+]
+
 { #category : #controlling }
 PotsDevice >> connect [ 
 	self subclassResponsibility 
@@ -43,7 +48,7 @@ PotsDevice >> connect [
 { #category : #default }
 PotsDevice >> connectTo: aController [
 	controller := aController.
-	self allocateHelpers.
+	self claimPins.
 	self connect
 ]
 
@@ -75,4 +80,9 @@ PotsDevice >> pins [
 { #category : #accessing }
 PotsDevice >> pins: anObject [
 	pins := anObject
+]
+
+{ #category : #'as yet unclassified' }
+PotsDevice >> releasePins [
+	self subclassResponsibility 
 ]

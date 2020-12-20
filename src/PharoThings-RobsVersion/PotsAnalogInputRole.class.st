@@ -12,6 +12,11 @@ PotsAnalogInputRole class >> short [
 	^'AI'
 ]
 
+{ #category : #'as yet unclassified' }
+PotsAnalogInputRole >> notifyDriverForPin: aPin [
+		
+]
+
 { #category : #accessing }
 PotsAnalogInputRole >> resolution [
 	^ resolution

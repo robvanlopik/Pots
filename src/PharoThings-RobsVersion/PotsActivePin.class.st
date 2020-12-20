@@ -3,19 +3,18 @@ Please comment me using the following template inspired by Class Responsibility 
 
 I represent the active pins of the controller board
 
-For the Responsibility part: Three sentences about my main responsibilities - what I do, what I know.
+A Pin can play different roles, but only one of them can be the currentRole.
+When the currentRole is a SoloRole, the pin responds to #value and #value: for read and write operations. The value range depends on the Role.
 
-For the Collaborators Part: State my main collaborators and one line about how I interact with them. 
+A Pin can be part of a PotsDevice; this can happen in two ways:
+1) The device code manipulates the pin directly
+2) The pin is ontrolled by a protocol driver like i2C or Stepper
 
-Public API and Key Messages
+Changing the currentRole is only possible when no device is using the pin.
+Roles are changed with: 
+. `beDigitalInput`
+. `beDigitalOutput
 
-- message one   
-- message two 
-- (for bonus points) how to create instances.
-
-   One simple example is simply gorgeous.
- 
-Internal Representation and Key Implementation Points.
 
 
     Implementation Points
@@ -26,15 +25,51 @@ Class {
 	#instVars : [
 		'id',
 		'roles',
-		'currentRole'
+		'currentRole',
+		'deviceCount'
 	],
 	#category : #'PharoThings-RobsVersion'
 }
 
 { #category : #adding }
+PotsActivePin >> addDevice [
+	deviceCount := deviceCount + 1
+]
+
+{ #category : #adding }
 PotsActivePin >> addRole: aPotsPinRole [
 	"add thi role to the roles dictionary. The key i provides by the class method #short"
 	roles at: (aPotsPinRole class short) put: aPotsPinRole.
+]
+
+{ #category : #controlling }
+PotsActivePin >> beAnalogInput [
+	self playRole: 'AI'
+]
+
+{ #category : #controlling }
+PotsActivePin >> beAnalogOutput [
+	self playRole: 'AO'
+]
+
+{ #category : #controlling }
+PotsActivePin >> beDigitalInput [
+	self playRole: 'DI'
+]
+
+{ #category : #controlling }
+PotsActivePin >> beDigitalOutput [
+	self playRole: 'DO'
+]
+
+{ #category : #controlling }
+PotsActivePin >> bePWMOutput [
+	self playRole: 'PWM'
+]
+
+{ #category : #controlling }
+PotsActivePin >> beServoOutput [
+	self playRole: 'Servo'
 ]
 
 { #category : #accessing }
@@ -62,6 +97,36 @@ PotsActivePin >> initialize [
 	super initialize.
 	"currentRole := PotsPinRole new."
 	roles := Dictionary new.
+	deviceCount:= 0
+]
+
+{ #category : #'as yet unclassified' }
+PotsActivePin >> playRole: shortName [
+	"change the current role
+	if the pin already has the role, do nothing
+	if one or more devices use the pin raise an error
+	if the role is not available, raise an error	"
+
+	| newRole |
+	(currentRole class short = shortName) ifTrue: [ ^currentRole ].
+	(deviceCount > 0) ifTrue: [ Error signal: 'Pin ', id asString, ' is in use)' ].
+	newRole := roles at: shortName 
+			ifAbsent: [ Error signal: 'Pin ', id asString, ' cannot be ', shortName ].
+	"and now we must tell the driver to change the mode"
+	currentRole deactivateOn: self.
+	currentRole := newRole.
+	currentRole activateOn: self
+]
+
+{ #category : #printing }
+PotsActivePin >> printOn: aStream [
+	super printOn: aStream.
+	aStream nextPut: $(.
+	aStream nextPutAll: id asString;
+		nextPutAll: '; ';
+		nextPutAll: currentRole class short;
+		nextPut: $).
+	
 ]
 
 { #category : #accessing }

@@ -25,6 +25,11 @@ Class {
 	#category : #'PharoThings-RobsVersion'
 }
 
+{ #category : #'as yet unclassified' }
+PotsFakeDriver class >> i2cPins [
+	^#(2 3)
+]
+
 { #category : #accessing }
 PotsFakeDriver class >> parameter: anObject [
 	^self new 
@@ -55,9 +60,30 @@ PotsFakeDriver >> pin1 [
 { #category : #accessing }
 PotsFakeDriver >> pin2 [
 	| pin role|
-	role := PotsDigitalOutputRole new.
+	role := PotsDigitalInputRole new.
 	pin := PotsActivePin new id: 2; currentRole: role.
 	pin addRole: role.
+	pin addRole: PotsDigitalOutputRole new.
+	^pin
+]
+
+{ #category : #'as yet unclassified' }
+PotsFakeDriver >> pin3 [
+	| pin role|
+	role := PotsDigitalInputRole new.
+	pin := PotsActivePin new id: 3; currentRole: role.
+	pin addRole: role.
+	pin addRole: PotsI2CRole new.
+	^pin
+]
+
+{ #category : #'as yet unclassified' }
+PotsFakeDriver >> pin4 [
+	| pin role|
+	role := PotsDigitalInputRole new.
+	pin := PotsActivePin new id: 4; currentRole: role.
+	pin addRole: role.
+	pin addRole: PotsI2CRole new.
 	^pin
 ]
 

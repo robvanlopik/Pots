@@ -61,13 +61,24 @@ PotsController >> driver: aControllerDriver [
 	self getPinInfo
 ]
 
-{ #category : #'as yet unclassified' }
+{ #category : #'set up' }
 PotsController >> getPinInfo [
 	"let the driver provide the pin info"
 	"AND take ownership of the pins"	
 			
 	pins := driver providePinInfo.
-	pins do: [ :pin | pin controller: self ]
+	pins do: [ :pin | pin controller: self ] "make sure the pins know where they live"
+]
+
+{ #category : #accessing }
+PotsController >> installDevice: aPotsDevice [
+	"return an in stance of a PotsDevice. 
+	aPotsDevice already must contain the necessary information,
+	 eg pins needed and protocol info like i2c address"
+	aPotsDevice connectTo: self.
+	devices add: aPotsDevice.
+	^aPotsDevice
+	
 ]
 
 { #category : #accessing }
@@ -88,6 +99,11 @@ PotsController >> name [
 { #category : #accessing }
 PotsController >> name: anObject [
 	name := anObject
+]
+
+{ #category : #accessing }
+PotsController >> pinWithId: id [
+	^pins at: id
 ]
 
 { #category : #accessing }

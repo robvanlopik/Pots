@@ -34,20 +34,27 @@ Class {
 	#category : #'PharoThings-RobsVersion'
 }
 
-{ #category : #'as yet unclassified' }
+{ #category : #initialization }
 PotsDriver >> providePinInfo [
+	self subclassResponsibility 
 	
 ]
 
-{ #category : #'as yet unclassified' }
+{ #category : #'io protocols' }
 PotsDriver >> readAnalogValueFrom: aPin [
+	self subclassResponsibility 
 ]
 
-{ #category : #operations }
+{ #category : #'io protocols' }
 PotsDriver >> readDigitalValueFrom: aPin [
 ]
 
-{ #category : #'as yet unclassified' }
+{ #category : #initialization }
+PotsDriver >> setDPWMOutputOnPin: aPin [
+	self subclassResponsibility 
+]
+
+{ #category : #initialization }
 PotsDriver >> startBaseDriver [
 	"init the base driver with de parameters inmy instance vars"
 ]

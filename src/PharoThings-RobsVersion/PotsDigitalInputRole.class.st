@@ -10,6 +10,11 @@ PotsDigitalInputRole class >> short [
 ]
 
 { #category : #'as yet unclassified' }
+PotsDigitalInputRole >> activateOn: aPin [
+		aPin controller driver beDigitalInputOnPin: aPin
+]
+
+{ #category : #'as yet unclassified' }
 PotsDigitalInputRole >> valueForPin: aPin [
 	| driver |
 	driver := aPin controller driver.

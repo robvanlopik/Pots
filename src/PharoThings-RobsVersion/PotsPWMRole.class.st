@@ -11,3 +11,8 @@ Class {
 PotsPWMRole class >> short [ 
 	^'PWM'
 ]
+
+{ #category : #'as yet unclassified' }
+PotsPWMRole >> activateOn: aPin [
+	aPin controller driver setDPWMOutputOnPin: aPin
+]
