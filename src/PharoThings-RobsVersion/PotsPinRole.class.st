@@ -1,34 +1,23 @@
 "
-Please comment me using the following template inspired by Class Responsibility Collaborator (CRC) design:
-
 I represent the different roles a pin can play
 there are two kinds:
-- `SoloRole` that is the pin itself is responsible for its actions
-- ensembleRole where the pin is part of a set of pins that perform certain actions or protocols (eg I2C)
+- `SoloRole` where the real pin itself is manipulated directly
+- `ensembleRole` where the pin is part of a set of pins that perform certain actions or protocols (eg I2C), in the context of a PotsDevice
+
 The name role is chosen as an alternative for ""mode"" or ""function"".
 
-A role also contains information about eg the resolution of de function performed
+A role also contains information about itself eg the resolution of de function performed
 
-For the Responsibility part: Three sentences about my main responsibilities - what I do, what I know.
+Roles are created during startup by the driver. Some have properties that can be changed by the user.
 
-For the Collaborators Part: State my main collaborators and one line about how I interact with them. 
-
-Public API and Key Messages
-
-- message one   
-- message two 
-- (for bonus points) how to create instances.
-
-   One simple example is simply gorgeous.
- 
-Internal Representation and Key Implementation Points.
-
-
-    Implementation Points
 "
 Class {
 	#name : #PotsPinRole,
 	#superclass : #Object,
+	#instVars : [
+		'pin',
+		'driver'
+	],
 	#category : #'PharoThings-RobsVersion'
 }
 
@@ -38,4 +27,19 @@ PotsPinRole class >> short [
 	layout and dictioannie of roles"
 	"default is NA for Not Available/Active/Attributed"
 	^'NA'
+]
+
+{ #category : #accessing }
+PotsPinRole >> driver [
+	^ driver
+]
+
+{ #category : #accessing }
+PotsPinRole >> driver: anObject [
+	driver := anObject
+]
+
+{ #category : #accessing }
+PotsPinRole >> pin: anObject [
+	pin := anObject
 ]

@@ -36,8 +36,8 @@ Class {
 
 { #category : #initialization }
 PotsDriver >> providePinInfo [
-	self subclassResponsibility 
-	
+	"return a dict of pins to the caller, with their poperties"
+self subclassResponsibility 
 ]
 
 { #category : #'io protocols' }

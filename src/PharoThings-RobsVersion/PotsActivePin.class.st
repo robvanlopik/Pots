@@ -1,23 +1,23 @@
 "
-Please comment me using the following template inspired by Class Responsibility Collaborator (CRC) design:
-
-I represent the active pins of the controller board
+I represent the active pins of a controller board
 
 A Pin can play different roles, but only one of them can be the currentRole.
-When the currentRole is a SoloRole, the pin responds to #value and #value: for read and write operations. The value range depends on the Role.
+When the currentRole is a SoloRole, the pin responds to #value and #value: for read and write operations. The value range depends on the Role, that also has the task of communicating the requested operation with the PotsDriver. Note that possible roles are assigned by the PotsDriver, so a Role will not request an operation that de driver is not capable of.
 
-A Pin can be part of a PotsDevice; this can happen in two ways:
+A Pin can be take part in a PotsDevice; this can happen in two ways:
 1) The device code manipulates the pin directly
 2) The pin is ontrolled by a protocol driver like i2C or Stepper
 
 Changing the currentRole is only possible when no device is using the pin.
 Roles are changed with: 
 . `beDigitalInput`
-. `beDigitalOutput
+. `beDigitalOutput`
+. `bePWMOutput`
+. `beServoOutput`
+. `beAnalogInput`
+Checks are made whether the role is present and whether the pin is free (not participating in devices)
 
-
-
-    Implementation Points
+Note: a Pin doesn't do much by itself, the work is done by the currentRole and the Driver
 "
 Class {
 	#name : #PotsActivePin,
@@ -83,6 +83,16 @@ PotsActivePin >> currentRole: anObject [
 ]
 
 { #category : #accessing }
+PotsActivePin >> deviceCount [
+	^ deviceCount
+]
+
+{ #category : #accessing }
+PotsActivePin >> deviceCount: anObject [
+	deviceCount := anObject
+]
+
+{ #category : #accessing }
 PotsActivePin >> id [
 	^ id
 ]
@@ -129,12 +139,17 @@ PotsActivePin >> printOn: aStream [
 	
 ]
 
+{ #category : #removing }
+PotsActivePin >> removeDevice [
+	deviceCount := ( deviceCount - 1) max: 0.
+]
+
 { #category : #accessing }
 PotsActivePin >> roles [
 	^ roles
 ]
 
-{ #category : #accessing }
+{ #category : #'accessing - private' }
 PotsActivePin >> roles: anObject [
 	roles := anObject
 ]

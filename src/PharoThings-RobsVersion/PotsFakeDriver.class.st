@@ -94,6 +94,8 @@ PotsFakeDriver >> providePinInfo [
 	pinDict := Dictionary new.
 	pinDict at: 1 put: self pin1.
 	pinDict at: 2 put: self pin2.
+	pinDict at: 3 put: self pin3.
+	pinDict at: 4 put: self pin4.
 	
 	
 	^pinDict

@@ -55,9 +55,32 @@ PotsPiGPIODriver >> port: anObject [
 	port := anObject
 ]
 
+{ #category : #initialization }
+PotsPiGPIODriver >> providePinInfo [
+	"return a dict of pins to the caller, with their poperties"
+	| pinDict roles |
+	roles := OrderedCollection new.
+	roles add: PotsDigitalInputRole new  ;
+		add: PotsDigitalOutputRole new;
+		add: PotsPWMRole new;
+		add: PotsServoRole new.
+		
+	pinDict := Dictionary new.
+	2 to: 27 do:
+		[ :pinId | pinDict at: pinId put: 
+			(PotsActivePin new 
+			id: pinId;
+			currentRole: PotsDigitalInputRole new;
+			driver: self
+			)
+		].
+	
+	^pinDict
+]
+
 { #category : #'as yet unclassified' }
 PotsPiGPIODriver >> startBaseDriver [ 
 	"start the PiGPIO driver with its parameters"
 	"Note: we might want to do some error checking at this point"
-	baseDriver := PiGPIO onIP: ip port: port
+	"baseDriver := PiGPIO onIP: ip port: port"
 ]

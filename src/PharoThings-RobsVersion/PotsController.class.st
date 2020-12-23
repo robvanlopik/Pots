@@ -67,7 +67,7 @@ PotsController >> getPinInfo [
 	"AND take ownership of the pins"	
 			
 	pins := driver providePinInfo.
-	pins do: [ :pin | pin controller: self ] "make sure the pins know where they live"
+	pins valuesDo: [ :pin | pin controller: self ] "make sure the pins know where they live"
 ]
 
 { #category : #accessing }
