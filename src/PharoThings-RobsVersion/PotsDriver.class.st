@@ -35,6 +35,11 @@ Class {
 }
 
 { #category : #initialization }
+PotsDriver >> bePWMOutputOnPin: aPin [
+	self subclassResponsibility 
+]
+
+{ #category : #initialization }
 PotsDriver >> providePinInfo [
 	"return a dict of pins to the caller, with their poperties"
 self subclassResponsibility 

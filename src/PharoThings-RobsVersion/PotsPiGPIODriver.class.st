@@ -28,6 +28,23 @@ PotsPiGPIODriver class >> onIP: anIpAddressString port: aPortNumber [
 		yourself
 ]
 
+{ #category : #initialization }
+PotsPiGPIODriver >> beDigitalInputOnPin: aPin [
+	baseDriver pin: aPin id mode: 1
+	
+]
+
+{ #category : #initialization }
+PotsPiGPIODriver >> beDigitalOutputOnPin: aPin [
+	baseDriver pin: aPin id mode: 0
+	
+]
+
+{ #category : #initialization }
+PotsPiGPIODriver >> bePWMOutputOnPin: aPin [
+	
+]
+
 { #category : #accessing }
 PotsPiGPIODriver >> ip [
 	^ ip
@@ -58,13 +75,9 @@ PotsPiGPIODriver >> port: anObject [
 { #category : #initialization }
 PotsPiGPIODriver >> providePinInfo [
 	"return a dict of pins to the caller, with their poperties"
-	| pinDict roles |
-	roles := OrderedCollection new.
-	roles add: PotsDigitalInputRole new  ;
-		add: PotsDigitalOutputRole new;
-		add: PotsPWMRole new;
-		add: PotsServoRole new.
-		
+	| pinDict |
+
+	"first enumerate the pins"	
 	pinDict := Dictionary new.
 	2 to: 27 do:
 		[ :pinId | pinDict at: pinId put: 
@@ -74,8 +87,30 @@ PotsPiGPIODriver >> providePinInfo [
 			driver: self
 			)
 		].
-	
+	"next fill out the roles dictionaries. For readability we do it for each roleseparately"
+	"first DI (already present"
+	pinDict valuesDo: [  :pin| pin addRole: (pin currentRole) ].
+	"the DO role is simple "
+	pinDict valuesDo: [  :pin | pin addRole: (PotsDigitalOutputRole new driver: self) ].
+	"for the PWM role we have the courtesy to ask the driver for its range
+	note that the frequency can be set for pins separately, TODO??"
+	pinDict valuesDo: [  :pin | pin addRole: 
+		(PotsPWMRole new 
+			driver: self; 
+			range: (baseDriver pwmRangeOnPin: pin id; yourself ))].
+	"servo mode; PiGPIO sets min and max to 500 and 2500; frequency fixedd at 50 Hz"
+	pinDict valuesDo: [  :pin | pin addRole:
+		(PotsServoRole new 
+			driver: self;
+			min: 500;
+			max: 2500;
+			yourself) ].
 	^pinDict
+]
+
+{ #category : #'io protocols' }
+PotsPiGPIODriver >> readDigitalValueFrom: aPin [
+	^baseDriver digitalRead: aPin id
 ]
 
 { #category : #'as yet unclassified' }
@@ -83,4 +118,19 @@ PotsPiGPIODriver >> startBaseDriver [
 	"start the PiGPIO driver with its parameters"
 	"Note: we might want to do some error checking at this point"
 	"baseDriver := PiGPIO onIP: ip port: port"
+]
+
+{ #category : #writing }
+PotsPiGPIODriver >> writeDigitalValue: oneOrZero into: aPin [ 
+	baseDriver digitalWrite: aPin id value: (oneOrZero bitAnd: 1)
+]
+
+{ #category : #writing }
+PotsPiGPIODriver >> writePWMValue: aNumber into: aPin [
+	baseDriver pin: aPin id write: aNumber
+]
+
+{ #category : #writing }
+PotsPiGPIODriver >> writeServoValue: aNumber into: aPin [
+	baseDriver pin: aPin id servoPulsewidth:  aNumber
 ]

@@ -37,6 +37,22 @@ PotsFakeDriver class >> parameter: anObject [
 		yourself
 ]
 
+{ #category : #'private-mode' }
+PotsFakeDriver >> beDigitalInputOnPin: aPin [
+]
+
+{ #category : #'private-mode' }
+PotsFakeDriver >> beDigitalOutputOnPin: aPin [
+]
+
+{ #category : #'private-mode' }
+PotsFakeDriver >> bePWMOutputOnPin: aPin [
+]
+
+{ #category : #'private-mode' }
+PotsFakeDriver >> beServoOutputOnPin: aPin [
+]
+
 { #category : #accessing }
 PotsFakeDriver >> parameter [
 	^parameter
@@ -51,7 +67,7 @@ PotsFakeDriver >> parameter: anObject [
 { #category : #accessing }
 PotsFakeDriver >> pin1 [ 	
 	| pin role|
-	role := PotsDigitalInputRole new.
+	role := PotsDigitalInputRole new driver: self.
 	pin := PotsActivePin new id: 1; currentRole: role.
 	pin addRole: role.
 	^pin
@@ -60,30 +76,30 @@ PotsFakeDriver >> pin1 [
 { #category : #accessing }
 PotsFakeDriver >> pin2 [
 	| pin role|
-	role := PotsDigitalInputRole new.
+	role := PotsDigitalInputRole new driver: self.
 	pin := PotsActivePin new id: 2; currentRole: role.
 	pin addRole: role.
-	pin addRole: PotsDigitalOutputRole new.
+	pin addRole: (PotsDigitalOutputRole new driver: self).
 	^pin
 ]
 
 { #category : #'as yet unclassified' }
 PotsFakeDriver >> pin3 [
 	| pin role|
-	role := PotsDigitalInputRole new.
+	role := PotsDigitalInputRole new driver: self.
 	pin := PotsActivePin new id: 3; currentRole: role.
 	pin addRole: role.
-	pin addRole: PotsI2CRole new.
+	pin addRole: (PotsI2CRole new driver: self).
 	^pin
 ]
 
 { #category : #'as yet unclassified' }
 PotsFakeDriver >> pin4 [
 	| pin role|
-	role := PotsDigitalInputRole new.
+	role := PotsDigitalInputRole new driver: self.
 	pin := PotsActivePin new id: 4; currentRole: role.
 	pin addRole: role.
-	pin addRole: PotsI2CRole new.
+	pin addRole: (PotsI2CRole new driver: self).
 	^pin
 ]
 

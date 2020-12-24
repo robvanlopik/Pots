@@ -13,6 +13,11 @@ PotsAnalogInputRole class >> short [
 ]
 
 { #category : #'as yet unclassified' }
+PotsAnalogInputRole >> activateOn: aPin [
+	driver beAnalogInputOnPin: aPin
+]
+
+{ #category : #'as yet unclassified' }
 PotsAnalogInputRole >> notifyDriverForPin: aPin [
 		
 ]

@@ -34,3 +34,8 @@ Class {
 PotsServoRole class >> short [ 
 	^'Servo'
 ]
+
+{ #category : #'private-mode' }
+PotsServoRole >> activateOn: aPin [
+		driver beServoOutputOnPin: aPin
+]

@@ -36,9 +36,10 @@ PotsActivePin >> addDevice [
 	deviceCount := deviceCount + 1
 ]
 
-{ #category : #adding }
+{ #category : #'private-adding' }
 PotsActivePin >> addRole: aPotsPinRole [
-	"add thi role to the roles dictionary. The key i provides by the class method #short"
+	"add thi role to the roles dictionary. The key is provides by the class method ##short.
+	In principle only the driver will call this method, using the info it hs about the real device"
 	roles at: (aPotsPinRole class short) put: aPotsPinRole.
 ]
 
