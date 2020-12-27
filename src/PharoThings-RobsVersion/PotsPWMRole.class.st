@@ -26,3 +26,9 @@ PotsPWMRole >> range [
 PotsPWMRole >> range: anObject [
 	range := anObject
 ]
+
+{ #category : #'as yet unclassified' }
+PotsPWMRole >> value: percentage forPin: pinid [
+	"we take into account the range reported by the driver"
+	driver writePWMValue: percentage into: pinid
+]

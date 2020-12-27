@@ -13,3 +13,10 @@ PotsDigitalOutputRole class >> short [
 PotsDigitalOutputRole >> activateOn: aPin [
 	driver beDigitalOutputOnPin: aPin
 ]
+
+{ #category : #'as yet unclassified' }
+PotsDigitalOutputRole >> value: oneOrZero forPin:  pinId [
+	driver writeDigitalValue: oneOrZero into: pinId.
+	lastValue := oneOrZero.
+	
+]

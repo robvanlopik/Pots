@@ -83,8 +83,8 @@ PotsPiGPIODriver >> providePinInfo [
 		[ :pinId | pinDict at: pinId put: 
 			(PotsActivePin new 
 			id: pinId;
-			currentRole: PotsDigitalInputRole new;
-			driver: self
+			currentRole: (PotsDigitalInputRole new
+			driver: self)
 			)
 		].
 	"next fill out the roles dictionaries. For readability we do it for each roleseparately"
@@ -97,7 +97,7 @@ PotsPiGPIODriver >> providePinInfo [
 	pinDict valuesDo: [  :pin | pin addRole: 
 		(PotsPWMRole new 
 			driver: self; 
-			range: (baseDriver pwmRangeOnPin: pin id; yourself ))].
+			range: (baseDriver pwmRangeOnPin: pin id ))].
 	"servo mode; PiGPIO sets min and max to 500 and 2500; frequency fixedd at 50 Hz"
 	pinDict valuesDo: [  :pin | pin addRole:
 		(PotsServoRole new 
@@ -120,7 +120,7 @@ PotsPiGPIODriver >> readDigitalValueFrom: aPin [
 PotsPiGPIODriver >> startBaseDriver [ 
 	"start the PiGPIO driver with its parameters"
 	"Note: we might want to do some error checking at this point"
-	"baseDriver := PiGPIO onIP: ip port: port"
+	baseDriver := PiGPIO onIP: ip port: port
 ]
 
 { #category : #writing }
@@ -130,7 +130,7 @@ PotsPiGPIODriver >> writeDigitalValue: oneOrZero into: aPin [
 
 { #category : #writing }
 PotsPiGPIODriver >> writePWMValue: aNumber into: aPin [
-	baseDriver pin: aPin id write: aNumber
+	baseDriver pin: aPin id pwmWrite: aNumber
 ]
 
 { #category : #writing }

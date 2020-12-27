@@ -27,6 +27,12 @@ Internal Representation and Key Implementation Points.
 Class {
 	#name : #PotsServoRole,
 	#superclass : #PotsSoloPinRole,
+	#instVars : [
+		'min',
+		'max',
+		'minDegrees',
+		'maxDegrees'
+	],
 	#category : #'PharoThings-RobsVersion'
 }
 
@@ -38,4 +44,44 @@ PotsServoRole class >> short [
 { #category : #'private-mode' }
 PotsServoRole >> activateOn: aPin [
 		driver beServoOutputOnPin: aPin
+]
+
+{ #category : #accessing }
+PotsServoRole >> max [
+	^ max
+]
+
+{ #category : #accessing }
+PotsServoRole >> max: anObject [
+	max := anObject
+]
+
+{ #category : #accessing }
+PotsServoRole >> maxDegrees [
+	^ maxDegrees
+]
+
+{ #category : #accessing }
+PotsServoRole >> maxDegrees: anObject [
+	maxDegrees := anObject
+]
+
+{ #category : #accessing }
+PotsServoRole >> min [
+	^ min
+]
+
+{ #category : #accessing }
+PotsServoRole >> min: anObject [
+	min := anObject
+]
+
+{ #category : #accessing }
+PotsServoRole >> minDegrees [
+	^ minDegrees
+]
+
+{ #category : #accessing }
+PotsServoRole >> minDegrees: anObject [
+	minDegrees := anObject
 ]

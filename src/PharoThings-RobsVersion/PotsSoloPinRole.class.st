@@ -2,7 +2,7 @@ Class {
 	#name : #PotsSoloPinRole,
 	#superclass : #PotsPinRole,
 	#instVars : [
-		'value'
+		'lastValue'
 	],
 	#category : #'PharoThings-RobsVersion'
 }
@@ -15,6 +15,11 @@ PotsSoloPinRole >> activateOn: aPin [
 { #category : #'as yet unclassified' }
 PotsSoloPinRole >> deactivateOn: aPin [
 	"only implement when cleanup after use is necessary"
+]
+
+{ #category : #accessing }
+PotsSoloPinRole >> lastValue [
+	^ lastValue
 ]
 
 { #category : #'as yet unclassified' }

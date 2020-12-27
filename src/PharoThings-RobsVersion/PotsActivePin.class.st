@@ -111,6 +111,11 @@ PotsActivePin >> initialize [
 	deviceCount:= 0
 ]
 
+{ #category : #accessing }
+PotsActivePin >> lastValue [
+	^currentRole lastValue
+]
+
 { #category : #'as yet unclassified' }
 PotsActivePin >> playRole: shortName [
 	"change the current role
