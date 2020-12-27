@@ -75,7 +75,7 @@ PotsPiGPIODriver >> port: anObject [
 { #category : #initialization }
 PotsPiGPIODriver >> providePinInfo [
 	"return a dict of pins to the caller, with their poperties"
-	| pinDict |
+	| pinDict i2cRole|
 
 	"first enumerate the pins"	
 	pinDict := Dictionary new.
@@ -105,6 +105,9 @@ PotsPiGPIODriver >> providePinInfo [
 			min: 500;
 			max: 2500;
 			yourself) ].
+	i2cRole := PotsI2CRole new driver: self.
+	(pinDict  at: 2) addRole: i2cRole.
+	(pinDict  at: 3) addRole: i2cRole.
 	^pinDict
 ]
 
