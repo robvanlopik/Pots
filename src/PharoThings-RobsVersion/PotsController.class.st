@@ -72,7 +72,7 @@ PotsController >> getPinInfo [
 
 { #category : #accessing }
 PotsController >> installDevice: aPotsDevice [
-	"return an in stance of a PotsDevice. 
+	"return an instance of a PotsDevice. 
 	aPotsDevice already must contain the necessary information,
 	 eg pins needed and protocol info like i2c address"
 	aPotsDevice connectTo: self.

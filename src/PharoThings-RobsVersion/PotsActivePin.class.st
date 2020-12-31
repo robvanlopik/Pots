@@ -106,7 +106,7 @@ PotsActivePin >> id: anObject [
 { #category : #initialization }
 PotsActivePin >> initialize [
 	super initialize.
-	"currentRole := PotsPinRole new."
+	
 	roles := Dictionary new.
 	deviceCount:= 0
 ]

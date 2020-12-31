@@ -55,7 +55,7 @@ PotsDriver >> readDigitalValueFrom: aPin [
 ]
 
 { #category : #initialization }
-PotsDriver >> setDPWMOutputOnPin: aPin [
+PotsDriver >> setPWMOutputOnPin: aPin [
 	self subclassResponsibility 
 ]
 
