@@ -111,9 +111,32 @@ PotsPiGPIODriver >> providePinInfo [
 	^pinDict
 ]
 
+{ #category : #writing }
+PotsPiGPIODriver >> pwmValue: aNumber intoPin: aPin [
+	"convert percentage to driver units (usually 8 bits, but can be different"
+	| range rawNumber|
+	range := aPin currentRole range.
+	rawNumber := (aNumber * range / 100.0) rounded.
+	baseDriver pin: aPin id pwmWrite: (rawNumber min: range max: 0)
+]
+
+{ #category : #writing }
+PotsPiGPIODriver >> rawPwmValue: aNumber intoPin: aPin [
+	baseDriver pin: aPin id pwmWrite: aNumber
+]
+
+{ #category : #'as yet unclassified' }
+PotsPiGPIODriver >> rawServoValue: aNumber intoPin: aPin [
+	" for PiGPIO the raw value is an integer netween min and max "
+]
+
 { #category : #'io protocols' }
 PotsPiGPIODriver >> readDigitalValueFrom: aPin [
 	^baseDriver digitalRead: aPin id
+]
+
+{ #category : #'as yet unclassified' }
+PotsPiGPIODriver >> servoValue: aNumber intoPin: aPin [
 ]
 
 { #category : #'as yet unclassified' }

@@ -28,15 +28,12 @@ PotsPWMRole >> range: anObject [
 ]
 
 { #category : #'as yet unclassified' }
-PotsPWMRole >> rawValue: percentage forPin: pinid [
+PotsPWMRole >> rawValue: aNumber forPin: pinid [
 	"straight to the driver"
-	driver writePWMValue: percentage into: pinid
+	driver rawPwmValue: aNumber intoPin: pinid
 ]
 
 { #category : #'as yet unclassified' }
-PotsPWMRole >> value: percentage forPin: pinid [
-	"we take into account the range reported by the driver"
-	| raw |
-	raw := (percentage  * (self range) / 100.0 ) rounded.
-	self rawValue: (raw min: (self range) max: 0) forPin: pinid
+PotsPWMRole >> value: aNumber forPin: aPin [
+	driver pwmValue: aNumber intoPin: aPin
 ]

@@ -15,8 +15,8 @@ PotsDigitalOutputRole >> activateOn: aPin [
 ]
 
 { #category : #'as yet unclassified' }
-PotsDigitalOutputRole >> value: oneOrZero forPin:  pinId [
-	driver writeDigitalValue: oneOrZero into: pinId.
+PotsDigitalOutputRole >> value: oneOrZero forPin:  aPin [
+	driver digitalValue: oneOrZero intoPin: aPin id.
 	lastValue := oneOrZero.
 	
 ]

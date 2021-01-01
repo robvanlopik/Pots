@@ -85,3 +85,15 @@ PotsServoRole >> minDegrees [
 PotsServoRole >> minDegrees: anObject [
 	minDegrees := anObject
 ]
+
+{ #category : #'as yet unclassified' }
+PotsServoRole >> rawValue: aNumber forPin: aPin [
+	driver rawServoValue: aNumber intoPin: aPin
+
+]
+
+{ #category : #'as yet unclassified' }
+PotsServoRole >> value: aNumber forPin: aPin [
+	driver servoValue: aNumber intoPin: aPin
+
+]

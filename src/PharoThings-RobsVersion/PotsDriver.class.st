@@ -34,15 +34,33 @@ Class {
 	#category : #'PharoThings-RobsVersion'
 }
 
+{ #category : #'io protocols' }
+PotsDriver >> analogValueFromPin: aPin [
+	self subclassResponsibility 
+]
+
 { #category : #initialization }
 PotsDriver >> bePWMOutputOnPin: aPin [
 	self subclassResponsibility 
+]
+
+{ #category : #writing }
+PotsDriver >> digitalValue: oneOrZero intoPin: aPin [
 ]
 
 { #category : #initialization }
 PotsDriver >> providePinInfo [
 	"return a dict of pins to the caller, with their poperties"
 self subclassResponsibility 
+]
+
+{ #category : #writing }
+PotsDriver >> pwmValue: aNumber intoPin: aPin [
+]
+
+{ #category : #'io protocols' }
+PotsDriver >> rawAnalogValueFromPin: aPin [
+	self subclassResponsibility 
 ]
 
 { #category : #'io protocols' }
@@ -52,11 +70,6 @@ PotsDriver >> readAnalogValueFrom: aPin [
 
 { #category : #'io protocols' }
 PotsDriver >> readDigitalValueFrom: aPin [
-]
-
-{ #category : #initialization }
-PotsDriver >> setPWMOutputOnPin: aPin [
-	self subclassResponsibility 
 ]
 
 { #category : #initialization }

@@ -53,6 +53,11 @@ PotsFakeDriver >> bePWMOutputOnPin: aPin [
 PotsFakeDriver >> beServoOutputOnPin: aPin [
 ]
 
+{ #category : #operations }
+PotsFakeDriver >> digitalValueFromPin: aPin [
+	^(aPin id) bitAnd: 1
+]
+
 { #category : #accessing }
 PotsFakeDriver >> parameter [
 	^parameter
@@ -120,9 +125,4 @@ PotsFakeDriver >> providePinInfo [
 { #category : #operations }
 PotsFakeDriver >> readDigitalValueFrom: aPin [
 	^(aPin id) bitAnd: 1
-]
-
-{ #category : #writing }
-PotsFakeDriver >> writeDigitalValue: oneOrZero into: aPin [
-	[aPin id = 2] ifTrue: [pin2Value := oneOrZero]
 ]
