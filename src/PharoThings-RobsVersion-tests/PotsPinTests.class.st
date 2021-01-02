@@ -2,7 +2,11 @@ Class {
 	#name : #PotsPinTests,
 	#superclass : #TestCase,
 	#instVars : [
-		'controller'
+		'controller',
+		'p1',
+		'p2',
+		'p3',
+		'p4'
 	],
 	#category : #'PharoThings-RobsVersion-tests'
 }
@@ -11,7 +15,12 @@ Class {
 PotsPinTests >> setUp [
 	"Hooks that subclasses may override to define the fixture of test."
 	super setUp.
-	controller := PotsController new driver: (PotsFakeDriver parameter: 'test')
+	controller := PotsController new driver: (PotsFakeDriver parameter: 'test').
+	p1 := controller pinWithId: 1.
+	p2 := controller pinWithId: 2.
+	p3 := controller pinWithId: 3.
+	p4 := controller pinWithId: 4.
+	
 ]
 
 { #category : #tests }
@@ -33,6 +42,19 @@ PotsPinTests >> testBeDigitalOutput [
 	self should: [ d1 beDigitalOutput ] raise: Error.
 	d2 beDigitalOutput.
 	self assert: [d2 currentRole class short = 'DO']
+]
+
+{ #category : #tests }
+PotsPinTests >> testDigitalIO [
+	p1 beDigitalInput .
+	p2 beDigitalOutput .
+	p2 value: 1.
+	self assert: [ p1 value  = 1].
+	p2 value: 0.
+	self assert: [ p1 value = 0 ].
+	self assert: [ p2 lastValue = 0 ].
+	p2 toggle.
+	self assert: [ p1 value =  1]
 ]
 
 { #category : #tests }

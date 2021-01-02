@@ -79,6 +79,11 @@ PotsFirmataDriver >> createPinWithFirmataInfo: id [
 
 ]
 
+{ #category : #'io protocols' }
+PotsFirmataDriver >> digitalValueFromPin: aPin [
+	^baseDriver digitalRead: aPin id
+]
+
 { #category : #'as yet unclassified' }
 PotsFirmataDriver >> getCurrentModes [
 	"send #queryPinState to all pins to get the current state filled in in FirmataPins

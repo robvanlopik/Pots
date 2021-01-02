@@ -15,6 +15,11 @@ PotsDigitalOutputRole >> activateOn: aPin [
 ]
 
 { #category : #'as yet unclassified' }
+PotsDigitalOutputRole >> toggleValueForPin: aPin [
+	aPin value: (aPin lastValue = 0 ) asBit
+]
+
+{ #category : #'as yet unclassified' }
 PotsDigitalOutputRole >> value: oneOrZero forPin:  aPin [
 	driver digitalValue: oneOrZero intoPin: aPin id.
 	lastValue := oneOrZero.

@@ -160,6 +160,11 @@ PotsActivePin >> roles: anObject [
 	roles := anObject
 ]
 
+{ #category : #operations }
+PotsActivePin >> toggle [ 
+	currentRole toggleValueForPin: self
+]
+
 { #category : #evaluating }
 PotsActivePin >> value [ 
 	"relay to my currentRole"

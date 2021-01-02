@@ -20,7 +20,8 @@ Class {
 	#superclass : #PotsDriver,
 	#instVars : [
 		'parameter',
-		'pin2Value'
+		'pin2Value',
+		'bit'
 	],
 	#category : #'PharoThings-RobsVersion'
 }
@@ -53,9 +54,20 @@ PotsFakeDriver >> bePWMOutputOnPin: aPin [
 PotsFakeDriver >> beServoOutputOnPin: aPin [
 ]
 
-{ #category : #operations }
+{ #category : #writing }
+PotsFakeDriver >> digitalValue: oneOrZero intoPin: aPin [
+	bit := oneOrZero
+]
+
+{ #category : #'as yet unclassified' }
 PotsFakeDriver >> digitalValueFromPin: aPin [
-	^(aPin id) bitAnd: 1
+	^bit
+]
+
+{ #category : #initialization }
+PotsFakeDriver >> initialize [ 
+	super initialize.
+	bit := 0
 ]
 
 { #category : #accessing }
@@ -120,9 +132,4 @@ PotsFakeDriver >> providePinInfo [
 	
 	
 	^pinDict
-]
-
-{ #category : #operations }
-PotsFakeDriver >> readDigitalValueFrom: aPin [
-	^(aPin id) bitAnd: 1
 ]

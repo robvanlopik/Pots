@@ -45,6 +45,11 @@ PotsPiGPIODriver >> bePWMOutputOnPin: aPin [
 	
 ]
 
+{ #category : #'io protocols' }
+PotsPiGPIODriver >> digitalValueFromPin: aPin [
+	^baseDriver digitalRead: aPin id
+]
+
 { #category : #accessing }
 PotsPiGPIODriver >> ip [
 	^ ip
