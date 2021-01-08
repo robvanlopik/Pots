@@ -50,6 +50,11 @@ PotsPiGPIODriver >> digitalValueFromPin: aPin [
 	^baseDriver digitalRead: aPin id
 ]
 
+{ #category : #controlling }
+PotsPiGPIODriver >> disconnect [ 
+		baseDriver closeConnection
+]
+
 { #category : #accessing }
 PotsPiGPIODriver >> ip [
 	^ ip

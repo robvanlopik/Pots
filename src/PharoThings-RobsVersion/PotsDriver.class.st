@@ -48,6 +48,11 @@ PotsDriver >> bePWMOutputOnPin: aPin [
 PotsDriver >> digitalValue: oneOrZero intoPin: aPin [
 ]
 
+{ #category : #'as yet unclassified' }
+PotsDriver >> disconnect [
+		self subclassResponsibility 
+]
+
 { #category : #initialization }
 PotsDriver >> providePinInfo [
 	"return a dict of pins to the caller, with their poperties"

@@ -46,6 +46,20 @@ PotsServoRole >> activateOn: aPin [
 		driver beServoOutputOnPin: aPin
 ]
 
+{ #category : #'as yet unclassified' }
+PotsServoRole >> decrementValueBy: aNumber forPin: aPin [
+	| newValue |
+	newValue := (self lastValue - aNumber) max: self minDegrees.
+	self value: newValue forPin: aPin
+]
+
+{ #category : #'as yet unclassified' }
+PotsServoRole >> incrementValueBy: aNumber forPin: aPin [
+	| newValue |
+	newValue := (self lastValue + aNumber) min: self maxDegrees.
+	self value: newValue forPin: aPin
+]
+
 { #category : #accessing }
 PotsServoRole >> max [
 	^ max
@@ -94,6 +108,6 @@ PotsServoRole >> rawValue: aNumber forPin: aPin [
 
 { #category : #'as yet unclassified' }
 PotsServoRole >> value: aNumber forPin: aPin [
-	driver servoValue: aNumber intoPin: aPin
-
+	driver servoValue: aNumber intoPin: aPin.
+	lastValue := aNumber
 ]

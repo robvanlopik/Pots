@@ -83,6 +83,11 @@ PotsActivePin >> currentRole: anObject [
 	currentRole := anObject
 ]
 
+{ #category : #'as yet unclassified' }
+PotsActivePin >> decrementValueBy: aNumber [
+	currentRole decrementValueBy: aNumber forPin: self
+]
+
 { #category : #accessing }
 PotsActivePin >> deviceCount [
 	^ deviceCount
@@ -101,6 +106,11 @@ PotsActivePin >> id [
 { #category : #accessing }
 PotsActivePin >> id: anObject [
 	id := anObject
+]
+
+{ #category : #'as yet unclassified' }
+PotsActivePin >> incrementValueBy: aNumber [
+	currentRole incrementValueBy: aNumber forPin: self
 ]
 
 { #category : #initialization }

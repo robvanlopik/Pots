@@ -17,5 +17,5 @@ PotsDigitalInputRole >> activateOn: aPin [
 { #category : #'as yet unclassified' }
 PotsDigitalInputRole >> valueForPin: aPin [
 	
-	^driver digitalValueFromPin: aPin
+	^lastValue := driver digitalValueFromPin: aPin
 ]

@@ -85,6 +85,12 @@ PotsFirmataDriver >> digitalValueFromPin: aPin [
 ]
 
 { #category : #'as yet unclassified' }
+PotsFirmataDriver >> disconnect [ 
+	baseDriver disconnect
+	
+]
+
+{ #category : #'as yet unclassified' }
 PotsFirmataDriver >> getCurrentModes [
 	"send #queryPinState to all pins to get the current state filled in in FirmataPins
 	Because the Arduino has to answer for each pin, we insert a delay of 30 milliseconds"
