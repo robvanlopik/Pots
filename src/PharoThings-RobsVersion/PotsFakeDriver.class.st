@@ -81,7 +81,7 @@ PotsFakeDriver >> parameter: anObject [
 	parameter := anObject
 ]
 
-{ #category : #accessing }
+{ #category : #initialization }
 PotsFakeDriver >> pin1 [ 	
 	| pin role|
 	role := PotsDigitalInputRole new driver: self.
@@ -90,7 +90,7 @@ PotsFakeDriver >> pin1 [
 	^pin
 ]
 
-{ #category : #accessing }
+{ #category : #initialization }
 PotsFakeDriver >> pin2 [
 	| pin role|
 	role := PotsDigitalInputRole new driver: self.
@@ -100,7 +100,7 @@ PotsFakeDriver >> pin2 [
 	^pin
 ]
 
-{ #category : #'as yet unclassified' }
+{ #category : #initialization }
 PotsFakeDriver >> pin3 [
 	| pin role|
 	role := PotsDigitalInputRole new driver: self.
@@ -110,7 +110,7 @@ PotsFakeDriver >> pin3 [
 	^pin
 ]
 
-{ #category : #'as yet unclassified' }
+{ #category : #initialization }
 PotsFakeDriver >> pin4 [
 	| pin role|
 	role := PotsDigitalInputRole new driver: self.
@@ -120,7 +120,7 @@ PotsFakeDriver >> pin4 [
 	^pin
 ]
 
-{ #category : #'as yet unclassified' }
+{ #category : #initialization }
 PotsFakeDriver >> providePinInfo [
 	"return a dictionary (key = id) of all pins with their attributes"
 	| pinDict |

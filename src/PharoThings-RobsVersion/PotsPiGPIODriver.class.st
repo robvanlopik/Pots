@@ -30,19 +30,29 @@ PotsPiGPIODriver class >> onIP: anIpAddressString port: aPortNumber [
 
 { #category : #initialization }
 PotsPiGPIODriver >> beDigitalInputOnPin: aPin [
-	baseDriver pin: aPin id mode: 1
+	baseDriver pin: aPin id mode: 0
 	
 ]
 
 { #category : #initialization }
 PotsPiGPIODriver >> beDigitalOutputOnPin: aPin [
-	baseDriver pin: aPin id mode: 0
+	baseDriver pin: aPin id mode: 1
 	
 ]
 
 { #category : #initialization }
 PotsPiGPIODriver >> bePWMOutputOnPin: aPin [
 	
+]
+
+{ #category : #writing }
+PotsPiGPIODriver >> digitalValue: oneOrZero into: aPin [ 
+	baseDriver digitalWrite: aPin id value: (oneOrZero bitAnd: 1)
+]
+
+{ #category : #writing }
+PotsPiGPIODriver >> digitalValue: oneOrZero intoPin: aPin [ 
+	baseDriver digitalWrite: aPin id value: (oneOrZero bitAnd: 1)
 ]
 
 { #category : #'io protocols' }
@@ -164,9 +174,4 @@ PotsPiGPIODriver >> writeDigitalValue: oneOrZero into: aPin [
 { #category : #writing }
 PotsPiGPIODriver >> writePWMValue: aNumber into: aPin [
 	baseDriver pin: aPin id pwmWrite: aNumber
-]
-
-{ #category : #writing }
-PotsPiGPIODriver >> writeServoValue: aNumber into: aPin [
-	baseDriver pin: aPin id servoPulsewidth:  aNumber
 ]

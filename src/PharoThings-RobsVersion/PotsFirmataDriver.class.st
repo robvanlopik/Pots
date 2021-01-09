@@ -79,6 +79,16 @@ PotsFirmataDriver >> createPinWithFirmataInfo: id [
 
 ]
 
+{ #category : #writing }
+PotsFirmataDriver >> digitalValue: oneOrZero into: aPin [
+	baseDriver directDigitalWrite: aPin id value: oneOrZero
+]
+
+{ #category : #writing }
+PotsFirmataDriver >> digitalValue: oneOrZero intoPin: aPin [
+	baseDriver directDigitalWrite: aPin id value: oneOrZero
+]
+
 { #category : #'io protocols' }
 PotsFirmataDriver >> digitalValueFromPin: aPin [
 	^baseDriver digitalRead: aPin id
@@ -142,9 +152,4 @@ PotsFirmataDriver >> startBaseDriver [
 	"start the Firmata driver and save it"
 	"Note: probably we should do some error handling !!!"
 	baseDriver := Firmata onPort: port baudRate: baudRate .
-]
-
-{ #category : #writing }
-PotsFirmataDriver >> writeDigitalValue: oneOrZero into: aPin [
-	baseDriver directDigitalWrite: aPin id value: oneOrZero
 ]

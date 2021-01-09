@@ -77,6 +77,13 @@ PotsController >> getPinInfo [
 	pins valuesDo: [ :pin | pin controller: self ] "make sure the pins know where they live"
 ]
 
+{ #category : #initialization }
+PotsController >> initialize [ 
+	super initialize.
+	devices := OrderedCollection new
+	
+]
+
 { #category : #accessing }
 PotsController >> installDevice: aPotsDevice [
 	"return an instance of a PotsDevice. 
