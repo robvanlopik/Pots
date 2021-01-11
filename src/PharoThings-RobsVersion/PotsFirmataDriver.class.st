@@ -30,7 +30,8 @@ PotsFirmataDriver >> baudRate: anObject [
 
 { #category : #'private-mode' }
 PotsFirmataDriver >> beDigitalInputOnPin: aPin [
-	baseDriver pin: aPin id mode: FirmataConstants pinModeInput
+	baseDriver pin: aPin id mode: FirmataConstants pinModeInput.
+	baseDriver activateDigitalPort: ((aPin id) // 8)
 ]
 
 { #category : #'private-mode' }
@@ -75,6 +76,8 @@ PotsFirmataDriver >> createPinWithFirmataInfo: id [
 		].
 	potsPin roles valuesDo: [ :role | role driver: self ].
 	potsPin currentRole: (potsPin roles at: (modeDict at: firmataPin mode)).
+	"fill the altId for analog pins "
+	potsPin altId: (firmataPin analogPinNumber ).
 	^potsPin
 
 ]
@@ -145,6 +148,20 @@ PotsFirmataDriver >> providePinInfo [
 	0 to: (baseDriver maxPins - 1) do:
 		[  :id | pinDict at: id put: (self createPinWithFirmataInfo: id)].
 	^pinDict
+]
+
+{ #category : #writing }
+PotsFirmataDriver >> pwmValue: aNumber intoPin: aPin [
+	"convert percentage to driver units (usually 8 bits, but can be different"
+	| range rawNumber|
+	range := aPin currentRole range.
+	rawNumber := (aNumber * range / 100.0) rounded.
+	baseDriver analogWrite: aPin id value: (rawNumber min: range max: 0)
+]
+
+{ #category : #writing }
+PotsFirmataDriver >> rawPwmValue: aNumber intoPin: aPin [
+	baseDriver analogWrite: aPin id value: aNumber
 ]
 
 { #category : #'as yet unclassified' }

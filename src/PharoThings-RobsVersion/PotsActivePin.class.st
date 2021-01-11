@@ -24,6 +24,7 @@ Class {
 	#superclass : #PotsPin,
 	#instVars : [
 		'id',
+		'altId',
 		'roles',
 		'currentRole',
 		'deviceCount'
@@ -41,6 +42,16 @@ PotsActivePin >> addRole: aPotsPinRole [
 	"add thi role to the roles dictionary. The key is provides by the class method ##short.
 	In principle only the driver will call this method, using the info it hs about the real device"
 	roles at: (aPotsPinRole class short) put: aPotsPinRole.
+]
+
+{ #category : #accessing }
+PotsActivePin >> altId [
+	^altId 
+]
+
+{ #category : #accessing }
+PotsActivePin >> altId: anId [
+	altId := anId
 ]
 
 { #category : #controlling }
