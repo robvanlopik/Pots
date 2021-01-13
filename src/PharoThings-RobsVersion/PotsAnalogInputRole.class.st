@@ -18,6 +18,18 @@ PotsAnalogInputRole >> activateOn: aPin [
 ]
 
 { #category : #'as yet unclassified' }
+PotsAnalogInputRole >> disableReportingOnPin: aPin [
+	"forr the time being only for Firmata; but ther drivers have no AI role"
+	driver disableAnalogReportingOnPin: aPin
+]
+
+{ #category : #'as yet unclassified' }
+PotsAnalogInputRole >> enableReportingOnPin: aPin [
+	"forr the time being only for Firmata; but ther drivers have no AI role"
+	driver enableAnalogReportingOnPin: aPin
+]
+
+{ #category : #'as yet unclassified' }
 PotsAnalogInputRole >> notifyDriverForPin: aPin [
 		
 ]

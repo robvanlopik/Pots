@@ -98,9 +98,19 @@ PotsFirmataDriver >> digitalValueFromPin: aPin [
 ]
 
 { #category : #'as yet unclassified' }
+PotsFirmataDriver >> disableAnalogReportingOnPin: aPin [
+	baseDriver deactivateAnalogPin: aPin id
+]
+
+{ #category : #'as yet unclassified' }
 PotsFirmataDriver >> disconnect [ 
 	baseDriver disconnect
 	
+]
+
+{ #category : #'as yet unclassified' }
+PotsFirmataDriver >> enableAnalogReportingOnPin: aPin [
+	baseDriver activateAnalogPin: aPin id
 ]
 
 { #category : #'as yet unclassified' }

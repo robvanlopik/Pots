@@ -27,7 +27,8 @@ Class {
 		'altId',
 		'roles',
 		'currentRole',
-		'deviceCount'
+		'deviceCount',
+		'isReporting'
 	],
 	#category : #'PharoThings-RobsVersion'
 }
@@ -109,6 +110,22 @@ PotsActivePin >> deviceCount: anObject [
 	deviceCount := anObject
 ]
 
+{ #category : #'as yet unclassified' }
+PotsActivePin >> disableReporting [
+	"used by analog input with Firmata, or PinChange announcements in PiGPIO"
+	isReporting ifFalse: [ ^self ].
+	currentRole disableReporingOnPin: self.
+	isReporting := false.
+]
+
+{ #category : #'as yet unclassified' }
+PotsActivePin >> enableReporting [
+	"used by analog input with Firmata, or PinChange announcements in PiGPIO"
+	isReporting ifTrue: [ ^self ].
+	currentRole enableReporingOnPin: self.
+	isReporting := true.
+]
+
 { #category : #accessing }
 PotsActivePin >> id [
 	^ id
@@ -129,7 +146,8 @@ PotsActivePin >> initialize [
 	super initialize.
 	
 	roles := Dictionary new.
-	deviceCount:= 0
+	deviceCount:= 0.
+	isReporting := false.
 ]
 
 { #category : #accessing }

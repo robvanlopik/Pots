@@ -17,6 +17,16 @@ PotsSoloPinRole >> deactivateOn: aPin [
 	"only implement when cleanup after use is necessary"
 ]
 
+{ #category : #'as yet unclassified' }
+PotsSoloPinRole >> disableReportingOnPin: aPin [
+	"subclass can implement, else do nothing"
+]
+
+{ #category : #'as yet unclassified' }
+PotsSoloPinRole >> enableReportingOnPin: aPin [
+	"subclass can implement, else do nothing"
+]
+
 { #category : #accessing }
 PotsSoloPinRole >> lastValue [
 	^ lastValue
