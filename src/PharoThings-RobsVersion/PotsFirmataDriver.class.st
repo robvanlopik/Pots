@@ -18,6 +18,14 @@ PotsFirmataDriver class >> onPort: aSerialPortName baudRate: aNumber [
 			
 ]
 
+{ #category : #'io protocols' }
+PotsFirmataDriver >> analogValueFromPin: aPin [
+	"we use continuous pin numbers and translate conform analog mapping"
+	| measurement|
+	measurement := baseDriver analogRead: aPin altId .
+	^measurement
+]
+
 { #category : #accessing }
 PotsFirmataDriver >> baudRate [
 	^ baudRate
@@ -167,6 +175,12 @@ PotsFirmataDriver >> pwmValue: aNumber intoPin: aPin [
 	range := aPin currentRole range.
 	rawNumber := (aNumber * range / 100.0) rounded.
 	baseDriver analogWrite: aPin id value: (rawNumber min: range max: 0)
+]
+
+{ #category : #'io protocols' }
+PotsFirmataDriver >> rawAnalogValueFromPin: aPin [
+	"we use continuous pin numbers and translate conform analog mapping"
+	^baseDriver analogRead: aPin altId 
 ]
 
 { #category : #writing }

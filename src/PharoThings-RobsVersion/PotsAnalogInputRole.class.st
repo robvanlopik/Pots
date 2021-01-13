@@ -2,7 +2,8 @@ Class {
 	#name : #PotsAnalogInputRole,
 	#superclass : #PotsSoloPinRole,
 	#instVars : [
-		'resolution'
+		'resolution',
+		'refVoltage'
 	],
 	#category : #'PharoThings-RobsVersion'
 }
@@ -34,6 +35,11 @@ PotsAnalogInputRole >> notifyDriverForPin: aPin [
 		
 ]
 
+{ #category : #'as yet unclassified' }
+PotsAnalogInputRole >> rawValueForPin: aPin [
+	^driver rawAnalogValueFromPin: aPin
+]
+
 { #category : #accessing }
 PotsAnalogInputRole >> resolution [
 	^ resolution
@@ -46,8 +52,5 @@ PotsAnalogInputRole >> resolution: anObject [
 
 { #category : #'as yet unclassified' }
 PotsAnalogInputRole >> valueForPin: aPin [
-	"get an analog input value 
-	use Firmata-like selector"
-	| driver |
-	driver := 1
+	^driver analogValueFromPin: aPin
 ]
