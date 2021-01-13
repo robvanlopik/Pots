@@ -36,8 +36,18 @@ PotsAnalogInputRole >> notifyDriverForPin: aPin [
 ]
 
 { #category : #'as yet unclassified' }
-PotsAnalogInputRole >> rawValueForPin: aPin [
+PotsAnalogInputRole >> rawValueFromPin: aPin [
 	^driver rawAnalogValueFromPin: aPin
+]
+
+{ #category : #accessing }
+PotsAnalogInputRole >> refVoltage [
+	^ refVoltage
+]
+
+{ #category : #accessing }
+PotsAnalogInputRole >> refVoltage: anObject [
+	refVoltage := anObject
 ]
 
 { #category : #accessing }
@@ -52,5 +62,10 @@ PotsAnalogInputRole >> resolution: anObject [
 
 { #category : #'as yet unclassified' }
 PotsAnalogInputRole >> valueForPin: aPin [
+	^driver analogValueFromPin: aPin
+]
+
+{ #category : #'as yet unclassified' }
+PotsAnalogInputRole >> valueFromPin: aPin [
 	^driver analogValueFromPin: aPin
 ]

@@ -21,9 +21,11 @@ PotsFirmataDriver class >> onPort: aSerialPortName baudRate: aNumber [
 { #category : #'io protocols' }
 PotsFirmataDriver >> analogValueFromPin: aPin [
 	"we use continuous pin numbers and translate conform analog mapping"
-	| measurement|
+	| measurement ref range|
+	ref := aPin currentRole refVoltage.
+	range := aPin currentRole resolution.
 	measurement := baseDriver analogRead: aPin altId .
-	^measurement
+	^measurement * ref / range
 ]
 
 { #category : #accessing }
@@ -70,7 +72,9 @@ PotsFirmataDriver >> createPinWithFirmataInfo: id [
 	
 	firmataPin capabilities do: [  :capability | 
 		capability mode = FirmataConstants pinModeAnalog ifTrue: 
-			[ potsPin addRole: (PotsAnalogInputRole new resolution: (2 ** capability resolution - 1))].
+			[ potsPin addRole: (PotsAnalogInputRole new
+									 resolution: (2 ** capability resolution - 1);
+									 refVoltage: 5.0)].
 		capability mode = FirmataConstants pinModeI2C ifTrue: 
 			[ potsPin addRole: PotsI2CRole new  ].
 		capability mode = FirmataConstants pinModeInput ifTrue: 
@@ -118,7 +122,7 @@ PotsFirmataDriver >> disconnect [
 
 { #category : #'as yet unclassified' }
 PotsFirmataDriver >> enableAnalogReportingOnPin: aPin [
-	baseDriver activateAnalogPin: aPin id
+	baseDriver activateAnalogPin: aPin altId "use the analog pin number"
 ]
 
 { #category : #'as yet unclassified' }

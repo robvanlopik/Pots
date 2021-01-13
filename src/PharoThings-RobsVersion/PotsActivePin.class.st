@@ -114,7 +114,7 @@ PotsActivePin >> deviceCount: anObject [
 PotsActivePin >> disableReporting [
 	"used by analog input with Firmata, or PinChange announcements in PiGPIO"
 	isReporting ifFalse: [ ^self ].
-	currentRole disableReporingOnPin: self.
+	currentRole disableReportingOnPin: self.
 	isReporting := false.
 ]
 
@@ -122,7 +122,7 @@ PotsActivePin >> disableReporting [
 PotsActivePin >> enableReporting [
 	"used by analog input with Firmata, or PinChange announcements in PiGPIO"
 	isReporting ifTrue: [ ^self ].
-	currentRole enableReporingOnPin: self.
+	currentRole enableReportingOnPin: self.
 	isReporting := true.
 ]
 
@@ -182,6 +182,11 @@ PotsActivePin >> printOn: aStream [
 		nextPutAll: currentRole class short;
 		nextPut: $).
 	
+]
+
+{ #category : #accessing }
+PotsActivePin >> rawValue [ 	
+	^currentRole rawValueFromPin: self
 ]
 
 { #category : #removing }
