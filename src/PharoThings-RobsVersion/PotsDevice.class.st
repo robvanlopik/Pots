@@ -4,11 +4,12 @@ I represent a device that is operated by one or more pins of the controller
 I contain the logic to translate device specific messages to instructions for either the pin or a protocol operated by a number of pins
 
 Basic usage is: 
-dev := aController installDevice: PotsDevice new
+`dev := aController installDevice: aPotsDevice
+aPotsDevice already must know everything that is needed to operated. You can use PotsDevice new if and provide default data.
+Convention: 'PotsDevice new initializes with default params, else you should have a class method to to provide the data 
 
-the controller will ask the device to #connectTo: aController
-
- connectTo: sets the controller instVar , makes sure the pins are marked and then does self connect.
+the controller will then ask the device to #connectTo: aController
+` connectTo: sets the controller instVar , makes sure the resources (pins or other devices) are marked and available and then does `self connect.
 
 #connect initializes the device (eg I2C makes the I2C connection 
 this implies we also need
@@ -36,19 +37,20 @@ Class {
 }
 
 { #category : #'as yet unclassified' }
-PotsDevice >> claimPins [
+PotsDevice >> claimResources [
 	self subclassResponsibility 
 ]
 
 { #category : #controlling }
 PotsDevice >> connect [ 
+	"this method starts the device; all relevnt info has to be present"
 	self subclassResponsibility 
 ]
 
 { #category : #default }
 PotsDevice >> connectTo: aController [
 	controller := aController.
-	self claimPins.
+	self claimResources.
 	self connect
 ]
 
@@ -83,6 +85,6 @@ PotsDevice >> pins: anObject [
 ]
 
 { #category : #'as yet unclassified' }
-PotsDevice >> releasePins [
+PotsDevice >> releaseResources [
 	self subclassResponsibility 
 ]

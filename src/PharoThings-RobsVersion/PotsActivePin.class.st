@@ -163,8 +163,8 @@ PotsActivePin >> playRole: shortName [
 	if the role is not available, raise an error	"
 
 	| newRole |
-	(currentRole class short = shortName) ifTrue: [ ^currentRole ].
 	(deviceCount > 0) ifTrue: [ Error signal: 'Pin ', id asString, ' is in use)' ].
+	(currentRole class short = shortName) ifTrue: [ ^currentRole ].
 	newRole := roles at: shortName 
 			ifAbsent: [ Error signal: 'Pin ', id asString, ' cannot be ', shortName ].
 	"and now we must tell the driver to change the mode"
