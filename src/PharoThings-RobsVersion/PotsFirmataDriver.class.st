@@ -29,6 +29,11 @@ PotsFirmataDriver >> analogValueFromPin: aPin [
 ]
 
 { #category : #accessing }
+PotsFirmataDriver >> baseDriver [
+	^baseDriver
+]
+
+{ #category : #accessing }
 PotsFirmataDriver >> baudRate [
 	^ baudRate
 ]

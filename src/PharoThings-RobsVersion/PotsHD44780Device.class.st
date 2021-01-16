@@ -45,6 +45,12 @@ PotsHD44780Device >> claimResources [
 	
 ]
 
+{ #category : #controlling }
+PotsHD44780Device >> connect [
+	"pins already have been set in claimResources. Remains the initialisatiobof the display
+	which may be left as default"
+]
+
 { #category : #accessing }
 PotsHD44780Device >> dataPins [
 	^ dataPins
@@ -59,7 +65,12 @@ PotsHD44780Device >> dataPins: anObject [
 PotsHD44780Device >> defaultPinIds [
 		"return an array of pinIds in case the device has no pins assigned. To be used in claimResources"
 		"sequence EN, RS, D4, D5, D6, D7"
-		^#(12 11 5 4 3 2)
+		^#(11 12 5 4 3 2)
+]
+
+{ #category : #controlling }
+PotsHD44780Device >> disconnect [
+	self releaseResources .
 ]
 
 { #category : #accessing }
@@ -88,4 +99,42 @@ PotsHD44780Device >> rsPin [
 { #category : #accessing }
 PotsHD44780Device >> rsPin: anObject [
 	rsPin := anObject
+]
+
+{ #category : #writing }
+PotsHD44780Device >> showMessage: aString [
+	| i |
+	i := 1.
+	aString
+		do: [ :char | 
+			char = Character cr
+				ifTrue: [ self setCursorAtRow: (i := i + 1) ]
+				ifFalse: [ self writeCharacter: char asciiValue ] ]
+]
+
+{ #category : #'as yet unclassified' }
+PotsHD44780Device >> syncPulse [
+	enPin value: 0; value: 1; value: 0  "would like to time this"
+]
+
+{ #category : #writing }
+PotsHD44780Device >> write: aByte mode: oneOrZero [
+	"mode 0 i command,mode 1 is char. Use writeCommand: and writeCharacter"
+	0.001 milliSeconds wait. "That's from PotLCDHD44780Gpio "
+	rsPin value: oneOrZero.
+	"only for 4bits interface"
+	5 to: 8  do: [ :i | (dataPins at: (i - 4)) value: (aByte bitAt: i) ].
+	self syncPulse.
+	1 to: 4  do: [ :i | (dataPins at: i) value: (aByte bitAt: i) ].
+	self syncPulse
+]
+
+{ #category : #writing }
+PotsHD44780Device >> writeCharacter: aByte [
+	self write: aByte mode: 1
+]
+
+{ #category : #writing }
+PotsHD44780Device >> writeCommand: aByte [
+	self write: aByte mode: 0
 ]
