@@ -1,6 +1,6 @@
 "
 I represent a common 16x2 LCD device. 
-For now I will use the 4-pins interface.
+For now I will use the 4-pins interface and immplement only a few features
 I use the following instance variables (defaults are for Arduino):
 - enPin ""the enable pin (default 12)""
 - rsPin ""the cpmmand/data switch pin 9default(11)""
@@ -45,10 +45,18 @@ PotsHD44780Device >> claimResources [
 	
 ]
 
+{ #category : #commands }
+PotsHD44780Device >> clearDisplay [
+	"clear display and reset cursor"
+	self writeCommand: 2r00000001.
+	3 milliSeconds wait
+]
+
 { #category : #controlling }
 PotsHD44780Device >> connect [
-	"pins already have been set in claimResources. Remains the initialisatiobof the display
+	"pins already have been set in claimResources. Remains the initialisationof the display
 	which may be left as default"
+	self initializeRegisters
 ]
 
 { #category : #accessing }
@@ -81,6 +89,12 @@ PotsHD44780Device >> enPin [
 { #category : #accessing }
 PotsHD44780Device >> enPin: anObject [
 	enPin := anObject
+]
+
+{ #category : #initialization }
+PotsHD44780Device >> initializeRegisters [
+	
+self clearDisplay
 ]
 
 { #category : #'as yet unclassified' }
