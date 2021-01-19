@@ -45,6 +45,12 @@ PotsPiGPIODriver >> bePWMOutputOnPin: aPin [
 	
 ]
 
+{ #category : #'io protocols' }
+PotsPiGPIODriver >> connectToI2CDevice: i2cAddress [
+	"return an I2CConnection that is specific to this I2C address"
+		^baseDriver openI2C: i2cAddress
+]
+
 { #category : #writing }
 PotsPiGPIODriver >> digitalValue: oneOrZero into: aPin [ 
 	baseDriver digitalWrite: aPin id value: (oneOrZero bitAnd: 1)

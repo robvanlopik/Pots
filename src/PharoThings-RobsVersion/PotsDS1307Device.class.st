@@ -10,6 +10,11 @@ PotsDS1307Device class >> defaultI2CAddress [
 	^16r68
 ]
 
+{ #category : #'as yet unclassified' }
+PotsDS1307Device >> claimResources [
+	
+]
+
 { #category : #accessing }
 PotsDS1307Device >> dateAndTime [
 	"retrieve a complete DateAndTime object from the RTC"
@@ -175,6 +180,11 @@ PotsDS1307Device >> readRegister: anInteger [
 
 	^self intFromBCD: (i2cConnection read8BitsAt: anInteger)
 
+]
+
+{ #category : #'as yet unclassified' }
+PotsDS1307Device >> releaseResources [
+	
 ]
 
 { #category : #accessing }

@@ -8,6 +8,23 @@ Class {
 	#category : #'PharoThings-RobsVersion'
 }
 
+{ #category : #'instance creation' }
+PotsI2CDevice class >> defaultI2CAddress [ 
+	self subclassResponsibility 
+]
+
+{ #category : #'instance creation' }
+PotsI2CDevice class >> new [
+	^self basicNew
+		i2cAddress: self defaultI2CAddress 
+]
+
+{ #category : #'instance creation' }
+PotsI2CDevice class >> on: i2cAddress [
+	^super new
+		i2cAddress: i2cAddress 
+]
+
 { #category : #controlling }
 PotsI2CDevice >> connect [ 
 	i2cConnection := controller connectToI2CDevice: i2cAddress
