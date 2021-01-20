@@ -39,14 +39,14 @@ Class {
 
 { #category : #'private-mode' }
 PotsPCF8574Driver >> beDigitalInputOnPin: aPin [
-	ioMask bitAt: aPin id put: 1.
+	ioMask bitAt: (aPin id + 1) put: 1.
 	self digitalValue: 1 intoPin: aPin
 
 ]
 
 { #category : #'private-mode' }
 PotsPCF8574Driver >> beDigitalOutputOnPin: aPin [
-	ioMask bitAt: aPin id put: 0.
+	ioMask bitAt: (aPin id + 1) put: 0.
 	"and set output to zero"
 	self digitalValue: 0 intoPin: aPin.
 
@@ -54,13 +54,13 @@ PotsPCF8574Driver >> beDigitalOutputOnPin: aPin [
 
 { #category : #writing }
 PotsPCF8574Driver >> digitalValue: oneOrZero intoPin: aPin [
-	stateMask bitAt: aPin id put: oneOrZero.
+	stateMask bitAt: (aPin id + 1) put: oneOrZero.
 	device writeByte: stateMask
 ]
 
 { #category : #'io protocols' }
 PotsPCF8574Driver >> digitalValueFromPin: aPin [
-	^(device readByte) bitAt: aPin id
+	^(device readByte) bitAt: (aPin id + 1)
 ]
 
 { #category : #initialization }
