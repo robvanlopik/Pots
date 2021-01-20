@@ -31,27 +31,43 @@ Class {
 	#superclass : #PotsDriver,
 	#instVars : [
 		'device',
-		'ioMask'
+		'ioMask',
+		'stateMask'
 	],
 	#category : #'PharoThings-RobsVersion'
 }
 
 { #category : #'private-mode' }
 PotsPCF8574Driver >> beDigitalInputOnPin: aPin [
+	ioMask bitAt: aPin id put: 1.
+	self digitalValue: 1 intoPin: aPin
 
 ]
 
 { #category : #'private-mode' }
 PotsPCF8574Driver >> beDigitalOutputOnPin: aPin [
+	ioMask bitAt: aPin id put: 0.
+	"and set output to zero"
+	self digitalValue: 0 intoPin: aPin.
 
 ]
 
 { #category : #writing }
 PotsPCF8574Driver >> digitalValue: oneOrZero intoPin: aPin [
+	stateMask bitAt: aPin id put: oneOrZero.
+	device writeByte: stateMask
 ]
 
 { #category : #'io protocols' }
 PotsPCF8574Driver >> digitalValueFromPin: aPin [
+	^(device readByte) bitAt: aPin id
+]
+
+{ #category : #initialization }
+PotsPCF8574Driver >> initialize [ 
+	super initialize.
+	ioMask := 0. "start with outputEvents "
+	device writeByte: 0. "and set them to 0"
 ]
 
 { #category : #initialization }
