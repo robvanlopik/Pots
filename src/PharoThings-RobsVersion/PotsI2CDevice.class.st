@@ -25,6 +25,11 @@ PotsI2CDevice class >> on: i2cAddress [
 		i2cAddress: i2cAddress 
 ]
 
+{ #category : #'as yet unclassified' }
+PotsI2CDevice >> claimResources [
+
+]
+
 { #category : #controlling }
 PotsI2CDevice >> connect [ 
 	i2cConnection := controller connectToI2CDevice: i2cAddress
@@ -48,4 +53,9 @@ PotsI2CDevice >> i2cAddress: anI2CAddress [
 { #category : #testing }
 PotsI2CDevice >> isConnected [ 
 	^i2cConnection notNil
+]
+
+{ #category : #'as yet unclassified' }
+PotsI2CDevice >> releaseResources [
+
 ]

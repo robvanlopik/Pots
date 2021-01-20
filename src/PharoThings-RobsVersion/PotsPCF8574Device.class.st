@@ -1,11 +1,13 @@
 "
 I represent a PCF8574 port extender. I have 8 in/output ports amd am driven by the I2C bus.
 With the proper driver I can function as a PotsController with only DigitalOutputRrole and DigitalInputRoles. First we only implement output. It is noteworthy that the inputfunction also has a separate interrupt signal to notifyof changes, so polling would not be needed.
-I am often used in conjunction with a simple 16x2 LCD (see PotsHD44780Device ). Ut can be configured for 8 diffferent I2C address, so you ould use 68 devices in parallel for a total of 64 I/O ports.
+I am often used in conjunction with a simple 16x2 LCD (see PotsHD44780Device ). I can be configured for 8 diffferent I2C address, so you could use 8 devices in parallel for a total of 64 I/O ports.
 
-in pprinciple I have only one method: 
+in principle I have only two methods : 
 `writeByte: aaByte - to output 8 bits to my ports
+`readByte = to read the pins; this only makes sense when you first write a 1 to each pin you are interested in. Reading a 0 then means the pin was ppulled down, 1 otherwise. 
 
+To implement reading/writing individual pins, you would have to maintain a bit mask; that will bee done in the PotsPCF8574Driver.
 
 
 
@@ -25,3 +27,18 @@ Class {
 	#superclass : #PotsI2CDevice,
 	#category : #'PharoThings-RobsVersion'
 }
+
+{ #category : #'instance creation' }
+PotsPCF8574Device class >> defaultI2CAddress [ 
+	^16r27
+]
+
+{ #category : #'reading-primitive data' }
+PotsPCF8574Device >> readByte [
+	^i2cConnection read8Bits
+]
+
+{ #category : #writing }
+PotsPCF8574Device >> writeByte: aByte [ 
+		i2cConnection write8Bits: aByte
+]
