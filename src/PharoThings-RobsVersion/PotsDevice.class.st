@@ -31,7 +31,7 @@ Class {
 	#instVars : [
 		'controller',
 		'name',
-		'pins'
+		'resources'
 	],
 	#category : #'PharoThings-RobsVersion'
 }
@@ -65,6 +65,11 @@ PotsDevice >> controller: anObject [
 ]
 
 { #category : #accessing }
+PotsDevice >> disconnect [
+	^ self subclassResponsibility
+]
+
+{ #category : #accessing }
 PotsDevice >> name [
 	^ name
 ]
@@ -72,16 +77,6 @@ PotsDevice >> name [
 { #category : #accessing }
 PotsDevice >> name: anObject [
 	name := anObject
-]
-
-{ #category : #accessing }
-PotsDevice >> pins [
-	^ pins
-]
-
-{ #category : #accessing }
-PotsDevice >> pins: anObject [
-	pins := anObject
 ]
 
 { #category : #'as yet unclassified' }

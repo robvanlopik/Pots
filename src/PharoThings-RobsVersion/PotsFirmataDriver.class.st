@@ -4,7 +4,8 @@ Class {
 	#instVars : [
 		'port',
 		'baudRate',
-		'modeDict'
+		'modeDict',
+		'i2cPins'
 	],
 	#category : #'PharoThings-RobsVersion'
 }
@@ -81,7 +82,7 @@ PotsFirmataDriver >> createPinWithFirmataInfo: id [
 									 resolution: (2 ** capability resolution - 1);
 									 refVoltage: 5.0)].
 		capability mode = FirmataConstants pinModeI2C ifTrue: 
-			[ potsPin addRole: PotsI2CRole new  ].
+			[ potsPin addRole: PotsI2CRole new. i2cPins add: potsPin ].
 		capability mode = FirmataConstants pinModeInput ifTrue: 
 			[ potsPin addRole: PotsDigitalInputRole new ].
 		capability mode = FirmataConstants pinModeOutput ifTrue: 
@@ -146,7 +147,7 @@ PotsFirmataDriver >> initialize [ 	super initialize.
 				at: 3 put: 'PWM';
 				at: 4 put: 'Servo';
 				at: 6 put: 'I2C'.
-	
+	i2cPins := OrderedCollection new
 ]
 
 { #category : #'instance creation' }

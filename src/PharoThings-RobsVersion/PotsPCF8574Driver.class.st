@@ -67,6 +67,7 @@ PotsPCF8574Driver >> digitalValueFromPin: aPin [
 PotsPCF8574Driver >> initialize [ 
 	super initialize.
 	ioMask := 0. "start with outputEvents "
+	stateMask := 0.
 	device writeByte: 0. "and set them to 0"
 ]
 

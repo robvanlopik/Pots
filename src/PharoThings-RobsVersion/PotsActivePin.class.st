@@ -96,6 +96,13 @@ PotsActivePin >> currentRole: anObject [
 ]
 
 { #category : #'as yet unclassified' }
+PotsActivePin >> decrementDeviceCount [
+	deviceCount := deviceCount - 1.
+	self assert: [ deviceCount >= 0 ] description: 'device count cannot be less then zero'.
+	deviceCount := 0
+]
+
+{ #category : #'as yet unclassified' }
 PotsActivePin >> decrementValueBy: aNumber [
 	currentRole decrementValueBy: aNumber forPin: self
 ]
@@ -134,6 +141,11 @@ PotsActivePin >> id [
 { #category : #accessing }
 PotsActivePin >> id: anObject [
 	id := anObject
+]
+
+{ #category : #'as yet unclassified' }
+PotsActivePin >> incrementDeviceCount [
+	deviceCount := deviceCount + 1
 ]
 
 { #category : #'as yet unclassified' }

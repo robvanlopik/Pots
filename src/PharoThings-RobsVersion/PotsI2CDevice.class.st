@@ -27,7 +27,18 @@ PotsI2CDevice class >> on: i2cAddress [
 
 { #category : #'as yet unclassified' }
 PotsI2CDevice >> claimResources [
-
+	| pins |
+	pins := controller driver i2cPins.
+	"first check whether we already have an I2C connection in which cae we only bump the device count"
+	"we only check the first pin"
+	((pins at: 1) currentRole class short) = 'I2C'
+		ifTrue: [ pins do: [  :aPin | aPin incrementDeviceCount ]. ^self ].
+	"when we are the first, we have to claim the pins
+	first check wether they are free"
+	pins do: [ :aPin | self assert: [ aPin deviceCount = 0 ] 
+			description: 'pin ', aPin id asString, 'is not free for I2C'].
+	"and set the role"
+	pins do: [ :aPin | aPin currentRole: (aPin roles at: 'I2C'). aPin deviceCount: 1 ].
 ]
 
 { #category : #controlling }
@@ -57,5 +68,10 @@ PotsI2CDevice >> isConnected [
 
 { #category : #'as yet unclassified' }
 PotsI2CDevice >> releaseResources [
-
+	| pins |
+	pins := controller driver i2cPins.
+	pins do: [ :aPin | aPin decrementDeviceCount  ].
+	((pins at: 1 deviceCount) > 0) ifTrue: [ ^self ].
+	"if this was the last I2C device, we have to really release the pins."
+	"or maybe not, because the device ount has dropped to zero"
 ]

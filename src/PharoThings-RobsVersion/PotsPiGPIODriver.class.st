@@ -16,7 +16,8 @@ Class {
 	#superclass : #PotsDriver,
 	#instVars : [
 		'ip',
-		'port'
+		'port',
+		'i2cPins'
 	],
 	#category : #'PharoThings-RobsVersion'
 }
@@ -102,7 +103,7 @@ PotsPiGPIODriver >> port: anObject [
 PotsPiGPIODriver >> providePinInfo [
 	"return a dict of pins to the caller, with their poperties"
 	| pinDict i2cRole|
-
+	i2cPins := OrderedCollection new.
 	"first enumerate the pins"	
 	pinDict := Dictionary new.
 	2 to: 27 do:
@@ -133,7 +134,9 @@ PotsPiGPIODriver >> providePinInfo [
 			yourself) ].
 	i2cRole := PotsI2CRole new driver: self.
 	(pinDict  at: 2) addRole: i2cRole.
+	i2cPins add: (pinDict at: 2).
 	(pinDict  at: 3) addRole: i2cRole.
+	i2cPins add: (pinDict at: 3).
 	^pinDict
 ]
 
