@@ -1,29 +1,16 @@
 "
-I represent the interface between a PotsController and the driver that really makes the physical thing (e.g. a Pi or an Arduino board, or a port extender) work
-
-I have two main responsibilities:
-1. translate uniform pin commands to actual driver commands
-2. get info about pins, board name/version to initialize the Controller
+I represent the interface between a PotsController and the driver that really makes the physical thing (e.g. a Pi or an Arduino board) work
 
 Almost all of my methods are subclass responsibility
 Especially instance creation is specific for the real driver/board combination
 
-The instance variable baseDriver holds the ""real"" driver
+A driver brings a controller to life. There are two types of driver:
+the DriverDriver uses a protocoldriver to control a external device (eg PiGPIO, Firmata)
+the DeviceDriver uses a device (especially one that contain io's that can be controlled) that has already been instantiated on another controller (eg a port extender like the PCF8574)
 
-For the Collaborators Part: State my main collaborators and one line about how I interact with them. 
-
-Public API and Key Messages
-
-- message one   
-- message two 
-- (for bonus points) how to create instances.
-
-   One simple example is simply gorgeous.
- 
-Internal Representation and Key Implementation Points.
-
-
-    Implementation Points
+I have two main responsibilities:
+1. translate uniform pin commands to actual driver commands
+2. get info about pins, board name/version to initialize the Controller
 "
 Class {
 	#name : #PotsDriver,

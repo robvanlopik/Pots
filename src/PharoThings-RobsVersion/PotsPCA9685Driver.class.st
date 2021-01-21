@@ -1,5 +1,5 @@
 Class {
 	#name : #PotsPCA9685Driver,
-	#superclass : #PotsDriver,
+	#superclass : #PotsDeviceDriver,
 	#category : #'PharoThings-RobsVersion'
 }

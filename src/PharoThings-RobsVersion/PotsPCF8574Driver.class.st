@@ -45,6 +45,11 @@ PotsPCF8574Driver class >> onDevice: aPotsPCF8574Device [
 	device := aPotsPCF8574Device
 ]
 
+{ #category : #'as yet unclassified' }
+PotsPCF8574Driver class >> usingDevice: aPotsPCF8574Device [
+	^self basicNew usingDevice: aPotsPCF8574Device
+]
+
 { #category : #'private-mode' }
 PotsPCF8574Driver >> beDigitalInputOnPin: aPin [
 	ioMask bitAt: (aPin id + 1) put: 1.
@@ -72,17 +77,10 @@ PotsPCF8574Driver >> digitalValueFromPin: aPin [
 ]
 
 { #category : #initialization }
-PotsPCF8574Driver >> initialize [ 
-	super initialize.
-	ioMask := 0. "start with outputEvents "
-	stateMask := 0.
-	device writeByte: 0. "and set them to 0"
-]
-
-{ #category : #initialization }
 PotsPCF8574Driver >> providePinInfo [
 	"return a dict of pins to the caller, with their poperties"
 	| pinDict |
+	pinDict := Dictionary new.
 	0 to: 7 do:
 		[ :pinId | pinDict at: pinId put: 
 			(PotsActivePin new 
@@ -94,8 +92,17 @@ PotsPCF8574Driver >> providePinInfo [
 	
 ]
 
+{ #category : #initialization }
+PotsPCF8574Driver >> setup [
+	
+	ioMask := 0. "start with outputEvents "
+	stateMask := 0.
+	device writeByte: 0. "and set them to 0"
+]
+
 { #category : #'as yet unclassified' }
 PotsPCF8574Driver >> usingDevice: aPotsPCF8574Device [ 
 	
-	device := aPotsPCF8574Device
+	device := aPotsPCF8574Device.
+	self setup
 ]
