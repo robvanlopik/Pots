@@ -48,7 +48,8 @@ PotsI2CDevice >> connect [
 
 { #category : #controlling }
 PotsI2CDevice >> disconnect [
-	i2cConnection close
+	i2cConnection close.
+	self releaseResources 
 ]
 
 { #category : #accessing }

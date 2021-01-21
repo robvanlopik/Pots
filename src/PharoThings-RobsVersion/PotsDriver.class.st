@@ -28,9 +28,6 @@ Internal Representation and Key Implementation Points.
 Class {
 	#name : #PotsDriver,
 	#superclass : #Object,
-	#instVars : [
-		'baseDriver'
-	],
 	#category : #'PharoThings-RobsVersion'
 }
 

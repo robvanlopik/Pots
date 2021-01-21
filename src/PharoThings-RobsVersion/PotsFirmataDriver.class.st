@@ -1,6 +1,6 @@
 Class {
 	#name : #PotsFirmataDriver,
-	#superclass : #PotsDriver,
+	#superclass : #PotsDriverDriver,
 	#instVars : [
 		'port',
 		'baudRate',
@@ -136,6 +136,11 @@ PotsFirmataDriver >> getCurrentModes [
 	"send #queryPinState to all pins to get the current state filled in in FirmataPins
 	Because the Arduino has to answer for each pin, we insert a delay of 30 milliseconds"
 	0 to: (baseDriver maxPins - 1) do: [  :pin | baseDriver queryPinState: pin. 30 milliSeconds wait ].
+]
+
+{ #category : #accessing }
+PotsFirmataDriver >> i2cPins [
+	^i2cPins
 ]
 
 { #category : #initialization }

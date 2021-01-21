@@ -13,7 +13,7 @@ after starting the controller will ask for the pin information
 "
 Class {
 	#name : #PotsPiGPIODriver,
-	#superclass : #PotsDriver,
+	#superclass : #PotsDriverDriver,
 	#instVars : [
 		'ip',
 		'port',
@@ -70,6 +70,11 @@ PotsPiGPIODriver >> digitalValueFromPin: aPin [
 { #category : #controlling }
 PotsPiGPIODriver >> disconnect [ 
 		baseDriver closeConnection
+]
+
+{ #category : #accessing }
+PotsPiGPIODriver >> i2cPins [
+	^i2cPins 
 ]
 
 { #category : #accessing }

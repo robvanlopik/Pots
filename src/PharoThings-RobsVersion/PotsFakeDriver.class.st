@@ -21,7 +21,8 @@ Class {
 	#instVars : [
 		'parameter',
 		'pin2Value',
-		'bit'
+		'bit',
+		'i2cPins'
 	],
 	#category : #'PharoThings-RobsVersion'
 }
@@ -62,6 +63,11 @@ PotsFakeDriver >> digitalValue: oneOrZero intoPin: aPin [
 { #category : #'as yet unclassified' }
 PotsFakeDriver >> digitalValueFromPin: aPin [
 	^bit
+]
+
+{ #category : #accessing }
+PotsFakeDriver >> i2cPins [
+	^i2cPins 
 ]
 
 { #category : #initialization }

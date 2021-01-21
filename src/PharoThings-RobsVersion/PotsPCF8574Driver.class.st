@@ -1,7 +1,7 @@
 "
 I am a driver for the PCF8574 8-bits port extender.
 I make use of an already functioning instance of a PotsPCF8574Device 
-I make my controller function with 8 independent digital i/o pins with id's 0 - 7
+I allow my controller to function with 8 independent digital i/o pins with id's 0 - 7
 
 For the Responsibility part: Three sentences about my main responsibilities - what I do, what I know.
 
@@ -28,14 +28,22 @@ ivars:
 "
 Class {
 	#name : #PotsPCF8574Driver,
-	#superclass : #PotsDriver,
+	#superclass : #PotsDeviceDriver,
 	#instVars : [
 		'device',
 		'ioMask',
 		'stateMask'
 	],
+	#classInstVars : [
+		'device'
+	],
 	#category : #'PharoThings-RobsVersion'
 }
+
+{ #category : #'as yet unclassified' }
+PotsPCF8574Driver class >> onDevice: aPotsPCF8574Device [
+	device := aPotsPCF8574Device
+]
 
 { #category : #'private-mode' }
 PotsPCF8574Driver >> beDigitalInputOnPin: aPin [
@@ -84,4 +92,10 @@ PotsPCF8574Driver >> providePinInfo [
 	pinDict valuesDo: [ :pin | pin addRole: (PotsDigitalInputRole new driver: self) ].
 	^pinDict
 	
+]
+
+{ #category : #'as yet unclassified' }
+PotsPCF8574Driver >> usingDevice: aPotsPCF8574Device [ 
+	
+	device := aPotsPCF8574Device
 ]
