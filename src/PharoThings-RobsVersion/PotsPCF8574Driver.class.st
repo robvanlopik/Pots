@@ -13,7 +13,14 @@ Public API and Key Messages
 - message two 
 - (for bonus points) how to create instances.
 
-   One simple example is simply gorgeous.
+example
+```
+pe := mypi installDevice: PotsPCF8574Device new
+pe readByte
+peController := PotsController new driver: (PotsPCF8574Driver usingDevice: pe)
+d7 :=  peController pinWithId: 7
+d7 value: 0
+```
  
 Internal Representation and Key Implementation Points.
 ivars:
@@ -30,7 +37,6 @@ Class {
 	#name : #PotsPCF8574Driver,
 	#superclass : #PotsDeviceDriver,
 	#instVars : [
-		'device',
 		'ioMask',
 		'stateMask'
 	],
@@ -52,7 +58,7 @@ PotsPCF8574Driver class >> usingDevice: aPotsPCF8574Device [
 
 { #category : #'private-mode' }
 PotsPCF8574Driver >> beDigitalInputOnPin: aPin [
-	ioMask bitAt: (aPin id + 1) put: 1.
+	ioMask := ioMask bitAt: (aPin id + 1) put: 1.
 	self digitalValue: 1 intoPin: aPin
 
 ]
@@ -67,13 +73,13 @@ PotsPCF8574Driver >> beDigitalOutputOnPin: aPin [
 
 { #category : #writing }
 PotsPCF8574Driver >> digitalValue: oneOrZero intoPin: aPin [
-	stateMask bitAt: (aPin id + 1) put: oneOrZero.
-	device writeByte: stateMask
+	stateMask := stateMask bitAt: (aPin id + 1) put: oneOrZero.
+	baseDevice writeByte: stateMask
 ]
 
 { #category : #'io protocols' }
 PotsPCF8574Driver >> digitalValueFromPin: aPin [
-	^(device readByte) bitAt: (aPin id + 1)
+	^(baseDevice readByte) bitAt: (aPin id + 1)
 ]
 
 { #category : #initialization }
@@ -97,12 +103,12 @@ PotsPCF8574Driver >> setup [
 	
 	ioMask := 0. "start with outputEvents "
 	stateMask := 0.
-	device writeByte: 0. "and set them to 0"
+	baseDevice writeByte: 0. "and set them to 0"
 ]
 
 { #category : #'as yet unclassified' }
 PotsPCF8574Driver >> usingDevice: aPotsPCF8574Device [ 
 	
-	device := aPotsPCF8574Device.
+	baseDevice := aPotsPCF8574Device.
 	self setup
 ]
