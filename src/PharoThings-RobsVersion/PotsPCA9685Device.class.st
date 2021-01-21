@@ -124,7 +124,7 @@ PotsPCA9685Device >> connection [
 
 { #category : #initialization }
 PotsPCA9685Device >> frequency: aNumber [
-	"calculate andd set the PRESCALE register 16rFE, limited to the range 3 to 255"
+	"calculate and set the PRESCALE register 16rFE, limited to the range 3 to 255"
 
 	| freq prescaleValue oldMode newMode |
 	clockFrequency ifNil: [ clockFrequency := 25000000 ].

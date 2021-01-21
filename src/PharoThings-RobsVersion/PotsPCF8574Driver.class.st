@@ -65,7 +65,7 @@ PotsPCF8574Driver >> beDigitalInputOnPin: aPin [
 
 { #category : #'private-mode' }
 PotsPCF8574Driver >> beDigitalOutputOnPin: aPin [
-	ioMask bitAt: (aPin id + 1) put: 0.
+	ioMask := ioMask bitAt: (aPin id + 1) put: 0.
 	"and set output to zero"
 	self digitalValue: 0 intoPin: aPin.
 
