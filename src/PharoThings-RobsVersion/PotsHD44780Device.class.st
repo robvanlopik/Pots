@@ -9,7 +9,7 @@ I use the following instance variables (defaults are for Arduino):
 "
 Class {
 	#name : #PotsHD44780Device,
-	#superclass : #PotsDevice,
+	#superclass : #PotsLCDHD44780,
 	#instVars : [
 		'enPin',
 		'rsPin',
@@ -38,7 +38,7 @@ PotsHD44780Device >> assignDefaultPins [
 { #category : #'as yet unclassified' }
 PotsHD44780Device >> claimResources [
 	"we need the pins and claim them"
-	enPin isNil ifTrue: [ self assignDefaultPins ].
+	enPin ifNil: [ self assignDefaultPins ].
 	enPin beDigitalOutput deviceCount: 1 .
 	rsPin beDigitalOutput deviceCount: 1.
 	1 to: 4 do: [  :i | (dataPins at: i) beDigitalOutput deviceCount: 1 ]
@@ -93,8 +93,12 @@ PotsHD44780Device >> enPin: anObject [
 
 { #category : #initialization }
 PotsHD44780Device >> initializeRegisters [
-	
-self clearDisplay
+	self
+		"Write registers"
+		setDisplayFunction: displayFunction;
+		setDisplayControl: displayControl ;
+		setDisplayMode: displayMode;
+		clearDisplay
 ]
 
 { #category : #'as yet unclassified' }
