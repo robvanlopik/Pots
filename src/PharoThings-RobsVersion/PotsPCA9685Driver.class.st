@@ -1,5 +1,9 @@
 "
-I expose a PCA9685 PWM controller as a 16 pins PotsController, after it has first been installed as a PotsI2CDevice on another controller. I give access to 16 pins (0 - 15) that can be digital input, digital output, pwm or servo. A limitation is, that alle pins share the same frequency, so efectively pwm and servo are mutually exclusive. beServoOutput sets the frequency to 50 Hz and can only be performed when none of the pins is PWM. Vica versa bePWMOutput sets the frequency to 1000 Hz and is only possible when none of the pins is Servo.
+I expose a PCA9685 PWM controller as a 16 pins PotsController, after it has first been installed as a PotsI2CDevice on another controller. I give access to 16 pins (0 - 15) that can be digital output, pwm or servo. A limitation is, that alle pins share the same frequency, so efectively pwm and servo are mutually exclusive. beServoOutput sets the frequency to 50 Hz and can only be performed when none of the pins is PWM. Vica versa bePWMOutput sets the frequency to 1000 Hz and is only possible when none of the pins is Servo.
+
+ivars:
+ioMask - 16 bits where 0 means the pin is digital output and 1 means servo or pwm, determined by:
+servo - true means all servo, false means all pwm.
 "
 Class {
 	#name : #PotsPCA9685Driver,

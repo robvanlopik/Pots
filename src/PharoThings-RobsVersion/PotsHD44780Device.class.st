@@ -13,7 +13,8 @@ Class {
 	#instVars : [
 		'enPin',
 		'rsPin',
-		'dataPins'
+		'dataPins',
+		'pinIds'
 	],
 	#category : #'PharoThings-RobsVersion'
 }
@@ -27,6 +28,12 @@ PotsHD44780Device class >> enPin: aPin1 rsPin: aPin2 dataPins: anArrayOf4Pins [
 ]
 
 { #category : #'as yet unclassified' }
+PotsHD44780Device class >> pinIds: pinNumbers [
+	^self new
+		pinIds: pinNumbers
+]
+
+{ #category : #'as yet unclassified' }
 PotsHD44780Device >> assignDefaultPins [
 	| pinIds |
 	pinIds := self defaultPinIds .
@@ -36,9 +43,18 @@ PotsHD44780Device >> assignDefaultPins [
 ]
 
 { #category : #'as yet unclassified' }
+PotsHD44780Device >> assignPins [
+	
+	enPin := controller pinWithId: (pinIds at: 1).
+	rsPin := controller pinWithId: (pinIds at: 2).
+	dataPins := (pinIds allButFirst: 2) collect: [  :id | controller pinWithId: id ]
+]
+
+{ #category : #'as yet unclassified' }
 PotsHD44780Device >> claimResources [
 	"we need the pins and claim them"
-	enPin ifNil: [ self assignDefaultPins ].
+	pinIds ifNil: [ pinIds := self defaultPinIds ].
+	self assignPins.
 	enPin beDigitalOutput deviceCount: 1 .
 	rsPin beDigitalOutput deviceCount: 1.
 	1 to: 4 do: [  :i | (dataPins at: i) beDigitalOutput deviceCount: 1 ]
@@ -93,12 +109,26 @@ PotsHD44780Device >> enPin: anObject [
 
 { #category : #initialization }
 PotsHD44780Device >> initializeRegisters [
-	self
+	"the magic sequence"
+	self writeCommand: 16r33.
+	3 milliSeconds wait.
+	self writeCommand: 16r32. "set to 4 bit mode"
 		"Write registers"
+	displayControl  := self hexArrayBitOrToNumber:{LCD_DISPLAYON.LCD_CURSOROFF.LCD_BLINKOFF}.
+	displayFunction := self hexArrayBitOrToNumber:{LCD_4BITMODE.LCD_1LINE.LCD_2LINE.LCD_5x8DOTS}.
+	displayMode := self hexArrayBitOrToNumber:{LCD_ENTRYLEFT.LCD_ENTRYSHIFTDECREMENT}.
+	self
 		setDisplayFunction: displayFunction;
 		setDisplayControl: displayControl ;
 		setDisplayMode: displayMode;
 		clearDisplay
+]
+
+{ #category : #accessing }
+PotsHD44780Device >> pinIds: arrayOfPinNumbers [
+	"sequence: RS EN d4 d5 d6 d7"
+	"misschien optioneel aan eind backlligt toevoegen"
+	pinIds := arrayOfPinNumbers
 ]
 
 { #category : #'as yet unclassified' }

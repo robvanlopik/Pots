@@ -106,7 +106,7 @@ PotsLCDHD44780 >> hexArrayBitOrToNumber: anArray [
 
 { #category : #initialization }
 PotsLCDHD44780 >> initialize [
-	self configurePeripherals.
+
 	LCD_CLEARDISPLAY := 16r01.
 	LCD_RETURNHOME := 16r02.
 	LCD_ENTRYMODESET := 16r04.
