@@ -65,6 +65,12 @@ PotsFirmataDriver >> beServoOutputOnPin: aPin [
 	baseDriver pin: aPin id mode: FirmataConstants pinModeServo
 ]
 
+{ #category : #'io protocols' }
+PotsFirmataDriver >> connectToI2CDevice: i2cAddress [
+	"return an I2CConnection that is specific to this I2C address"
+		^baseDriver openI2C: i2cAddress
+]
+
 { #category : #'as yet unclassified' }
 PotsFirmataDriver >> createPinWithFirmataInfo: id [
 	"create a PotsPin from the info in capabilities, mapping and pinstate"

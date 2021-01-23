@@ -113,6 +113,7 @@ PotsPCA9685Device >> connect [
 	super connect.
 	temp := (i2cConnection read8BitsAt: 0) bitAnd: 16r7F.
 	i2cConnection write8BitsAt: 0 data: (temp bitOr: 16r20). "set theRegister Auto-increment bit"
+	self wakeUp
 ]
 
 { #category : #accessing }

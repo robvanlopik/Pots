@@ -15,6 +15,11 @@ Class {
 	#category : #'PharoThings-RobsVersion'
 }
 
+{ #category : #'as yet unclassified' }
+PotsPCA9685Driver class >> usingDevice: aDevice [
+	^self basicNew usingDevice: aDevice
+]
+
 { #category : #'private-mode' }
 PotsPCA9685Driver >> beDigitalOutputOnPin: aPin [
 	ioMask := ioMask bitAt: (aPin id + 1) put: 0.
@@ -42,8 +47,8 @@ PotsPCA9685Driver >> beServoOutputOnPin: aPin [
 
 { #category : #writing }
 PotsPCA9685Driver >> digitalValue: oneOrZero intoPin: aPin [ 
-	(oneOrZero = 0) ifTrue: [ baseDevice pinOff: (aPin id + 1). ^self ].
-	baseDevice pinOn: (aPin id + 1).
+	(oneOrZero = 0) ifTrue: [ baseDevice pinOff: aPin id. ^self ].
+	baseDevice pinOn: aPin id.
 ]
 
 { #category : #initialization }
@@ -58,7 +63,7 @@ PotsPCA9685Driver >> providePinInfo [
 			currentRole: (PotsDigitalOutputRole new driver: self)) ].
 	pinDict valuesDo: [ :pin | pin addRole: (pin currentRole) ].
 	pinDict valuesDo: [ :pin | pin addRole: (PotsPWMRole new driver: self; range: 4095) ].
-	pinDict valuesDo: [ :pin | pin addRole: (PotsServoRole new driver: self; min: 450 max: 2500) ].
+	pinDict valuesDo: [ :pin | pin addRole: (PotsServoRole new driver: self; min: 450; max: 2500) ].
 	^pinDict
 ]
 
@@ -73,5 +78,13 @@ PotsPCA9685Driver >> setup [
 	"start with all pins digital out, and default pwm"
 	ioMask := 0.
 	servo := false.
+	baseDevice frequency: 1000.
+	baseDevice allOff
 	
+]
+
+{ #category : #'as yet unclassified' }
+PotsPCA9685Driver >> usingDevice: aDevice [
+	baseDevice := aDevice.
+	self setup
 ]
