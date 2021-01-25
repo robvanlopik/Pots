@@ -115,9 +115,19 @@ PotsController >> name: anObject [
 	name := anObject
 ]
 
+{ #category : #'as yet unclassified' }
+PotsController >> pinWithAltId: anId [
+	"return the pin with altId anId or nil"
+
+	pins valuesDo: [  :p | (p altId = anId) ifTrue: [ ^p ]  ].
+	^nil
+]
+
 { #category : #accessing }
 PotsController >> pinWithId: id [
-	^pins at: id
+	"return the pin with altId id or nil "
+	pins valuesDo: [  :p | (p altId = id) ifTrue: [ ^p ]  ].
+	^nil
 ]
 
 { #category : #accessing }

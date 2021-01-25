@@ -134,7 +134,8 @@ PotsFirmataDriver >> disconnect [
 
 { #category : #'as yet unclassified' }
 PotsFirmataDriver >> enableAnalogReportingOnPin: aPin [
-	baseDriver activateAnalogPin: aPin altId "use the analog pin number"
+	baseDriver activateAnalogPin: aPin altId. "use the analog pin number"
+	20 milliSeconds wait. "make sure the first reading is ready"
 ]
 
 { #category : #'as yet unclassified' }
