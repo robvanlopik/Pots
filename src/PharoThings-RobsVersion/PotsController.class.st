@@ -126,8 +126,7 @@ PotsController >> pinWithAltId: anId [
 { #category : #accessing }
 PotsController >> pinWithId: id [
 	"return the pin with altId id or nil "
-	pins valuesDo: [  :p | (p altId = id) ifTrue: [ ^p ]  ].
-	^nil
+	^pins at: id
 ]
 
 { #category : #accessing }
