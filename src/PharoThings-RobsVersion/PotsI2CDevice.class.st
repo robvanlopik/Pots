@@ -62,6 +62,11 @@ PotsI2CDevice >> i2cAddress: anI2CAddress [
 	i2cAddress := anI2CAddress 
 ]
 
+{ #category : #'as yet unclassified' }
+PotsI2CDevice >> i2cConnection [
+	^i2cConnection 
+]
+
 { #category : #testing }
 PotsI2CDevice >> isConnected [ 
 	^i2cConnection notNil
