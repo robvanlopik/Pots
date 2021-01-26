@@ -66,7 +66,7 @@ PotsDevice >> controller: anObject [
 
 { #category : #accessing }
 PotsDevice >> disconnect [
-	^ self subclassResponsibility
+	self releaseResources 
 ]
 
 { #category : #accessing }

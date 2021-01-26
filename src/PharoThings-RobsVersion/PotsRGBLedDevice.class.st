@@ -51,3 +51,10 @@ PotsRGBLedDevice >> connect [
 PotsRGBLedDevice >> pinId: aList [
 	pinIds := aList
 ]
+
+{ #category : #'as yet unclassified' }
+PotsRGBLedDevice >> releaseResources [
+	pinR deviceCount: 0; beDigitalOutput.
+	pinG deviceCount: 0; beDigitalOutput.
+	pinG deviceCount: 0; beDigitalOutput.
+]
