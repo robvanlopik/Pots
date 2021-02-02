@@ -48,10 +48,8 @@ PotsPCA9685Device >> allFree [
 { #category : #'as yet unclassified' }
 PotsPCA9685Device >> allOff [
 	"turn all pins OFF" 
-
-	| temp |
-	temp := (i2cConnection read8BitsAt: 16rFD) bitOr: 2r00010000.
-	i2cConnection write8BitsAt: 16rFD  data: temp
+	i2cConnection write16BitsAt: 16rFA data: 0.
+	i2cConnection write16BitsAt: 16rFC data: 16r1000.
 ]
 
 { #category : #accessing }
@@ -108,7 +106,7 @@ PotsPCA9685Device >> beTotemPole [
 PotsPCA9685Device >> connect [
 	"initialisation"
 
-	| temp |
+	
 	super connect.
 	clockFrequency := 25000000. "default; when frequencies are off, as measured with an oscilloscope, you may adjust it later"
 	i2cConnection write8BitsAt: 0 data: 2r00100001. "AutoIncrement and AllCall"
@@ -155,20 +153,18 @@ PotsPCA9685Device >> pin: aPinNumber onAt: onTime offAt: offTime [
 ]
 
 { #category : #'as yet unclassified' }
-PotsPCA9685Device >> pinOff: pinNumber [
+PotsPCA9685Device >> pinOff: aPinNumber [
 	" turn pin pinNumber full off"
-	| temp |
-	temp := (i2cConnection read8BitsAt: (16r09 + (4 * pinNumber))) bitOr: 2r00010000.
-	i2cConnection write8BitsAt: (16r09 + (4 * pinNumber)) data: temp
-
+	i2cConnection write16BitsAt: 16r06 + (4 * aPinNumber) data: 0.
+	i2cConnection write16BitsAt: 16r06 + 2 + (4 * aPinNumber) data: 16r1000
 ]
 
 { #category : #'as yet unclassified' }
-PotsPCA9685Device >> pinOn: pinNumber [
+PotsPCA9685Device >> pinOn: aPinNumber [
 	" turn pin pinNumber full on"
-	| temp |
-	temp := (i2cConnection read8BitsAt: (16r07 + (4 * pinNumber))) bitOr: 2r00010000.
-	i2cConnection write8BitsAt: (16r07 + (4 * pinNumber)) data: temp
+
+	i2cConnection write16BitsAt: 16r06 + (4 * aPinNumber) data: 16r1000.
+	i2cConnection write16BitsAt: 16r06 + 2 + (4 * aPinNumber) data: 0.
 ]
 
 { #category : #initialization }
