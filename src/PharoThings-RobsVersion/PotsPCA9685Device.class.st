@@ -72,18 +72,17 @@ PotsPCA9685Device >> allPinsOnAt: onTime offAt: offTime [
 { #category : #accessing }
 PotsPCA9685Device >> beInverted [
 	"invert all outputs; makes sense when using open drain configuration"
-
 	| temp |
-	temp := (i2cConnection read8BitsAt: 16r01) bitOr: 2r00010000. "mode 2 register, set bit 4 (counting from 0)"
-	i2cConnection write8BitsAt: 16r01 data: temp
+	temp := (i2cConnection read8BitsAt: 16r01).
+	i2cConnection write8BitsAt: 16r01 data: (temp bitAt: 5 put: 1)
 ]
 
 { #category : #accessing }
 PotsPCA9685Device >> beNonInverted [
 	" cancel beInverted "
 	| temp |
-	temp := (i2cConnection read8BitsAt: 16r01) bitAnd: 2r11101111.
-	i2cConnection write8BitsAt: 16r01 data: temp
+	temp := (i2cConnection read8BitsAt: 16r01).
+	i2cConnection write8BitsAt: 16r01 data: (temp bitAt: 5 put: 0)
 ]
 
 { #category : #initialization }
@@ -112,10 +111,16 @@ PotsPCA9685Device >> connect [
 	| temp |
 	super connect.
 	clockFrequency := 25000000. "default; when frequencies are off, as measured with an oscilloscope, you may adjust it later"
-	self reset.
-	temp := (i2cConnection read8BitsAt: 0) bitAnd: 16r7F.
-	i2cConnection write8BitsAt: 0 data: (temp bitOr: 16r20). "set theRegister Auto-increment bit"
-	self wakeUp
+	i2cConnection write8BitsAt: 0 data: 2r00100001. "AutoIncrement and AllCall"
+	1 milliSeconds wait.
+	self wakeUp.
+	1 milliSeconds wait.
+	i2cConnection write16BitsAt: 16rFA data: 0.
+	i2cConnection write16BitsAt: 16rFC data: 16r10. "all OFF"
+	 
+	
+	
+
 ]
 
 { #category : #accessing }
@@ -126,28 +131,18 @@ PotsPCA9685Device >> connection [
 ]
 
 { #category : #initialization }
-PotsPCA9685Device >> frequency: aNumber [
+PotsPCA9685Device >> frequency: freq [
 	"calculate and set the PRESCALE register 16rFE, limited to the range 3 to 255"
-
-	| freq prescaleValue oldMode newMode |
+	| prescaleValue |
 	clockFrequency ifNil: [ clockFrequency := 25000000 ].
-	freq := aNumber.
-	freq := freq max: 20.
-	freq := freq min: 3500.
 	prescaleValue := (clockFrequency / (freq * 4096.0) - 1.0) asInteger.
-	oldMode := i2cConnection read8BitsAt: 0.
-	newMode := (oldMode bitAnd: 16r80 bitInvert) bitOr: 16r10.	"RESTARTbit to 0 and SLEEP to 1"
-	"according to datasheet the ERESTARTbit cannot beset to 0"
-	i2cConnection write8BitsAt: 0 data: newMode.	"go to sleep"
+	self sleep.
 	i2cConnection
 		write8BitsAt: 16rFE
-		data: ((prescaleValue min: 255) max: 3).	"write PRESCALE register"
-	i2cConnection write8BitsAt: 0 data: oldMode.
-	5 milliSeconds wait.
+		data: (prescaleValue min: 255 max: 3).	"write PRESCALE register"	
+	1 milliSeconds wait.
 	"Adafruit now sets the autoincrement mode and restart"
-	i2cConnection
-		write8BitsAt: 0
-		data: ((oldMode bitOr: 16r80) bitOr: 16r20)
+	self wakeUp
 ]
 
 { #category : #initialization }
@@ -265,11 +260,10 @@ PotsPCA9685Device >> reset [
 PotsPCA9685Device >> sleep [
 	"go into sleep mode; set sleep bit 16r10 high in MODE1 geister"
 
-	| temp registerContents |
+	| temp  |
 	temp := i2cConnection read8BitsAt: 0.
-	registerContents := temp bitOr: 16r10.
-	i2cConnection write8BitsAt: 0 data: registerContents.
-	5 milliSeconds wait.
+	i2cConnection write8BitsAt: 0 data: (temp bitAt: 5 put: 1).
+	1 milliSeconds wait.
 	
 ]
 
@@ -277,8 +271,8 @@ PotsPCA9685Device >> sleep [
 PotsPCA9685Device >> wakeUp [
 	"set sleepbit 16r10 low"
 
-	| temp registerContent |
+	| temp |
 	temp := i2cConnection read8BitsAt: 0.
-	registerContent := temp bitAnd: (16r10 bitInvert).
-	i2cConnection write8BitsAt: 0 data: registerContent.
+	"clear the SLEEP bit (4 in doc, 5 in our counting"
+	i2cConnection write8BitsAt: 0 data: (temp bitAt: 5 put: 0)
 ]
