@@ -77,7 +77,7 @@ PotsI2CDevice >> releaseResources [
 	| pins |
 	pins := controller driver i2cPins.
 	pins do: [ :aPin | aPin decrementDeviceCount  ].
-	((pins at: 1 deviceCount) > 0) ifTrue: [ ^self ].
+	(((pins at: 1) deviceCount) > 0) ifTrue: [ ^self ].
 	"if this was the last I2C device, we have to really release the pins."
 	"or maybe not, because the device ount has dropped to zero"
 ]

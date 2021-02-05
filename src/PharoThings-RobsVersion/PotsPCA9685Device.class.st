@@ -105,8 +105,6 @@ PotsPCA9685Device >> beTotemPole [
 { #category : #controlling }
 PotsPCA9685Device >> connect [
 	"initialisation"
-
-	
 	super connect.
 	clockFrequency := 25000000. "default; when frequencies are off, as measured with an oscilloscope, you may adjust it later"
 	i2cConnection write8BitsAt: 0 data: 2r00100001. "AutoIncrement and AllCall"
@@ -140,7 +138,8 @@ PotsPCA9685Device >> frequency: freq [
 		data: (prescaleValue min: 255 max: 3).	"write PRESCALE register"	
 	1 milliSeconds wait.
 	"Adafruit now sets the autoincrement mode and restart"
-	self wakeUp
+	self wakeUp.
+	self reset
 ]
 
 { #category : #initialization }
@@ -247,8 +246,9 @@ PotsPCA9685Device >> regHex: regno [
 { #category : #initialization }
 PotsPCA9685Device >> reset [
 	"reset MODE1_RESTART to MODE1 register"
-
-	i2cConnection write8BitsAt: 0 data: 16r80.
+	| temp |
+	temp := i2cConnection read8BitsAt: 0.
+	i2cConnection write8BitsAt: 0 data: (temp bitAt: 8 put: 1).
 	10 milliSeconds wait. "according to Adafruit"
 ]
 
