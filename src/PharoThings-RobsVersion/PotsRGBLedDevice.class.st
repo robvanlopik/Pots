@@ -1,3 +1,15 @@
+"
+I represent a simple three color LED
+
+My color is set through PWM values for the three pins. These values are taken from the Color definition
+
+creation:
+lamp := PotsRGBLedDevice on: #(redpinId greenPinId, bluePinId)
+
+usage: lamp color: Color lightBlue
+
+
+"
 Class {
 	#name : #PotsRGBLedDevice,
 	#superclass : #PotsDevice,

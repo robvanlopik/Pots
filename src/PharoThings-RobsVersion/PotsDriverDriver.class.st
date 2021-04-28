@@ -6,3 +6,8 @@ Class {
 	],
 	#category : #'PharoThings-RobsVersion'
 }
+
+{ #category : #accessing }
+PotsDriverDriver >> baseDriver [
+	^baseDriver
+]

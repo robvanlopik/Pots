@@ -3,16 +3,6 @@ I am a driver for the PCF8574 8-bits port extender.
 I make use of an already functioning instance of a PotsPCF8574Device 
 I allow my controller to function with 8 independent digital i/o pins with id's 0 - 7
 
-For the Responsibility part: Three sentences about my main responsibilities - what I do, what I know.
-
-For the Collaborators Part: State my main collaborators and one line about how I interact with them. 
-
-Public API and Key Messages
-
-- message one   
-- message two 
-- (for bonus points) how to create instances.
-
 example
 ```
 pe := mypi installDevice: PotsPCF8574Device new
@@ -25,7 +15,7 @@ d7 value: 0
 Internal Representation and Key Implementation Points.
 ivars:
 `device - the PotsPCF8574Device that performs my commands 
-`ioMap - a Byte where each bits represent the function of each pin 
+`ioMap - a Byte where each bit represent the function of each pin 
 		(with 1 being input and 0 output. Note: this is contrary to Arduino modes, where 0 is input)
 
 
