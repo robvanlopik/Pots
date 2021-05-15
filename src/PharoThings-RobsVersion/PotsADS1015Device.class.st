@@ -29,7 +29,7 @@ PotsADS1015Device >> connect [
 PotsADS1015Device >> initIvars [
 	range := #(2 2 2 2). "default scale +/- 2.048V "
 	scaleFactors := #(6144 4096 2048 1024 512 256).
-	baseCommand := 2r1000010110000011.
+	baseCommand := 2r1000000110000011.
 	"bits
 	1  =initiate conversion
 	000 space for channel nr
@@ -47,10 +47,22 @@ PotsADS1015Device >> initIvars [
 PotsADS1015Device >> readSingleChannel: channelNumber [
 	"execute a single read and return result"	
 	| command |
-	command := baseCommand bitOr: (range at: (channelNumber + 1)).
-	command := command bitOr: ((channelNumber + 4) bitShift: 12).
+	command := baseCommand bitOr: ((range at: (channelNumber + 1)) << 9).
+	command := command bitOr: ((channelNumber + 4) << 12).
 	
 	i2cConnection writeWordBigEndianAt: 1 data: command.
 	2 milliSeconds wait. "(should be 1000/1600 + 1)"
-	^i2cConnection readWordBigEndianAt: 0
+	^(i2cConnection readWordBigEndianAt: 0) >> 4
+]
+
+{ #category : #initialization }
+PotsADS1015Device >> setChannel: aChannel scale: aValue [
+	"set the scale factor fo a single-eded channel (0..3) 
+	It can be set by an index (0..5) or the actual full-scale value 
+	(6144, 4096, 2048, 1024, 512,256)"
+	| scaleValue |
+
+	(aValue abs <6) ifTrue: [ range at: (aChannel + 1) put: aValue abs. ^self].
+	scaleValue := (scaleFactors indexOf: aValue ifAbsent: [ 3 ]) - 1.
+	range at: (aChannel + 1) put: scaleValue.
 ]
