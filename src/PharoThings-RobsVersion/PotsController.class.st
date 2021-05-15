@@ -49,6 +49,11 @@ PotsController >> connectToI2CDevice: deviceAddressInt [
 	^driver connectToI2CDevice: deviceAddressInt
 ]
 
+{ #category : #accessing }
+PotsController >> devices [
+	^devices 
+]
+
 { #category : #controlling }
 PotsController >> disconnect [ 
 	"orderly shutdown"

@@ -7,8 +7,9 @@ Class {
 	#name : #PotsADS1015Device,
 	#superclass : #PotsI2CDevice,
 	#instVars : [
-		'gain',
-		'baseCommand'
+		'baseCommand',
+		'scaleFactors',
+		'range'
 	],
 	#category : #'PharoThings-RobsVersion'
 }
@@ -26,11 +27,12 @@ PotsADS1015Device >> connect [
 
 { #category : #'as yet unclassified' }
 PotsADS1015Device >> initIvars [
-	gain := #(1024 1024 1024 1024). "default scale 2.048V (2 bitShift: 11)"
+	range := #(2 2 2 2). "default scale +/- 2.048V "
+	scaleFactors := #(6144 4096 2048 1024 512 256).
 	baseCommand := 2r1000010110000011.
 	"bits
 	1  =initiate conversion
-	000 spece for channel nr
+	000 space for channel nr
 	010 gain 2 2.048V
 	1 single conversion
 	100 default converson rate of 1600 samples per second
@@ -45,10 +47,10 @@ PotsADS1015Device >> initIvars [
 PotsADS1015Device >> readSingleChannel: channelNumber [
 	"execute a single read and return result"	
 	| command |
-	command := baseCommand bitOr: (gain at: (channelNumber + 1)).
+	command := baseCommand bitOr: (range at: (channelNumber + 1)).
 	command := command bitOr: ((channelNumber + 4) bitShift: 12).
 	
-	i2cConnection write16BitsAt: 1 data: command.
+	i2cConnection writeWordBigEndianAt: 1 data: command.
 	2 milliSeconds wait. "(should be 1000/1600 + 1)"
-	^i2cConnection read16BitsAt: 0
+	^i2cConnection readWordBigEndianAt: 0
 ]
