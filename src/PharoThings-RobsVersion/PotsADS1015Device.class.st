@@ -51,25 +51,34 @@ PotsADS1015Device >> initIvars [
 	"
 ]
 
-{ #category : #reading }
-PotsADS1015Device >> readSingleChannel: channelNumber [
+{ #category : #'as yet unclassified' }
+PotsADS1015Device >> rangeForChannel: channelNumber [
+	"return the full scal range for a channel, 
+	taking care of the fact that channels are numbered for 0 to 3"
+	^scaleFactors at: ((range at: (channelNumber + 1)) + 1)
+]
+
+{ #category : #'as yet unclassified' }
+PotsADS1015Device >> rawFromChannel: channelNumber [
 	"execute a single read and return result"	
-	| command result|
+	| command |
 	command := baseCommand bitOr: ((range at: (channelNumber + 1)) << 9).
 	command := command bitOr: ((channelNumber + 4) << 12).
 	
 	i2cConnection writeWordBigEndianAt: 1 data: command.
 	2 milliSeconds wait. "(should be 1000/1600 + 1)"
-	result := (i2cConnection readWordBigEndianAt: 0) .
-	(result bitAt: 16) = 1 ifTrue: [ ^0 ]. "negative result is impossible"
-	result := result >> 4. "discard lowest 4 bits"
-	(range at: (channelNumber + 1)) = 0 ifTrue: [ ^result/333.3 ].
-	(range at: (channelNumber + 1)) = 1 ifTrue: [ ^result/500.0 ].
-	(range at: (channelNumber + 1)) = 2 ifTrue: [ ^result/1000.0 ].
-	(range at: (channelNumber + 1)) = 3 ifTrue: [ ^result/2000.0 ].
-	(range at: (channelNumber + 1)) = 4 ifTrue: [ ^result/4000.0 ].
-	(range at: (channelNumber + 1)) = 5 ifTrue: [ ^result/8000.0 ].
+	^ (i2cConnection readWordBigEndianAt: 0) >> 4.
+]
+
+{ #category : #reading }
+PotsADS1015Device >> readSingleChannel: channelNumber [
+	"execute a single read and return result"	
+	|  raw scaleFactor |
+	raw := self rawFromChannel: channelNumber.
 	
+	(raw bitAt: 12) = 1 ifTrue: [ ^0 ]. "negative result is impossible"
+	scaleFactor := 0.001 * (self rangeForChannel: channelNumber) / 2048.
+	^ raw * scaleFactor
 ]
 
 { #category : #controlling }
