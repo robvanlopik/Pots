@@ -1,13 +1,13 @@
 "
-This package will conatain an alternative version off the PharoThings framework, reusing most of the ideas and hopefully lots of its code
+This package contains an alternative version of the PharoThings framework, reusing most of the ideas and hopefully lots of its code
 
 Guiding principles are:
 - Pin can have more roles
-- layout of the board is optionalButtonSpecs
+- layout of the board is optional
 - error catching with assert
 - 
 
-The main strucrue will be:
+The main structure is:
 - a PotsController with
 	- a driver 
 	- pins (to be defined by the driver!)
