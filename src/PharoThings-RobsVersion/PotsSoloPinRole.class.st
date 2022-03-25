@@ -7,22 +7,22 @@ Class {
 	#category : #'PharoThings-RobsVersion'
 }
 
-{ #category : #'as yet unclassified' }
+{ #category : #activation }
 PotsSoloPinRole >> activateOn: aPin [
 		self subclassResponsibility 
 ]
 
-{ #category : #'as yet unclassified' }
+{ #category : #activation }
 PotsSoloPinRole >> deactivateOn: aPin [
 	"only implement when cleanup after use is necessary"
 ]
 
-{ #category : #'as yet unclassified' }
+{ #category : #reporting }
 PotsSoloPinRole >> disableReportingOnPin: aPin [
 	"subclass can implement, else do nothing"
 ]
 
-{ #category : #'as yet unclassified' }
+{ #category : #reporting }
 PotsSoloPinRole >> enableReportingOnPin: aPin [
 	"subclass can implement, else do nothing"
 ]
@@ -32,13 +32,13 @@ PotsSoloPinRole >> lastValue [
 	^ lastValue
 ]
 
-{ #category : #'as yet unclassified' }
+{ #category : #accessing }
 PotsSoloPinRole >> value: aNmber forPin: aPin [
 	"subclass decides whether to implement or not"
 	Error signal: 'Pin ', aPin id asString, ' has no output role'
 ]
 
-{ #category : #'as yet unclassified' }
+{ #category : #accessing }
 PotsSoloPinRole >> valueForPin: aPin [
 	"subclass decides whether to implement or not"
 	Error signal: 'Pin ', aPin id asString, ' has no inputRole'
