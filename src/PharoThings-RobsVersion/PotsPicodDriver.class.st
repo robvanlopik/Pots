@@ -11,9 +11,19 @@ Class {
 }
 
 { #category : #'private-mode' }
+PotsPicodDriver >> beDigitalInputOnPin: aPin [
+
+	baseDriver setGpioInput: aPin id 
+]
+
+{ #category : #'private-mode' }
 PotsPicodDriver >> beDigitalOutputOnPin: aPin [
 
 	baseDriver setGpioOutput: aPin id value: 0 "preset with 0"
+]
+
+{ #category : #initialization }
+PotsPicodDriver >> bePWMOutputOnPin: aPin [
 ]
 
 { #category : #'io protocols' }
@@ -49,6 +59,11 @@ PotsPicodDriver >> digitalValueFromPin: aPin [
 PotsPicodDriver >> disconnect [
 
 	baseDriver disconnect
+]
+
+{ #category : #accessing }
+PotsPicodDriver >> i2cPins [ 
+	^i2cPins 
 ]
 
 { #category : #initialization }
@@ -128,6 +143,27 @@ PotsPicodDriver >> providePinInfo [
 	pinDict removeKey: 23.
 	pinDict removeKey: 24.
 	^ pinDict
+]
+
+{ #category : #writing }
+PotsPicodDriver >> pwmValue: aNumber intoPin: aPin [
+
+	"no conversion needed as the base driver already uses percentages
+	default frequency 1000"
+
+	^baseDriver pwmOnPin: aPin id value: aNumber frequency: 1000
+]
+
+{ #category : #writing }
+PotsPicodDriver >> rawPwmValue: aNumber intoPin: aPin [
+	self pwmValue: aNumber intoPin: aPin
+]
+
+{ #category : #'as yet unclassified' }
+PotsPicodDriver >> rawServoValue: aNumber intoPin: aPin [
+
+	baseDriver servoOnPin: aPin id pulseWidth: aNumber
+	
 ]
 
 { #category : #initialization }

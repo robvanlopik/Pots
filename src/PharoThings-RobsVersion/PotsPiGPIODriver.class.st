@@ -53,11 +53,6 @@ PotsPiGPIODriver >> connectToI2CDevice: i2cAddress [
 ]
 
 { #category : #writing }
-PotsPiGPIODriver >> digitalValue: oneOrZero into: aPin [ 
-	baseDriver digitalWrite: aPin id value: (oneOrZero bitAnd: 1)
-]
-
-{ #category : #writing }
 PotsPiGPIODriver >> digitalValue: oneOrZero intoPin: aPin [ 
 	baseDriver digitalWrite: aPin id value: (oneOrZero bitAnd: 1)
 ]
@@ -161,12 +156,9 @@ PotsPiGPIODriver >> rawPwmValue: aNumber intoPin: aPin [
 
 { #category : #'as yet unclassified' }
 PotsPiGPIODriver >> rawServoValue: aNumber intoPin: aPin [
-	" for PiGPIO the raw value is an integer netween min and max "
-]
 
-{ #category : #'io protocols' }
-PotsPiGPIODriver >> readDigitalValueFrom: aPin [
-	^baseDriver digitalRead: aPin id
+	" for PiGPIO the raw value is an integer between min and max "
+	baseDriver pin: aPin id servoPulsewidth: aNumber "microseconds"
 ]
 
 { #category : #'as yet unclassified' }

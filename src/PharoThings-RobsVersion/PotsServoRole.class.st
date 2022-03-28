@@ -3,7 +3,8 @@ I represent the role for driving a servo motor
 
 We must decide what values I can sassume
 PiGPIO uses the on-time in microseconds, usually between 544 and 2400
-Firmata??
+Firmata uses angle and Picodmicroseconds. Best is angle and let the driver
+do the calculation with min max
 
 For the Class part:  State a one line summary. For example, ""I represent a paragraph of text"".
 
