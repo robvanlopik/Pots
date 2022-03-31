@@ -1,3 +1,10 @@
+"
+I am the intermediate driver for the Raspberry Pico.
+
+Of special interest are the role changing commands (beXyzOnPin:); The PotsController model adheres to the pattern that you first must set the role for a pin before you can use it. The underlying PicodDriver seems to work the other way around. A role must close itself and a subsequent command establishes a new role.
+
+
+"
 Class {
 	#name : #PotsPicodDriver,
 	#superclass : #PotsDriverDriver,
