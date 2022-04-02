@@ -46,7 +46,12 @@ PotsController >> connectDriver [
 
 { #category : #'io protocols' }
 PotsController >> connectToI2CDevice: deviceAddressInt [
-	^driver connectToI2CDevice: deviceAddressInt
+
+	"private !
+	called in the course of starting an I2cDevice 
+	(that already knows its address)"
+
+	^ driver connectToI2CDevice: deviceAddressInt
 ]
 
 { #category : #accessing }
@@ -91,13 +96,15 @@ PotsController >> initialize [
 
 { #category : #accessing }
 PotsController >> installDevice: aPotsDevice [
+
 	"return an instance of a PotsDevice. 
 	aPotsDevice already must contain the necessary information,
-	 eg pins needed and protocol info like i2c address"
+	 eg pins needed and protocol info like i2c address
+	e.g. controller installDevice: (PotsI2CDevoce on: anAddress)"
+
 	aPotsDevice connectTo: self.
 	devices add: aPotsDevice.
-	^aPotsDevice
-	
+	^ aPotsDevice
 ]
 
 { #category : #accessing }
