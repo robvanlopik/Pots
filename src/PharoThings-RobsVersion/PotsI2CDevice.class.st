@@ -27,18 +27,25 @@ PotsI2CDevice class >> on: i2cAddress [
 
 { #category : #'as yet unclassified' }
 PotsI2CDevice >> claimResources [
+
 	| pins |
 	pins := controller driver i2cPins.
-	"first check whether we already have an I2C connection in which cae we only bump the device count"
+	"first check whether we already have an I2C connection in 
+	which case we only bump the device count"
 	"we only check the first pin"
-	((pins at: 1) currentRole class short) = 'I2C'
-		ifTrue: [ pins do: [  :aPin | aPin incrementDeviceCount ]. ^self ].
+	(pins at: 1) currentRole class short = 'I2C' ifTrue: [ 
+		pins do: [ :aPin | aPin incrementDeviceCount ].
+		^ self ].
 	"when we are the first, we have to claim the pins
 	first check wether they are free"
-	pins do: [ :aPin | self assert: [ aPin deviceCount = 0 ] 
-			description: 'pin ', aPin id asString, 'is not free for I2C'].
+	pins do: [ :aPin | 
+		self
+			assert: [ aPin deviceCount = 0 ]
+			description: 'pin ' , aPin id asString , 'is not free for I2C' ].
 	"and set the role"
-	pins do: [ :aPin | aPin currentRole: (aPin roles at: 'I2C'). aPin deviceCount: 1 ].
+	pins do: [ :aPin | 
+		aPin currentRole: (aPin roles at: 'I2C').
+		aPin deviceCount: 1 ]
 ]
 
 { #category : #controlling }

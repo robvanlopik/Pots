@@ -150,3 +150,9 @@ PotsController >> pins [
 PotsController >> pins: anObject [
 	pins := anObject
 ]
+
+{ #category : #removing }
+PotsController >> removeDevice: aDevice [
+	aDevice disconnect.
+	devices remove: aDevice
+]
