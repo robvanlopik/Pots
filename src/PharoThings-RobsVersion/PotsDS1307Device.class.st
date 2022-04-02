@@ -10,11 +10,6 @@ PotsDS1307Device class >> defaultI2CAddress [
 	^16r68
 ]
 
-{ #category : #'as yet unclassified' }
-PotsDS1307Device >> claimResources [
-	
-]
-
 { #category : #accessing }
 PotsDS1307Device >> dateAndTime [
 	"retrieve a complete DateAndTime object from the RTC"

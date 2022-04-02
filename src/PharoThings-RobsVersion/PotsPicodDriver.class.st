@@ -11,43 +11,85 @@ Class {
 	#instVars : [
 		'port',
 		'baudRate',
-		'i2cPins',
-		'i2cDeviceCount'
+		'i2cPins'
 	],
 	#category : #'PharoThings-RobsVersion'
 }
 
+{ #category : #'io protocols' }
+PotsPicodDriver >> analogValueFromPin: aPin [
+
+	| ref range |
+	ref := aPin currentRole refVoltage.
+	range := 2 ** (aPin currentRole resolution) - 1.
+	^(self rawAnalogValueFromPin: aPin) * ref / range
+]
+
 { #category : #'private-mode' }
 PotsPicodDriver >> beDigitalInputOnPin: aPin [
 
-	baseDriver setGpioInput: aPin id 
+	self closeCurrentRoleOfPin: aPin.
+	baseDriver setGpioInput: aPin id
 ]
 
 { #category : #'private-mode' }
 PotsPicodDriver >> beDigitalOutputOnPin: aPin [
 
+	self closeCurrentRoleOfPin: aPin.
 	baseDriver setGpioOutput: aPin id value: 0 "preset with 0"
 ]
 
 { #category : #initialization }
 PotsPicodDriver >> bePWMOutputOnPin: aPin [
+
+	"in principle PWM and Servo are equivalenet;
+	 so of former role wa servo, no action is needed"
+
+	aPin currentRole class = 'Servo' ifFalse: [ 
+		self closeCurrentRoleOfPin: aPin ]
+]
+
+{ #category : #initialization }
+PotsPicodDriver >> beServoOutputOnPin: aPin [
+
+	"in principle PWM and Servo are equivalenet;
+	 so of former role was PWM, no action is needed"
+
+	aPin currentRole class = 'PWM' ifFalse: [ 
+		self closeCurrentRoleOfPin: aPin ]
+]
+
+{ #category : #'as yet unclassified' }
+PotsPicodDriver >> closeCurrentRoleOfPin: aPin [
+
+	"close the current role off the pin; called by beXyzOnPin:"
+
+	| currentRoleShort |
+	currentRoleShort := aPin currentRole class short.
+	currentRoleShort = 'DI' ifTrue: [ ^ baseDriver closeGpio: aPin ].
+	currentRoleShort = 'DO' ifTrue: [ ^ baseDriver closeGpio: aPin ].
+	currentRoleShort = 'AI' ifTrue: [ ^ baseDriver analogClose: aPin ].
+	currentRoleShort = 'PWM' ifTrue: [ ^ baseDriver servoPwmClose: aPin ].
+	currentRoleShort = 'Servo' ifTrue: [ 
+		^ baseDriver servoPwmClose: aPin ].
+	"to do: close I2C role ; or doesn't this happen because an i2c connection closes itself and can release the pin?" 
 ]
 
 { #category : #'io protocols' }
 PotsPicodDriver >> connectToI2CDevice: i2cAddress [
 
 	"return an I2CConnection that is specific to this I2C address
-	First check whether an i2cChannel is already oppen. 
+	First check whether an i2cChannel is already open. You cab tell by the deviceCount of one of the I2C pins
 	If not open channel 0 on pins 0 and 1"
 
-	i2cDeviceCount = 0 ifTrue: [ 
+	(i2cPins at: 1) deviceCount = 1 ifTrue: [ 
 		baseDriver
 			i2cOpenChannel: 0
 			sda: 0
 			scl: 1
 			baudRate: 100000 ].
-
-	^baseDriver i2cOpenConnectionOn: 0 i2cAddress: i2cAddress
+	"i2cPins do: [ :pin | pin deviceCount: pin deviceCount + 1 ]."
+	^ baseDriver i2cOpenConnectionOn: 0 i2cAddress: i2cAddress
 ]
 
 { #category : #writing }
@@ -141,8 +183,8 @@ PotsPicodDriver >> providePinInfo [
 			altId: id;
 			addRole: (PotsAnalogInputRole new
 					 driver: self;
-					 refVoltage: 3.3;
-					 resolution: 12;
+					 refVoltage: 3.2; "to be measured"
+					 resolution: 12; "number of bits!!"
 					 yourself) ].
 
 
@@ -159,6 +201,12 @@ PotsPicodDriver >> pwmValue: aNumber intoPin: aPin [
 	default frequency 1000"
 
 	^baseDriver pwmOnPin: aPin id value: aNumber frequency: 1000
+]
+
+{ #category : #'io protocols' }
+PotsPicodDriver >> rawAnalogValueFromPin: aPin [
+
+	^ baseDriver analogRead: aPin id
 ]
 
 { #category : #writing }

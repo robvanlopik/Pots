@@ -97,9 +97,12 @@ PotsActivePin >> currentRole: anObject [
 
 { #category : #'as yet unclassified' }
 PotsActivePin >> decrementDeviceCount [
+
 	deviceCount := deviceCount - 1.
-	self assert: [ deviceCount >= 0 ] description: 'device count cannot be less then zero'.
-	deviceCount := 0
+	self
+		assert: [ deviceCount >= 0 ]
+		description: 'device count cannot be less then zero'.
+	"deviceCount := 0 looks wrong "
 ]
 
 { #category : #'as yet unclassified' }
