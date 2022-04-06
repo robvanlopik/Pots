@@ -22,16 +22,19 @@ BaselineOfPots >> baseline: spec [
 
 { #category : #'external projects' }
 BaselineOfPots >> declareFirmataOn: spec [
+
 	spec
 		baseline: 'Firmata'
-		with: [ spec repository: 'github://robvanlopik/Firmata:COMMITISH/' ]
+		with: [ spec repository: 'github://robvanlopik/Firmata' ]
 ]
 
 { #category : #'external projects' }
 BaselineOfPots >> declarePiGPIOOn: spec [
+
 	spec
 		baseline: 'PiGPIO'
-		with: [ spec repository: 'github://robvanlopik/PiGPIO:COMMITISH/src' ]
+		with: [ 
+		spec repository: 'github://robvanlopik/PiGPIO' ]
 ]
 
 { #category : #'external projects' }
