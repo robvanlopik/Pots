@@ -205,8 +205,8 @@ PotsPicodDriver >> pwmValue: aNumber intoPin: aPin [
 
 { #category : #'io protocols' }
 PotsPicodDriver >> rawAnalogValueFromPin: aPin [
-
-	^ baseDriver analogRead: aPin id
+"the basedriver uses seperate analog pin numbers"
+	^ baseDriver analogRead: aPin altId
 ]
 
 { #category : #writing }
