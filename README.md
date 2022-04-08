@@ -4,7 +4,7 @@
 
 ## Attribution
 
-*This project is indebted to the Pharo-of-Things project (https://github.com/pharo-iot/PharoThings)  for ideas, modelling and code. Especially the pin and device model stem from Pot. It misses the remote capabilities of Telepharo and the nice board inspector (although they could come back). On the other hand it fully supports digital I/O, PWM and servo functions on  Raspberry Pi, Pico and Arduino devices. The design considerations are documented in Pot-to-Pots.md in this repo; in this readme no previous knowledge of PharoThings is presupposed. If you are acquainted with Pharo-of-Things you should know that the term `Board` has been replaced by `Controller` and `Mode` and `Function` coalesced into `Role`.*
+*This project is indebted to the Pharo-of-Things project (https://github.com/pharo-iot/PharoThings)  for ideas, modelling and code. Especially the pin and device model stem from Pot. It misses the remote capabilities of Telepharo and the nice board inspector (although they could come back). On the other hand it fully supports digital I/O, PWM and servo functions on  Raspberry Pi, Pico and Arduino devices. The design considerations are documented in Pot-to-Pots.md in this repo; in this readme No previous knowledge of PharoThings is presupposed. If you are acquainted with Pharo-of-Things you should know that the term `Board` has been replaced by `Controller` and `Mode` and `Function` coalesced into `Role`.*
 
 ## Main classes and relations between them
 
