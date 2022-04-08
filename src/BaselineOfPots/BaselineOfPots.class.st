@@ -15,7 +15,8 @@ BaselineOfPots >> baseline: spec [
 			declarePicodDriverOn: spec.
 
 		spec
-			package: 'PharoThings-RobsVersion';
+			package: 'PharoThings-RobsVersion'
+			with: [ spec requires: #( 'Firmata' 'PiGPIO' 'PicodDriver' ) ];
 			package: 'PharoThings-RobsVersion-tests'
 			with: [ spec requires: #( 'PharoThings-RobsVersion' ) ] ]
 ]
