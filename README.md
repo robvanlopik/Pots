@@ -90,7 +90,7 @@ Among the I2C devices we have  the `PotsPCA9685Device` and the `PotsPCF8574Devic
 #### Example code
 First we look at the PCF8574 as a device. The chip has 8 pins that can be set to logical 1 or 0. When you write a 1 to a pin, you ran read it back, resulting in 1 if the pin is free or 0 when it is pulled down to ground. Actually, the pins cannot be addressed individually, but only all together. So, either you send a byte, or you read one. Often the chip is mounted with some additional circuitry, ready to drive an LCD display. In that case pin 3 is meant to drive the LCD backlight and is connected to the base of a npn-transistor, effectively pulling it to ground.
 
-```` smalltalk
+```smalltalk
 ard := PotsController new driver: (PotsFirmataDriver onPort: 'COM3' baudRate: 57600).
 pfc := ard installdevice: PotsPCF8574Device new. "create the device"
 pfc writeByte: 2r10101010. "check the output with a voltmeter"
@@ -108,7 +108,7 @@ this is about the electrical behaviour of an output, so we would also like to ca
 
 ## Loading
 In a playground execute
-``` smalltalk
+```smalltalk
 Metacello new
     baseline: 'Pots';
     repository: 'github://robvanlopik/Pots:main';
