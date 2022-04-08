@@ -16,6 +16,11 @@ Class {
 	#category : #'PharoThings-RobsVersion'
 }
 
+{ #category : #initialization }
+PotsPicodDriver class >> onPort: aPortString [
+	^self new onPort: aPortString
+]
+
 { #category : #'io protocols' }
 PotsPicodDriver >> analogValueFromPin: aPin [
 
