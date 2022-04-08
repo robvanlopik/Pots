@@ -82,7 +82,7 @@ Devices that use inputs need something extra: either they should be made aware o
 
 #### I2C devices
 
-Many microprocessors have special hardware to support the I2C protocol. This is also true for the Raspberry Pi, Pico and Arduino-like boards. The protocol uses two pins of the controller (named SDA and SCL) and is supported by all three baseDrivers, PiGPIO, Picod and Firmata. The drivers know which pins to use and set these pins automatically to the `PotsI2CRole`.  The `PotsI2CDevice` manages the I2C communication and provides the functionality of the device in a useful way. For example,the `PotsDS1307Device` exposes the real time clock with messages like `dateAndTime` or `dayOfWeek`. Another example is `PotsBME280Device` that exposes the temperature, pressure and humidity sensor BME280 with messages like `readTemperature` and `readPressure1` Note that the code of these devices is almost idential to the code in Pharo-of-Things.
+Many microprocessors have special hardware to support the I2C protocol. This is also true for the Raspberry Pi, Pico and Arduino-like boards. The protocol uses two pins of the controller (named SDA and SCL) and is supported by all three baseDrivers, PiGPIO, Picod and Firmata. The drivers know which pins to use and set these pins automatically to the `PotsI2CRole`.  The `PotsI2CDevice` manages the I2C communication and provides the functionality of the device in a useful way. For example,the `PotsDS1307Device` exposes the real time clock with messages like `dateAndTime` or `dayOfWeek`. Another example is `PotsBME280Device` that exposes the temperature, pressure and humidity sensor BME280 with messages like `readTemperature` and `readPressure1` Note that the code of these devices is almost identical to the code in Pharo-of-Things.
 
 ### Controllers on devices
 Among the I2C devices we have  the `PotsPCA9685Device` and the `PotsPCF8574Device`. Both have pins that function as inputs or outputs, so the question arises what makes them different from a `Controller`? In fact, nothing, once you construct an appropriate driver. `PotsDriver` has two subclasses, the `PotsDriverDriver` and the `PotsDeviceDriver`. Up till now we used the first,  a driver that uses another driver. The second is a driver that uses a `PotsDevice`. A `PotsDeviceDriver` needs a working instance of the appropriate `PotsDevice`to start with. Using an installed 8-bits i2C-IO-extender like `PotsPCF8574` that is often used together with a standard 16x2 LCD (and even sold as one unit) you can control the `PotsHD44780Device` just like we did above.
@@ -98,15 +98,17 @@ pfc writeByte: 16rFF. "set all pins to 1 so you can read back their state"
 state := pfc readByte. "this would show   (16r..) as pin 3 was pulled down"
 ```
 ## To Do
-No project is ever really finished. In this case there are practical to-do's like cleaning up (I worked on this stuff on and off for the last two years so many inconsistencies have crept in), adding devices, error handling, possibly adding controller devices. And there definitely must be more  tests, although a lot of functions depend on the physical device and its firmware. Maybe it makes sense to extend the announcement mechanisms of Firmata, PigPIO and Picod to the Pots framework as a whole.  
+No project is ever really finished. In this case there are practical to-do's like cleaning up (I worked on this stuff on and off for the last two years so many inconsistencies have crept in), adding devices, error handling, possibly adding controller devices. And there definitely must be more  tests, although a lot of functions depend on the physical device and its firmware. Maybe it makes sense to extend the announcement mechanisms of Firmata, PigPIO and Picod to the Pots 
+framework as a whole.  
 
 Small to-do's:
-- pullup and pull down resisters on digital outputs; not difficult, but different for different types of controllers. Essentially, this is about the electrical behaviour of an output, so we would also like to capture the "totem pole" output of the PCA9685
+- pullup and pull down resisters on digital outputs; not difficult, but different for different types of controllers. Essentially, 
+this is about the electrical behaviour of an output, so we would also like to capture the "totem pole" output of the PCA9685
 - Users will centainly find many more
 
 ## Loading
 In a playground execute
-```smalltalk
+``` smalltalk
 Metacello new
     baseline: 'Pots';
     repository: 'github://robvanlopik/Pots:main';
