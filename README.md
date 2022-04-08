@@ -101,7 +101,7 @@ state := pfc readByte. "this would show   (16r..) as pin 3 was pulled down"
 No project is ever really finished. In this case there are practical to-do's like cleaning up (I worked on this stuff on and off for the last two years so many inconsistencies have crept in), adding devices, error handling, possibly adding controller devices. And there definitely must be more  tests, although a lot of functions depend on the physical device and its firmware. Maybe it makes sense to extend the announcement mechanisms of Firmata, PigPIO and Picod to the Pots framework as a whole.  
 
 Small to-do's:
-- pullup and pull down resisters on digital outputs; not difficult, but different for different types of controllers. Iessentially, this is about the electrical behaviour of an output, so we would also like to capture the "totem pole" output of the PCA9685
+- pullup and pull down resisters on digital outputs; not difficult, but different for different types of controllers. Essentially, this is about the electrical behaviour of an output, so we would also like to capture the "totem pole" output of the PCA9685
 - Users will centainly find many more
 
 ## Loading
@@ -112,6 +112,7 @@ Metacello new
     repository: 'github://robvanlopik/Pots:main';
     load.
 ```
-This will also load the three drivers (PiGPIO, Picod and Firmata). Also loaded is my fork of an FFI-based SerialPort driver by Pablo Tesone, so the code can be used in Pharo 9 or 10.
+This will also load the three drivers (PiGPIO, Picod and Firmata). Also loaded is my fork of an FFI-based SerialPort driver by Pablo Tesone, 
+so the code can be used in Pharo 9 or 10.
     
 ```
