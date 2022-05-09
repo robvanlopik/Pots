@@ -1,30 +1,36 @@
 "
-I represent a digital Controller board. 
+I represent a Microprocesssor Controller board. 
 
-I initiate the communication with the hardware, hold the pins that eventually interact with the outside world
+I initiate the communication with the hardware and hold the pins that eventually interact with the outside world.
 
 Pins are my external interface, that may be detailed by a layout (where is each pin located on the board or device?))
 
-In a sense I am an intermediate between pins and the drivers that talk to the hardware.
 I also hold devices that are mor complex objects that manipulate my pins, be it directly or through some protocol (like I2C).)
 
-A controller is created by naming its potsDriver:, including th
-PotsController 
-- message one   
-- message two 
-- (for bonus points) how to create instances.
-
-   One simple example is simply gorgeous.
- 
+A controller is created by naming its PotsDriver, e,g
+``` Smalltalk
+myPi := PotsController new driver: (PotsPiGPIODriver onIP: '192.168.1.92' port: 8888).
+myArduino := PotsController new driver: (PotsFirmataDriver onPort: 'COM3' baudRate: 57600).
+myPico := PotsController new driver: (PotsPicodDriver onPort: '/dev/ttyACM0').
+```
+A specific pin can be found through its Id:
+``` Smalltalk
+LED := myController pinWithId: 13.
+``` 
 Internal Representation and Key Implementation Points.
 
-    Instance Variables
-	driver:		<Object>
-	layout:		<Object>
-	pins:		<Object>
+Instance Variables
+- driver:		a PotsDriver (itself using a device driver)
+- layout:		describes the layout of pins on the physical device (not needed and not yet implemented)
+- pins:		a dictionary of all active pins, indexed by GPIO Id. It is created by the PotsDriver as a result of a call to #getPinInfo.
+- name:		optional nameof the controllelr, aString
+- devices:	an OrderedCollection of the PotsDevices that have been installed on this controller
 
-
-    Implementation Points
+Implementation Points
+The PotsController makes sure that pins are correctly used, devices allocae their pins etc. Basic is the common API of all PotsDrivers. Functionality that is specific to a specific driver can be used through 
+```Smalltalk
+myController driver baseDriver
+```
 "
 Class {
 	#name : #PotsController,
