@@ -151,7 +151,8 @@ PotsFirmataDriver >> i2cPins [
 ]
 
 { #category : #initialization }
-PotsFirmataDriver >> initialize [ 	super initialize.
+PotsFirmataDriver >> initialize [ 
+	super initialize.
 	modeDict := Dictionary new.
 	modeDict at: 0 put: 'DI';
 				at: 1 put: 'DO';
@@ -164,7 +165,7 @@ PotsFirmataDriver >> initialize [ 	super initialize.
 
 { #category : #'instance creation' }
 PotsFirmataDriver >> onPort: aSerialPortName baudRate: aNumber [
-	"just save the datato make a connection later"
+	"just save the data to make a connection later"
 	port := aSerialPortName.
 	baudRate := aNumber
 ]

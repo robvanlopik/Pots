@@ -1,3 +1,6 @@
+"
+Not Available, Not Attributed, Not Connected
+"
 Class {
 	#name : #PotsNARole,
 	#superclass : #PotsPinRole,

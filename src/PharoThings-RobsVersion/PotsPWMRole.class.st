@@ -1,3 +1,8 @@
+"
+I re[resent the role for PWM output.
+My value is in percentage (0-100).
+
+"
 Class {
 	#name : #PotsPWMRole,
 	#superclass : #PotsSoloPinRole,

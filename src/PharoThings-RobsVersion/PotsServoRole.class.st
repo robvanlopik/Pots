@@ -1,7 +1,7 @@
 "
 I represent the role for driving a servo motor
 
-By default my value is an angle in degrees  with a resulting output pulse between 500 and 2500 microsecond (but the driver may have changed this). The methods in the ""parameters"" category allow changing the minimum and maximum angles and the corresponding pulse widths.
+By default my value is an angle in degrees (0 - 180)  with a resulting output pulse between 500 and 2500 microseconds (but the driver may have changed this). The methods in the ""parameters"" category allow changing the minimum and maximum angle and the corresponding pulse width.
 "
 Class {
 	#name : #PotsServoRole,

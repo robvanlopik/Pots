@@ -1,3 +1,8 @@
+"
+I play the Digital Input Role (DI)
+
+my values can be 0 or 1
+"
 Class {
 	#name : #PotsDigitalInputRole,
 	#superclass : #PotsSoloPinRole,

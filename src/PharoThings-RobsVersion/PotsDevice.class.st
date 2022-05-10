@@ -4,9 +4,11 @@ I represent a device that is operated by one or more pins of the controller
 I contain the logic to translate device specific messages to instructions for either the pin or a protocol operated by a number of pins
 
 Basic usage is: 
-`dev := aController installDevice: aPotsDevice
-aPotsDevice already must know everything that is needed to operated. You can use PotsDevice new if and provide default data.
-Convention: 'PotsDevice new initializes with default params, else you should have a class method to to provide the data 
+`myDevice := aController installDevice: aPotsDevice`
+
+aPotsDevice already must know everything that is needed to operate. You can use PotsDevice new if it provides default data.
+
+Convention: 'PotsDevice new initializes with default parameterss, else you should have a class method  to provide the data 
 
 the controller will then ask the device to #connectTo: aController
 ` connectTo: sets the controller instVar , makes sure the resources (pins or other devices) are marked and available and then does `self connect.

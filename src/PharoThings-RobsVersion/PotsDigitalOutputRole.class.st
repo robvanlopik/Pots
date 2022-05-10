@@ -1,3 +1,8 @@
+"
+I represent the Digital Output Role (DO)
+
+my values can be 0 or 1. Because I remember my last value, I can also satisfy the Pin command #toggle
+"
 Class {
 	#name : #PotsDigitalOutputRole,
 	#superclass : #PotsSoloPinRole,
