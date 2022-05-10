@@ -9,12 +9,12 @@ PotsDigitalInputRole class >> short [
 	^'DI'
 ]
 
-{ #category : #'as yet unclassified' }
+{ #category : #'private - controlling' }
 PotsDigitalInputRole >> activateOn: aPin [
 		driver beDigitalInputOnPin: aPin
 ]
 
-{ #category : #'as yet unclassified' }
+{ #category : #'private - accessing' }
 PotsDigitalInputRole >> valueForPin: aPin [
 	
 	^lastValue := driver digitalValueFromPin: aPin

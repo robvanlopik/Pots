@@ -1,29 +1,7 @@
 "
 I represent the role for driving a servo motor
 
-We must decide what values I can sassume
-PiGPIO uses the on-time in microseconds, usually between 544 and 2400
-Firmata uses angle and Picodmicroseconds. Best is angle and let the driver
-do the calculation with min max
-
-For the Class part:  State a one line summary. For example, ""I represent a paragraph of text"".
-
-For the Responsibility part: Three sentences about my main responsibilities - what I do, what I know.
-
-For the Collaborators Part: State my main collaborators and one line about how I interact with them. 
-
-Public API and Key Messages
-
-- message one   
-- message two 
-- (for bonus points) how to create instances.
-
-   One simple example is simply gorgeous.
- 
-Internal Representation and Key Implementation Points.
-
-
-    Implementation Points
+By default my value is an angle in degrees  with a resulting output pulse between 500 and 2500 microsecond (but the driver may have changed this). The methods in the ""parameters"" category allow changing the minimum and maximum angles and the corresponding pulse widths.
 "
 Class {
 	#name : #PotsServoRole,
@@ -42,72 +20,72 @@ PotsServoRole class >> short [
 	^'Servo'
 ]
 
-{ #category : #'private-mode' }
+{ #category : #'private - controlling' }
 PotsServoRole >> activateOn: aPin [
 		driver beServoOutputOnPin: aPin
 ]
 
-{ #category : #'as yet unclassified' }
+{ #category : #'private - accessing' }
 PotsServoRole >> decrementValueBy: aNumber forPin: aPin [
 	| newValue |
 	newValue := (self lastValue - aNumber) max: self minDegrees.
 	self value: newValue forPin: aPin
 ]
 
-{ #category : #'as yet unclassified' }
+{ #category : #'private - accessing' }
 PotsServoRole >> incrementValueBy: aNumber forPin: aPin [
 	| newValue |
 	newValue := (self lastValue + aNumber) min: self maxDegrees.
 	self value: newValue forPin: aPin
 ]
 
-{ #category : #accessing }
+{ #category : #parameters }
 PotsServoRole >> max [
 	^ max
 ]
 
-{ #category : #accessing }
+{ #category : #parameters }
 PotsServoRole >> max: anObject [
 	max := anObject
 ]
 
-{ #category : #accessing }
+{ #category : #parameters }
 PotsServoRole >> maxDegrees [
 	^ maxDegrees
 ]
 
-{ #category : #accessing }
+{ #category : #parameters }
 PotsServoRole >> maxDegrees: anObject [
 	maxDegrees := anObject
 ]
 
-{ #category : #accessing }
+{ #category : #parameters }
 PotsServoRole >> min [
 	^ min
 ]
 
-{ #category : #accessing }
+{ #category : #parameters }
 PotsServoRole >> min: anObject [
 	min := anObject
 ]
 
-{ #category : #accessing }
+{ #category : #parameters }
 PotsServoRole >> minDegrees [
 	^ minDegrees
 ]
 
-{ #category : #accessing }
+{ #category : #parameters }
 PotsServoRole >> minDegrees: anObject [
 	minDegrees := anObject
 ]
 
-{ #category : #'as yet unclassified' }
+{ #category : #'private - accessing' }
 PotsServoRole >> rawValue: aNumber forPin: aPin [
 	driver rawServoValue: aNumber intoPin: aPin
 
 ]
 
-{ #category : #'as yet unclassified' }
+{ #category : #'private - accessing' }
 PotsServoRole >> value: aNumber forPin: aPin [
 	driver servoValue: aNumber intoPin: aPin.
 	lastValue := aNumber

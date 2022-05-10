@@ -8,7 +8,9 @@ The name ""role"" is chosen as an alternative for ""mode"" or ""function"".
 
 A role also contains information about itself eg the resolution of de function performed
 
-Roles are created during startup by the driver. Some have properties that can be changed by the user.
+Roles are created by the driver during startup. Some have properties that can be changed by the user.
+
+A role is sometimes identified by a short name,that is returned by the class side methode #short. Yhe names used are: AI, DI, DO, Servo, PWM, I2C, Step.
 
 Instance  variables:
 - pin  -  the pin this role applies to

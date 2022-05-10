@@ -12,12 +12,12 @@ PotsPWMRole class >> short [
 	^'PWM'
 ]
 
-{ #category : #'as yet unclassified' }
+{ #category : #'private - controlling' }
 PotsPWMRole >> activateOn: aPin [
 	driver bePWMOutputOnPin: aPin
 ]
 
-{ #category : #'as yet unclassified' }
+{ #category : #'private - accessing' }
 PotsPWMRole >> decrementValueBy: aNumber forPin: aPin [
 	"increment but don't exceed limits; last value set to limit in that case"
 	| newValue |
@@ -25,7 +25,7 @@ PotsPWMRole >> decrementValueBy: aNumber forPin: aPin [
 	self value: newValue forPin:aPin
 ]
 
-{ #category : #'as yet unclassified' }
+{ #category : #'private - accessing' }
 PotsPWMRole >> incrementValueBy: aNumber forPin: aPin [
 	"increment but don't exceed limits; last value set to limit in that case"
 	| newValue |
@@ -33,23 +33,23 @@ PotsPWMRole >> incrementValueBy: aNumber forPin: aPin [
 	self value: newValue forPin:aPin
 ]
 
-{ #category : #accessing }
+{ #category : #parameters }
 PotsPWMRole >> range [
 	^ range
 ]
 
-{ #category : #accessing }
+{ #category : #parameters }
 PotsPWMRole >> range: anObject [
 	range := anObject
 ]
 
-{ #category : #'as yet unclassified' }
+{ #category : #'private - accessing' }
 PotsPWMRole >> rawValue: aNumber forPin: pinid [
 	"straight to the driver"
 	driver rawPwmValue: aNumber intoPin: pinid
 ]
 
-{ #category : #'as yet unclassified' }
+{ #category : #'private - accessing' }
 PotsPWMRole >> value: aNumber forPin: aPin [
 	driver pwmValue: aNumber intoPin: aPin.
 	lastValue := aNumber

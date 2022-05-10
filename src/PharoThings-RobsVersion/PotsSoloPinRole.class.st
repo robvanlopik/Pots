@@ -1,20 +1,13 @@
 "
-I represent a role that ta pin can play all by itself. In principle this means reading or writing a value.
-Public API and Key Messages
+I represent a role that a pin can play all by itself. In principle this means reading or writing a value.
 
-- message one   
-- message two 
-- (for bonus points) how to create instances.
-
-   One simple example is simply gorgeous.
- 
-Internal Representation and Key Implementation Points.
+Public API and Key Messages:
+Reading or writing values, or changing a role, is accomplished by sending messages to a Pin, that translates the mesage to its current role. Thus methods  of roles should be considered private, with the exception of methods classified as ""parameters"" that are used to tweak the internal calulations of the role
 
 Instance Variable
 lastValue:	the last value written to the pin at the time this role was its current role
 
 
-    Implementation Points
 "
 Class {
 	#name : #PotsSoloPinRole,
@@ -25,38 +18,38 @@ Class {
 	#category : #'PharoThings-RobsVersion'
 }
 
-{ #category : #activation }
+{ #category : #'private - controlling' }
 PotsSoloPinRole >> activateOn: aPin [
 		self subclassResponsibility 
 ]
 
-{ #category : #activation }
+{ #category : #'private - controlling' }
 PotsSoloPinRole >> deactivateOn: aPin [
 	"only implement when cleanup after use is necessary"
 ]
 
-{ #category : #reporting }
+{ #category : #'private - controlling' }
 PotsSoloPinRole >> disableReportingOnPin: aPin [
 	"subclass can implement, else do nothing"
 ]
 
-{ #category : #reporting }
+{ #category : #'private - controlling' }
 PotsSoloPinRole >> enableReportingOnPin: aPin [
 	"subclass can implement, else do nothing"
 ]
 
-{ #category : #accessing }
+{ #category : #'private - accessing' }
 PotsSoloPinRole >> lastValue [
 	^ lastValue
 ]
 
-{ #category : #accessing }
+{ #category : #'private - accessing' }
 PotsSoloPinRole >> value: aNmber forPin: aPin [
 	"subclass decides whether to implement or not"
 	Error signal: 'Pin ', aPin id asString, ' has no output role'
 ]
 
-{ #category : #accessing }
+{ #category : #'private - accessing' }
 PotsSoloPinRole >> valueForPin: aPin [
 	"subclass decides whether to implement or not"
 	Error signal: 'Pin ', aPin id asString, ' has no inputRole'
