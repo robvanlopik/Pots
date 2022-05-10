@@ -1,3 +1,23 @@
+"
+I am the intermediate driver between a PotsController and Firmata
+An instance can be created by the class method `#onPort:baudRate:`,
+- message one   
+- message two 
+- (for bonus points) how to create instances.
+
+   One simple example is simply gorgeous.
+ 
+Internal Representation and Key Implementation Points.
+
+    Instance Variables
+	baudRate:		<Object>
+	i2cPins:		<Object>
+	modeDict:		<Object>
+	port:		<Object>
+
+
+    Implementation Points
+"
 Class {
 	#name : #PotsFirmataDriver,
 	#superclass : #PotsDriverDriver,
@@ -32,11 +52,6 @@ PotsFirmataDriver >> analogValueFromPin: aPin [
 { #category : #accessing }
 PotsFirmataDriver >> baseDriver [
 	^baseDriver
-]
-
-{ #category : #accessing }
-PotsFirmataDriver >> baudRate [
-	^ baudRate
 ]
 
 { #category : #accessing }
