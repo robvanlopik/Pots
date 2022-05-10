@@ -114,7 +114,7 @@ PotsPiGPIODriver >> providePinInfo [
 			driver: self)
 			)
 		].
-	"next fill out the roles dictionaries. For readability we do it for each roleseparately"
+	"next fill out the roles dictionaries. For readability we do it for each role separately"
 	"first DI (already present"
 	pinDict valuesDo: [  :pin| pin addRole: (pin currentRole) ].
 	"the DO role is simple "

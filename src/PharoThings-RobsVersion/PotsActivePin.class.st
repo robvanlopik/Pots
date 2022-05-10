@@ -1,5 +1,5 @@
 "
-I represent the active pins of a controller board
+I represent the active pins of a controller board. I am created by the PotsDriver.
 
 A Pin can play different roles, but only one of them can be the currentRole.
 When the currentRole is a SoloRole, the pin responds to #value and #value: for read and write operations. The value range depends on the Role, that also has the task of communicating the requested operation with the PotsDriver. Note that possible roles are assigned by the PotsDriver, so a Role will not request an operation that de driver is not capable of.
@@ -17,7 +17,23 @@ Roles are changed with:
 . `beAnalogInput`
 Checks are made whether the role is present and whether the pin is free (not participating in devices)
 
+Important methods:
+- #value  -  return the value of the input pin in useful units (0/1 for DI, volt for AI)
+- #value:  - set the value in useful units 
+- #lastValue - last value read or written
+
+
 Note: a Pin doesn't do much by itself, the work is done by the currentRole and the Driver
+
+Instance variables:
+- id  -  the id of the pin in the controller documentation, usually a number, also called BCM number
+- altId  -  an alternative Id, mostly used for analog pins
+- roles  -  a dictionary of al possible roles the pin can have (key is a short name of the role)
+- currentRolethe  -  current role of the pin
+- deviceCount  -  the number of devices that use the pin (can be >1 in the case of I2C pins)
+- isReporting  -  boolean used by some drivers indicating that the pin regularly reports its value (maybe also usefull for state change announcements)
+
+
 "
 Class {
 	#name : #PotsActivePin,
@@ -33,12 +49,7 @@ Class {
 	#category : #'PharoThings-RobsVersion'
 }
 
-{ #category : #adding }
-PotsActivePin >> addDevice [
-	deviceCount := deviceCount + 1
-]
-
-{ #category : #'private-adding' }
+{ #category : #'private - initialization' }
 PotsActivePin >> addRole: aPotsPinRole [
 	"add thi role to the roles dictionary. The key is provides by the class method ##short.
 	In principle only the driver will call this method, using the info it hs about the real device"
@@ -95,7 +106,7 @@ PotsActivePin >> currentRole: anObject [
 	currentRole := anObject
 ]
 
-{ #category : #'as yet unclassified' }
+{ #category : #'private - bookkeeping' }
 PotsActivePin >> decrementDeviceCount [
 
 	deviceCount := deviceCount - 1.
@@ -105,7 +116,7 @@ PotsActivePin >> decrementDeviceCount [
 	"deviceCount := 0 looks wrong "
 ]
 
-{ #category : #'as yet unclassified' }
+{ #category : #accessing }
 PotsActivePin >> decrementValueBy: aNumber [
 	currentRole decrementValueBy: aNumber forPin: self
 ]
@@ -120,7 +131,7 @@ PotsActivePin >> deviceCount: anObject [
 	deviceCount := anObject
 ]
 
-{ #category : #'as yet unclassified' }
+{ #category : #'private - controlling' }
 PotsActivePin >> disableReporting [
 	"used by analog input with Firmata, or PinChange announcements in PiGPIO"
 	isReporting ifFalse: [ ^self ].
@@ -128,7 +139,7 @@ PotsActivePin >> disableReporting [
 	isReporting := false.
 ]
 
-{ #category : #'as yet unclassified' }
+{ #category : #'private - controlling' }
 PotsActivePin >> enableReporting [
 	"used by analog input with Firmata, or PinChange announcements in PiGPIO"
 	isReporting ifTrue: [ ^self ].
@@ -146,12 +157,12 @@ PotsActivePin >> id: anObject [
 	id := anObject
 ]
 
-{ #category : #'as yet unclassified' }
+{ #category : #'private - bookkeeping' }
 PotsActivePin >> incrementDeviceCount [
 	deviceCount := deviceCount + 1
 ]
 
-{ #category : #'as yet unclassified' }
+{ #category : #accessing }
 PotsActivePin >> incrementValueBy: aNumber [
 	currentRole incrementValueBy: aNumber forPin: self
 ]
@@ -170,7 +181,7 @@ PotsActivePin >> lastValue [
 	^currentRole lastValue
 ]
 
-{ #category : #'as yet unclassified' }
+{ #category : #'private - controlling' }
 PotsActivePin >> playRole: shortName [
 	"change the current role
 	if the pin already has the role, do nothing
@@ -178,7 +189,7 @@ PotsActivePin >> playRole: shortName [
 	if the role is not available, raise an error	"
 
 	| newRole |
-	(deviceCount > 0) ifTrue: [ Error signal: 'Pin ', id asString, ' is in use)' ].
+	(deviceCount > 0) ifTrue: [ Error signal: 'Pin ', id asString, ' is in use' ].
 	(currentRole class short = shortName) ifTrue: [ ^currentRole ].
 	newRole := roles at: shortName 
 			ifAbsent: [ Error signal: 'Pin ', id asString, ' cannot be ', shortName ].
@@ -204,27 +215,22 @@ PotsActivePin >> rawValue [
 	^currentRole rawValueFromPin: self
 ]
 
-{ #category : #removing }
-PotsActivePin >> removeDevice [
-	deviceCount := ( deviceCount - 1) max: 0.
-]
-
 { #category : #accessing }
 PotsActivePin >> roles [
 	^ roles
 ]
 
-{ #category : #'accessing - private' }
+{ #category : #'private - initialization' }
 PotsActivePin >> roles: anObject [
 	roles := anObject
 ]
 
-{ #category : #operations }
+{ #category : #accessing }
 PotsActivePin >> toggle [ 
 	currentRole toggleValueForPin: self
 ]
 
-{ #category : #evaluating }
+{ #category : #accessing }
 PotsActivePin >> value [ 
 	"relay to my currentRole"
 	^currentRole valueForPin: self

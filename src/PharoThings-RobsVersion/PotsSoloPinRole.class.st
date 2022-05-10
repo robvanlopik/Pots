@@ -1,3 +1,21 @@
+"
+I represent a role that ta pin can play all by itself. In principle this means reading or writing a value.
+Public API and Key Messages
+
+- message one   
+- message two 
+- (for bonus points) how to create instances.
+
+   One simple example is simply gorgeous.
+ 
+Internal Representation and Key Implementation Points.
+
+Instance Variable
+lastValue:	the last value written to the pin at the time this role was its current role
+
+
+    Implementation Points
+"
 Class {
 	#name : #PotsSoloPinRole,
 	#superclass : #PotsPinRole,

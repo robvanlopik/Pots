@@ -45,7 +45,7 @@ Class {
 	#category : #'PharoThings-RobsVersion'
 }
 
-{ #category : #controlling }
+{ #category : #initialization }
 PotsController >> connectDriver [
 	driver startBaseDriver
 ]
@@ -65,7 +65,7 @@ PotsController >> devices [
 	^devices 
 ]
 
-{ #category : #controlling }
+{ #category : #finalization }
 PotsController >> disconnect [ 
 	"orderly shutdown"
 	devices do: [  :each | each disconnect ].
@@ -77,14 +77,14 @@ PotsController >> driver [
 	^ driver
 ]
 
-{ #category : #accessing }
+{ #category : #initialization }
 PotsController >> driver: aControllerDriver [
 	driver := aControllerDriver.
 	self connectDriver.
 	self getPinInfo
 ]
 
-{ #category : #'set up' }
+{ #category : #initialization }
 PotsController >> getPinInfo [
 	"let the driver provide the pin info"
 	"AND take ownership of the pins"	
@@ -100,7 +100,7 @@ PotsController >> initialize [
 	
 ]
 
-{ #category : #accessing }
+{ #category : #adding }
 PotsController >> installDevice: aPotsDevice [
 
 	"return an instance of a PotsDevice. 
@@ -133,7 +133,7 @@ PotsController >> name: anObject [
 	name := anObject
 ]
 
-{ #category : #'as yet unclassified' }
+{ #category : #accessing }
 PotsController >> pinWithAltId: anId [
 	"return the pin with altId anId or nil"
 

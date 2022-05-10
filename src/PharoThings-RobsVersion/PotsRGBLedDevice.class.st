@@ -24,7 +24,7 @@ Class {
 
 { #category : #accessing }
 PotsRGBLedDevice class >> pinIds: aList [
-	^self basicNew pinId: aList
+	^self basicNew pinIds: aList
 ]
 
 { #category : #'as yet unclassified' }
@@ -60,7 +60,7 @@ PotsRGBLedDevice >> connect [
 ]
 
 { #category : #'as yet unclassified' }
-PotsRGBLedDevice >> pinId: aList [
+PotsRGBLedDevice >> pinIds: aList [
 	pinIds := aList
 ]
 
