@@ -54,7 +54,8 @@ PotsPinTests >> testDigitalIO [
 	self assert: [ p1 value = 0 ].
 	self assert: [ p2 lastValue = 0 ].
 	p2 toggle.
-	self assert: [ p1 value =  1]
+	self assert: [ p1 value =  1].
+	self assert: [ p1 lastValue = 1 ]
 ]
 
 { #category : #tests }
@@ -82,7 +83,7 @@ PotsPinTests >> testPinroles [
 
 { #category : #tests }
 PotsPinTests >> testPinsInitialState [
-	"on startup there are for pins, all configured as input (like usual for a real device)"
+	"on startup there are four pins, all configured as input (like usual for a real device)"
 	1 to: 4 do: [ :i | self assert: [(controller pins at: i) currentRole class short = 'DI'] ].
 	1 to: 4 do: [ :i | self assert: [ (controller pins at: 1) deviceCount = 0 ] ].
 	(controller pins at: 2) roles includesKey: 'DO'.

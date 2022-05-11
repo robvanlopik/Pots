@@ -1,6 +1,12 @@
 "
 I am the intermediate driver between a PotsController and Firmata
-An instance can be created by the class method `#onPort:baudRate:`,
+An instance can be created by the class method `#onPort:baudRate:`.
+This is presented as argument to the `#driver:` method of the Controller
+
+Eventually I start the vaseDriver (Firmata)
+
+
+After that
 - message one   
 - message two 
 - (for bonus points) how to create instances.

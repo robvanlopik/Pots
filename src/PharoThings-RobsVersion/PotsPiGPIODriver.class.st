@@ -171,13 +171,3 @@ PotsPiGPIODriver >> startBaseDriver [
 	"Note: we might want to do some error checking at this point"
 	baseDriver := PiGPIO onIP: ip port: port
 ]
-
-{ #category : #writing }
-PotsPiGPIODriver >> writeDigitalValue: oneOrZero into: aPin [ 
-	baseDriver digitalWrite: aPin id value: (oneOrZero bitAnd: 1)
-]
-
-{ #category : #writing }
-PotsPiGPIODriver >> writePWMValue: aNumber into: aPin [
-	baseDriver pin: aPin id pwmWrite: aNumber
-]

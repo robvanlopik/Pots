@@ -1,31 +1,30 @@
 "
 I represent a device that is operated by one or more pins of the controller
 
-I contain the logic to translate device specific messages to instructions for either the pin or a protocol operated by a number of pins
+I contain the logic to translate device specific messages to instructions for either the pin(s) or a protocol operated by a number of pins
 
 Basic usage is: 
 `myDevice := aController installDevice: aPotsDevice`
 
 aPotsDevice already must know everything that is needed to operate. You can use PotsDevice new if it provides default data.
 
-Convention: 'PotsDevice new initializes with default parameterss, else you should have a class method  to provide the data 
+Convention: `PotsDevice new` initializes with default parameterss, else you should have a class method  to provide the data 
 
 the controller will then ask the device to #connectTo: aController
-` connectTo: sets the controller instVar , makes sure the resources (pins or other devices) are marked and available and then does `self connect.
-
-#connect initializes the device (eg I2C makes the I2C connection 
-this implies we also need
-#disconnect to close the connection and free the pins.
+` connectTo:` sets the controller instVar , makes sure the resources (pins or other devices) are marked and available and then does `self connect`.
  
 Internal Representation and Key Implementation Points.
 
     Instance Variables
-	board:		<Object>
-	name:		<Object>
-	pins:		<Object>
+	controller:		the controller that hosts the pin the device is connected to
+	name:		optiional name of device
+	respources:		everything the device needs to operate, like pins (not used yet; pins haave a deviceCount for that
 
-
-    Implementation Points
+    Implementation Points - Chain off events:
+- `myDevice := controller installDevice: (PotsDevice new ...).` 
+- the installDevice`:` method tells the new PotsDevice to `connectTo: self`
+- the PotsDevice performs `claimResources` folllowed by `connect`.
+- `PotsDevice>>#connect` sets up the actual device
 "
 Class {
 	#name : #PotsDevice,

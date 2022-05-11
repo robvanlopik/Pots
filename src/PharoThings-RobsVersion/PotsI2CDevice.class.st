@@ -1,3 +1,10 @@
+"
+I control a physical device on an I2C bus. For that I use the I2CConnection class that is available in all baseDrivers.
+
+Instance variables:
+- i2cConnection  -  the I2CConnection with the baseDriver
+- i2cAddress  -  the bus address pf the device, supplied before installing
+"
 Class {
 	#name : #PotsI2CDevice,
 	#superclass : #PotsDevice,
