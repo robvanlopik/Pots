@@ -28,7 +28,7 @@ Class {
 	#category : #'PharoThings-RobsVersion'
 }
 
-{ #category : #'as yet unclassified' }
+{ #category : #initialization }
 PotsDeviceDriver >> usingDevice: aDevice [
 	baseDevice := aDevice
 ]
