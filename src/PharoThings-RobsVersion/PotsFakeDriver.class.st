@@ -127,6 +127,16 @@ PotsFakeDriver >> pin4 [
 ]
 
 { #category : #initialization }
+PotsFakeDriver >> pin5 [
+	| pin role|
+	role := PotsDigitalInputRole new driver: self.
+	pin := PotsActivePin new id: 4; currentRole: role.
+	pin addRole: role.
+	pin addRole: (PotsPWMRole new driver: self; range: 255; yourself).
+	^pin
+]
+
+{ #category : #initialization }
 PotsFakeDriver >> providePinInfo [
 	"return a dictionary (key = id) of all pins with their attributes"
 	| pinDict |
@@ -135,7 +145,12 @@ PotsFakeDriver >> providePinInfo [
 	pinDict at: 2 put: self pin2.
 	pinDict at: 3 put: self pin3.
 	pinDict at: 4 put: self pin4.
-	
+	pinDict at: 5 put: self pin5.
 	
 	^pinDict
+]
+
+{ #category : #initialization }
+PotsFakeDriver >> startBaseDriver [ 	
+	"do nothing"
 ]

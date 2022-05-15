@@ -32,7 +32,7 @@ PotsI2CDevice class >> on: i2cAddress [
 		i2cAddress: i2cAddress 
 ]
 
-{ #category : #'as yet unclassified' }
+{ #category : #initialization }
 PotsI2CDevice >> claimResources [
 
 	| pins |
@@ -76,7 +76,7 @@ PotsI2CDevice >> i2cAddress: anI2CAddress [
 	i2cAddress := anI2CAddress 
 ]
 
-{ #category : #'as yet unclassified' }
+{ #category : #accessing }
 PotsI2CDevice >> i2cConnection [
 	^i2cConnection 
 ]
@@ -86,7 +86,7 @@ PotsI2CDevice >> isConnected [
 	^i2cConnection notNil
 ]
 
-{ #category : #'as yet unclassified' }
+{ #category : #finalization }
 PotsI2CDevice >> releaseResources [
 	| pins |
 	pins := controller driver i2cPins.

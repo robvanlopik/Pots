@@ -177,7 +177,7 @@ PotsDS1307Device >> readRegister: anInteger [
 
 ]
 
-{ #category : #'as yet unclassified' }
+{ #category : #finalization }
 PotsDS1307Device >> releaseResources [
 	
 ]

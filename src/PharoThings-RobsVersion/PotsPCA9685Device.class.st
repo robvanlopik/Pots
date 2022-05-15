@@ -2,19 +2,19 @@
 I am the driver for the PCA9685 16 port PWM/Servo extender
 I am controlled through the I2C bus. There can be 62 of me on the bus
 
-You can change myfrequency  (30 - 2000 Hz) and on/off ratio
+You can change my frequency  (30 - 2000 Hz) and on/off ratio
 I start in sleep mode.
  
-The internal clock is nominally 25 MHz. If you need more precise timing, you can alter this for use in the internal calculations (adjustedClockFrequency:).
+The internal clock is nominally 25 MHz. If you need more precise timing, you can alter this for use in the internal calculations (#adjustedClockFrequency:).
 
 Pin numbers run from 0 to 15, because that is what is used in the datasheet and also on the print
 
 Main methods: 
-wakeUp - start from sleep
-frequency: - freqeuncy.Typically 50 Hz for driving servo motors, or up to 3000 Hz for LEDs
-pwmForPin:  microSeconds: - on time, used for servos in range 500 - 2500
-pwmForPin:  percentage: - percentage on time 
-pinOn: and pinOff: - to turn a pin fully ON or OFF
+- wakeUp - start from sleep
+- frequency: - frequency. Typically 50 Hz for driving servo motors, or up to 3000 Hz for LEDs
+- pwmForPin:  microSeconds: - on time, used for servos in range 500 - 2500
+- pwmForPin:  percentage: - percentage on time 
+- pinOn: and pinOff: - to turn a pin fully ON or OFF
 "
 Class {
 	#name : #PotsPCA9685Device,
@@ -38,14 +38,14 @@ PotsPCA9685Device >> adjustedClockFrequency: aNumber [
 	clockFrequency := aNumber
 ]
 
-{ #category : #'as yet unclassified' }
+{ #category : #operations }
 PotsPCA9685Device >> allFree [
 	" clear the ON and OFF bit and load registers with zero, effectively output zero"
 	i2cConnection write16BitsAt: 16rFA data: 0.
 	i2cConnection write16BitsAt: 16rFC data: 0.
 ]
 
-{ #category : #'as yet unclassified' }
+{ #category : #operations }
 PotsPCA9685Device >> allOff [
 	"turn all pins OFF" 
 	i2cConnection write16BitsAt: 16rFA data: 0.
@@ -151,14 +151,14 @@ PotsPCA9685Device >> pin: aPinNumber onAt: onTime offAt: offTime [
 	i2cConnection write16BitsAt: 16r06 + 2 + (4 * aPinNumber) data: offTime.
 ]
 
-{ #category : #'as yet unclassified' }
+{ #category : #operations }
 PotsPCA9685Device >> pinOff: aPinNumber [
 	" turn pin pinNumber full off"
 	i2cConnection write16BitsAt: 16r06 + (4 * aPinNumber) data: 0.
 	i2cConnection write16BitsAt: 16r06 + 2 + (4 * aPinNumber) data: 16r1000
 ]
 
-{ #category : #'as yet unclassified' }
+{ #category : #operations }
 PotsPCA9685Device >> pinOn: aPinNumber [
 	" turn pin pinNumber full on"
 
@@ -184,7 +184,7 @@ PotsPCA9685Device >> pwmForAllPinsMicroSeconds: aNumber [
 	self allPinsOnAt: 0 offAt: ticks
 ]
 
-{ #category : #'as yet unclassified' }
+{ #category : #operations }
 PotsPCA9685Device >> pwmForAllPinsPercentage: aPercentage [
 	"set output for ALL pins to aPercentage percent of the time on. 
 	Special care is taken that values
@@ -233,12 +233,12 @@ PotsPCA9685Device >> pwmValuesAtPin: aPinNumber [
 	^values                                                                                                                             
 ]
 
-{ #category : #'as yet unclassified' }
+{ #category : #utilties }
 PotsPCA9685Device >> reg16Hex: regno [
 	^(self connection read16BitsAt: regno) printStringRadix: 16
 ]
 
-{ #category : #'as yet unclassified' }
+{ #category : #utilties }
 PotsPCA9685Device >> regHex: regno [
 	^(self connection read8BitsAt: regno) printStringRadix: 16
 ]
@@ -252,7 +252,7 @@ PotsPCA9685Device >> reset [
 	10 milliSeconds wait. "according to Adafruit"
 ]
 
-{ #category : #'world state' }
+{ #category : #states }
 PotsPCA9685Device >> sleep [
 	"go into sleep mode; set sleep bit 16r10 high in MODE1 geister"
 
@@ -263,7 +263,7 @@ PotsPCA9685Device >> sleep [
 	
 ]
 
-{ #category : #initialization }
+{ #category : #states }
 PotsPCA9685Device >> wakeUp [
 	"set sleepbit 16r10 low"
 
