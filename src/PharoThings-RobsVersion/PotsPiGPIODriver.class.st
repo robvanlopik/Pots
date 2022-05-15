@@ -29,20 +29,25 @@ PotsPiGPIODriver class >> onIP: anIpAddressString port: aPortNumber [
 		yourself
 ]
 
-{ #category : #initialization }
+{ #category : #controlling }
 PotsPiGPIODriver >> beDigitalInputOnPin: aPin [
 	baseDriver pin: aPin id mode: 0
 	
 ]
 
-{ #category : #initialization }
+{ #category : #controlling }
 PotsPiGPIODriver >> beDigitalOutputOnPin: aPin [
 	baseDriver pin: aPin id mode: 1
 	
 ]
 
-{ #category : #initialization }
+{ #category : #controlling }
 PotsPiGPIODriver >> bePWMOutputOnPin: aPin [
+	
+]
+
+{ #category : #initialization }
+PotsPiGPIODriver >> connect [
 	
 ]
 
@@ -52,7 +57,7 @@ PotsPiGPIODriver >> connectToI2CDevice: i2cAddress [
 		^baseDriver openI2C: i2cAddress
 ]
 
-{ #category : #writing }
+{ #category : #'io protocols' }
 PotsPiGPIODriver >> digitalValue: oneOrZero intoPin: aPin [ 
 	baseDriver digitalWrite: aPin id value: (oneOrZero bitAnd: 1)
 ]
@@ -62,7 +67,7 @@ PotsPiGPIODriver >> digitalValueFromPin: aPin [
 	^baseDriver digitalRead: aPin id
 ]
 
-{ #category : #controlling }
+{ #category : #finalization }
 PotsPiGPIODriver >> disconnect [ 
 		baseDriver closeConnection
 ]
@@ -140,7 +145,7 @@ PotsPiGPIODriver >> providePinInfo [
 	^pinDict
 ]
 
-{ #category : #writing }
+{ #category : #'io protocols' }
 PotsPiGPIODriver >> pwmValue: aNumber intoPin: aPin [
 	"convert percentage to driver units (usually 8 bits, but can be different"
 	| range rawNumber|
@@ -149,23 +154,23 @@ PotsPiGPIODriver >> pwmValue: aNumber intoPin: aPin [
 	baseDriver pin: aPin id pwmWrite: (rawNumber min: range max: 0)
 ]
 
-{ #category : #writing }
+{ #category : #'io protocols' }
 PotsPiGPIODriver >> rawPwmValue: aNumber intoPin: aPin [
 	baseDriver pin: aPin id pwmWrite: aNumber
 ]
 
-{ #category : #'as yet unclassified' }
+{ #category : #'io protocols' }
 PotsPiGPIODriver >> rawServoValue: aNumber intoPin: aPin [
 
 	" for PiGPIO the raw value is an integer between min and max "
 	baseDriver pin: aPin id servoPulsewidth: aNumber "microseconds"
 ]
 
-{ #category : #'as yet unclassified' }
+{ #category : #'io protocols' }
 PotsPiGPIODriver >> servoValue: aNumber intoPin: aPin [
 ]
 
-{ #category : #'as yet unclassified' }
+{ #category : #initialization }
 PotsPiGPIODriver >> startBaseDriver [ 
 	"start the PiGPIO driver with its parameters"
 	"Note: we might want to do some error checking at this point"

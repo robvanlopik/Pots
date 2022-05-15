@@ -18,3 +18,8 @@ Class {
 PotsDriverDriver >> baseDriver [
 	^baseDriver
 ]
+
+{ #category : #initialization }
+PotsDriverDriver >> startBaseDriver [ 
+	self subclassResponsibility 
+]

@@ -127,12 +127,12 @@ PotsFirmataDriver >> createPinWithFirmataInfo: id [
 
 ]
 
-{ #category : #writing }
+{ #category : #'io protocols' }
 PotsFirmataDriver >> digitalValue: oneOrZero into: aPin [
 	baseDriver directDigitalWrite: aPin id value: oneOrZero
 ]
 
-{ #category : #writing }
+{ #category : #'io protocols' }
 PotsFirmataDriver >> digitalValue: oneOrZero intoPin: aPin [
 	baseDriver directDigitalWrite: aPin id value: oneOrZero
 ]
@@ -212,7 +212,7 @@ PotsFirmataDriver >> providePinInfo [
 	^pinDict
 ]
 
-{ #category : #writing }
+{ #category : #'io protocols' }
 PotsFirmataDriver >> pwmValue: aNumber intoPin: aPin [
 	"convert percentage to driver units (usually 8 bits, but can be different"
 	| range rawNumber|
@@ -227,7 +227,7 @@ PotsFirmataDriver >> rawAnalogValueFromPin: aPin [
 	^baseDriver analogRead: aPin altId 
 ]
 
-{ #category : #writing }
+{ #category : #'io protocols' }
 PotsFirmataDriver >> rawPwmValue: aNumber intoPin: aPin [
 	baseDriver analogWrite: aPin id value: aNumber
 ]

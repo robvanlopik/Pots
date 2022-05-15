@@ -34,12 +34,12 @@ PotsDriver >> bePWMOutputOnPin: aPin [
 	PotsError signal: 'cannot do PWM'
 ]
 
-{ #category : #'as yet unclassified' }
+{ #category : #initialization }
 PotsDriver >> connect [
 		self subclassResponsibility 
 ]
 
-{ #category : #writing }
+{ #category : #'io protocols' }
 PotsDriver >> digitalValue: oneOrZero intoPin: aPin [
 	PotsError signal: 'cannot do Digital Output'
 ]
@@ -48,7 +48,7 @@ PotsDriver >> digitalValue: oneOrZero intoPin: aPin [
 PotsDriver >> digitalValueFromPin: aPin [
 ]
 
-{ #category : #'as yet unclassified' }
+{ #category : #finalization }
 PotsDriver >> disconnect [
 		self subclassResponsibility 
 ]
@@ -59,7 +59,7 @@ PotsDriver >> providePinInfo [
 self subclassResponsibility 
 ]
 
-{ #category : #writing }
+{ #category : #'io protocols' }
 PotsDriver >> pwmValue: aNumber intoPin: aPin [
 	PotsError signal: 'cannot do PWM'
 ]
@@ -69,12 +69,7 @@ PotsDriver >> rawAnalogValueFromPin: aPin [
 	PotsError signal: 'cannot do raw Analog Input'
 ]
 
-{ #category : #'as yet unclassified' }
+{ #category : #'io protocols' }
 PotsDriver >> servoValue: degrees intoPin: aPin [
 	PotsError signal: 'cannot do servo'
-]
-
-{ #category : #initialization }
-PotsDriver >> startBaseDriver [
-	"init the base driver with de parameters inmy instance vars"
 ]

@@ -64,7 +64,7 @@ PotsPicodDriver >> beServoOutputOnPin: aPin [
 		self closeCurrentRoleOfPin: aPin ]
 ]
 
-{ #category : #'as yet unclassified' }
+{ #category : #'private-mode' }
 PotsPicodDriver >> closeCurrentRoleOfPin: aPin [
 
 	"close the current role off the pin; called by beXyzOnPin:"
@@ -78,6 +78,11 @@ PotsPicodDriver >> closeCurrentRoleOfPin: aPin [
 	currentRoleShort = 'Servo' ifTrue: [ 
 		^ baseDriver servoPwmClose: aPin ].
 	"to do: close I2C role ; or doesn't this happen because an i2c connection closes itself and can release the pin?" 
+]
+
+{ #category : #controlling }
+PotsPicodDriver >> connect [ 
+	"do nothing"
 ]
 
 { #category : #'io protocols' }
@@ -97,7 +102,7 @@ PotsPicodDriver >> connectToI2CDevice: i2cAddress [
 	^ baseDriver i2cOpenConnectionOn: 0 i2cAddress: i2cAddress
 ]
 
-{ #category : #writing }
+{ #category : #'io protocols' }
 PotsPicodDriver >> digitalValue: oneZero intoPin: aPin [
 
 	^ baseDriver digitalWrite:  aPin id value: oneZero
@@ -109,7 +114,7 @@ PotsPicodDriver >> digitalValueFromPin: aPin [
 	^ baseDriver digitalRead: aPin id
 ]
 
-{ #category : #'as yet unclassified' }
+{ #category : #finalization }
 PotsPicodDriver >> disconnect [
 
 	baseDriver disconnect
@@ -199,7 +204,7 @@ PotsPicodDriver >> providePinInfo [
 	^ pinDict
 ]
 
-{ #category : #writing }
+{ #category : #'io protocols' }
 PotsPicodDriver >> pwmValue: aNumber intoPin: aPin [
 
 	"no conversion needed as the base driver already uses percentages
@@ -214,12 +219,12 @@ PotsPicodDriver >> rawAnalogValueFromPin: aPin [
 	^ baseDriver analogRead: aPin altId
 ]
 
-{ #category : #writing }
+{ #category : #'io protocols' }
 PotsPicodDriver >> rawPwmValue: aNumber intoPin: aPin [
 	self pwmValue: aNumber intoPin: aPin
 ]
 
-{ #category : #'as yet unclassified' }
+{ #category : #'io protocols' }
 PotsPicodDriver >> rawServoValue: aNumber intoPin: aPin [
 
 	baseDriver servoOnPin: aPin id pulseWidth: aNumber
@@ -232,5 +237,5 @@ PotsPicodDriver >> startBaseDriver [
 	"start the PicodDriver with its parameters"
 
 	baseDriver := PicodDriver new connectOnPort: port baudRate: baudRate.
-	i2cDeviceCount := 0
+	
 ]
