@@ -46,11 +46,11 @@ PotsSoloPinRole >> lastValue [
 { #category : #'private - accessing' }
 PotsSoloPinRole >> value: aNmber forPin: aPin [
 	"subclass decides whether to implement or not"
-	Error signal: 'Pin ', aPin id asString, ' has no output role'
+	PotsError signal: 'Pin ', aPin id asString, ' has no output role'
 ]
 
 { #category : #'private - accessing' }
 PotsSoloPinRole >> valueForPin: aPin [
 	"subclass decides whether to implement or not"
-	Error signal: 'Pin ', aPin id asString, ' has no inputRole'
+	PotsError signal: 'Pin ', aPin id asString, ' has no inputRole'
 ]

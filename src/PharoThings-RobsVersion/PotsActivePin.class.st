@@ -66,32 +66,32 @@ PotsActivePin >> altId: anId [
 	altId := anId
 ]
 
-{ #category : #controlling }
+{ #category : #configuration }
 PotsActivePin >> beAnalogInput [
 	self playRole: 'AI'
 ]
 
-{ #category : #controlling }
+{ #category : #configuration }
 PotsActivePin >> beAnalogOutput [
 	self playRole: 'AO'
 ]
 
-{ #category : #controlling }
+{ #category : #configuration }
 PotsActivePin >> beDigitalInput [
 	self playRole: 'DI'
 ]
 
-{ #category : #controlling }
+{ #category : #configuration }
 PotsActivePin >> beDigitalOutput [
 	self playRole: 'DO'
 ]
 
-{ #category : #controlling }
+{ #category : #configuration }
 PotsActivePin >> bePWMOutput [
 	self playRole: 'PWM'
 ]
 
-{ #category : #controlling }
+{ #category : #configuration }
 PotsActivePin >> beServoOutput [
 	self playRole: 'Servo'
 ]
@@ -213,6 +213,11 @@ PotsActivePin >> printOn: aStream [
 { #category : #accessing }
 PotsActivePin >> rawValue [ 	
 	^currentRole rawValueFromPin: self
+]
+
+{ #category : #accessing }
+PotsActivePin >> rawValue: aNumber [	
+	^currentRole rawValue: aNumber forPin: self
 ]
 
 { #category : #accessing }

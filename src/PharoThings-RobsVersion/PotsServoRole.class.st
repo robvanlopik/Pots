@@ -25,6 +25,11 @@ PotsServoRole >> activateOn: aPin [
 		driver beServoOutputOnPin: aPin
 ]
 
+{ #category : #'private - controlling' }
+PotsServoRole >> deactivateOn: aPin [
+		driver closeServoOutputOnPin: aPin
+]
+
 { #category : #'private - accessing' }
 PotsServoRole >> decrementValueBy: aNumber forPin: aPin [
 	| newValue |

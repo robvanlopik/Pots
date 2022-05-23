@@ -4,7 +4,7 @@ Class {
 	#category : #BaselineOfPots
 }
 
-{ #category : #baseline }
+{ #category : #baselines }
 BaselineOfPots >> baseline: spec [
 
 	<baseline>
@@ -17,7 +17,7 @@ BaselineOfPots >> baseline: spec [
 		spec
 			package: 'PharoThings-RobsVersion'
 			with: [ spec requires: #( 'Firmata' 'PiGPIO' 'PicodDriver' ) ];
-			package: 'PharoThings-RobsVersion-tests'
+			package: 'PharoThingsSimplified-Tests'
 			with: [ spec requires: #( 'PharoThings-RobsVersion' ) ] ]
 ]
 

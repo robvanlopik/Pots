@@ -32,6 +32,11 @@ PotsAnalogInputRole >> activateOn: aPin [
 ]
 
 { #category : #'private - controlling' }
+PotsAnalogInputRole >> deactivateOn: aPin [
+	"driver bcloseAnalogInputOnPin: aPin"
+]
+
+{ #category : #'private - controlling' }
 PotsAnalogInputRole >> disableReportingOnPin: aPin [
 	"forr the time being only for Firmata; but ther drivers have no AI role"
 	driver disableAnalogReportingOnPin: aPin

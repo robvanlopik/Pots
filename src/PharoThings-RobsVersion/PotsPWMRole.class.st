@@ -22,6 +22,11 @@ PotsPWMRole >> activateOn: aPin [
 	driver bePWMOutputOnPin: aPin
 ]
 
+{ #category : #'private - controlling' }
+PotsPWMRole >> deactivateOn: aPin [
+	driver closePWMOutputOnPin: aPin
+]
+
 { #category : #'private - accessing' }
 PotsPWMRole >> decrementValueBy: aNumber forPin: aPin [
 	"increment but don't exceed limits; last value set to limit in that case"

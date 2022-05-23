@@ -35,7 +35,7 @@ PotsHD44780Device class >> pinIds: pinNumbers [
 
 { #category : #'as yet unclassified' }
 PotsHD44780Device >> assignDefaultPins [
-	| pinIds |
+	
 	pinIds := self defaultPinIds .
 	enPin := controller pinWithId: (pinIds at: 1).
 	rsPin := controller pinWithId: (pinIds at: 2).

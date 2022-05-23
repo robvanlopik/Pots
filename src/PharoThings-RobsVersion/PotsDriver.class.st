@@ -29,9 +29,54 @@ PotsDriver >> analogValueFromPin: aPin [
 	PotsError signal: 'cannot do analog input'
 ]
 
-{ #category : #initialization }
+{ #category : #'as yet unclassified' }
+PotsDriver >> beAnalogInputOnPin: aPin [
+	"subclass may usee this"
+]
+
+{ #category : #'as yet unclassified' }
+PotsDriver >> beDigitalInputOnPin: aPin [
+	"subclass may usee this"
+]
+
+{ #category : #'as yet unclassified' }
+PotsDriver >> beDigitalOutputOnPin: aPin [
+	"subclass may usee this"
+]
+
+{ #category : #'as yet unclassified' }
 PotsDriver >> bePWMOutputOnPin: aPin [
-	PotsError signal: 'cannot do PWM'
+	"subclass may usee this"
+]
+
+{ #category : #'as yet unclassified' }
+PotsDriver >> beServoOutputOnPin: aPin [
+	"subclass may use this"
+]
+
+{ #category : #'as yet unclassified' }
+PotsDriver >> closeAnalogInputOnPin: aPin [
+	"subclass may usee this"
+]
+
+{ #category : #'as yet unclassified' }
+PotsDriver >> closeDigitalInputOnPin: aPin [
+	"subclass may usee this"
+]
+
+{ #category : #'as yet unclassified' }
+PotsDriver >> closeDigitalOutputOnPin: aPin [
+	"subclass may usee this"
+]
+
+{ #category : #'as yet unclassified' }
+PotsDriver >> closePWMOutputOnPin: aPin [
+	"subclass may usee this"
+]
+
+{ #category : #'as yet unclassified' }
+PotsDriver >> closeServoOutputOnPin: aPin [
+	"subclass may usee this"
 ]
 
 { #category : #initialization }

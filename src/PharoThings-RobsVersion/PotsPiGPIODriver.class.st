@@ -46,6 +46,20 @@ PotsPiGPIODriver >> bePWMOutputOnPin: aPin [
 	
 ]
 
+{ #category : #controlling }
+PotsPiGPIODriver >> closePWMOutputOnPin: aPin [
+	"just set it to 0"
+	self rawPwmValue: 0 intoPin: aPin
+	
+]
+
+{ #category : #controlling }
+PotsPiGPIODriver >> closeServoOutputOnPin: aPin [
+	"just set it to 0"
+	self rawServoValue: 0 intoPin: aPin
+	
+]
+
 { #category : #initialization }
 PotsPiGPIODriver >> connect [
 	

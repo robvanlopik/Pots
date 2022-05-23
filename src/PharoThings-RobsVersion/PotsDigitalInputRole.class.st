@@ -19,6 +19,11 @@ PotsDigitalInputRole >> activateOn: aPin [
 		driver beDigitalInputOnPin: aPin
 ]
 
+{ #category : #'private - controlling' }
+PotsDigitalInputRole >> deactivateOn: aPin [
+		driver closeDigitalInputOnPin: aPin
+]
+
 { #category : #'private - accessing' }
 PotsDigitalInputRole >> valueForPin: aPin [
 	

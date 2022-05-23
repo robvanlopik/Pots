@@ -65,23 +65,23 @@ PotsFirmataDriver >> baudRate: anObject [
 	baudRate := anObject
 ]
 
-{ #category : #'private-mode' }
+{ #category : #'role changing' }
 PotsFirmataDriver >> beDigitalInputOnPin: aPin [
 	baseDriver pin: aPin id mode: FirmataConstants pinModeInput.
 	baseDriver activateDigitalPort: ((aPin id) // 8)
 ]
 
-{ #category : #'private-mode' }
+{ #category : #'role changing' }
 PotsFirmataDriver >> beDigitalOutputOnPin: aPin [
 	baseDriver pin: aPin id mode: FirmataConstants pinModeOutput
 ]
 
-{ #category : #'private-mode' }
+{ #category : #'role changing' }
 PotsFirmataDriver >> bePWMOutputOnPin: aPin [
 	baseDriver pin: aPin id mode: FirmataConstants pinModePwm
 ]
 
-{ #category : #'private-mode' }
+{ #category : #'role changing' }
 PotsFirmataDriver >> beServoOutputOnPin: aPin [
 	baseDriver pin: aPin id mode: FirmataConstants pinModeServo
 ]
@@ -92,7 +92,7 @@ PotsFirmataDriver >> connectToI2CDevice: i2cAddress [
 		^baseDriver openI2C: i2cAddress
 ]
 
-{ #category : #'as yet unclassified' }
+{ #category : #initialization }
 PotsFirmataDriver >> createPinWithFirmataInfo: id [
 	"create a PotsPin from the info in capabilities, mapping and pinstate"
 	| potsPin firmataPin |
@@ -142,24 +142,24 @@ PotsFirmataDriver >> digitalValueFromPin: aPin [
 	^baseDriver digitalRead: aPin id
 ]
 
-{ #category : #'as yet unclassified' }
+{ #category : #'role changing' }
 PotsFirmataDriver >> disableAnalogReportingOnPin: aPin [
 	baseDriver deactivateAnalogPin: aPin id
 ]
 
-{ #category : #'as yet unclassified' }
+{ #category : #finalization }
 PotsFirmataDriver >> disconnect [ 
 	baseDriver disconnect
 	
 ]
 
-{ #category : #'as yet unclassified' }
+{ #category : #'role changing' }
 PotsFirmataDriver >> enableAnalogReportingOnPin: aPin [
 	baseDriver activateAnalogPin: aPin altId. "use the analog pin number"
 	20 milliSeconds wait. "make sure the first reading is ready"
 ]
 
-{ #category : #'as yet unclassified' }
+{ #category : #initialization }
 PotsFirmataDriver >> getCurrentModes [
 	"send #queryPinState to all pins to get the current state filled in in FirmataPins
 	Because the Arduino has to answer for each pin, we insert a delay of 30 milliseconds"
@@ -232,7 +232,7 @@ PotsFirmataDriver >> rawPwmValue: aNumber intoPin: aPin [
 	baseDriver analogWrite: aPin id value: aNumber
 ]
 
-{ #category : #'as yet unclassified' }
+{ #category : #initialization }
 PotsFirmataDriver >> startBaseDriver [ 
 	"start the Firmata driver and save it"
 	"Note: probably we should do some error handling !!!"

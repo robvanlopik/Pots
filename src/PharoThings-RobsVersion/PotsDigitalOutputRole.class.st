@@ -19,6 +19,11 @@ PotsDigitalOutputRole >> activateOn: aPin [
 	driver beDigitalOutputOnPin: aPin
 ]
 
+{ #category : #'private - controlling' }
+PotsDigitalOutputRole >> deactivateOn: aPin [
+	driver closeDigitalOutputOnPin: aPin
+]
+
 { #category : #'private - accessing' }
 PotsDigitalOutputRole >> toggleValueForPin: aPin [
 	aPin value: (aPin lastValue = 0 ) asBit
