@@ -100,6 +100,33 @@ PotsController >> initialize [
 	
 ]
 
+{ #category : #'as yet unclassified' }
+PotsController >> inspectionController [
+	<inspectorPresentationOrder: 0 title: 'Pins'>
+	| table pinList|
+	pinList := pins values sorted: [ :c1 :c2 | c1 id < c2 id ].
+	
+	^ (table := SpTablePresenter new)
+		items: pinList ;
+		addColumn: ((SpStringTableColumn 
+			title: 'pinId'
+			evaluated: [ :pin | pin id asString ])
+				compareFunction: [ :c1 :c2 | c1 id < c2 id]);
+		addColumn: (SpStringTableColumn
+			title: 'altId'
+			evaluated: [ :pin | pin altId asString]);
+		addColumn: (SpStringTableColumn 
+			title: 'role'
+			evaluated: [ :pin | pin currentRole class short ]);
+		addColumn: (SpStringTableColumn 
+			title: 'value'
+			evaluated: [ :pin | pin lastValue asString ]);
+		addColumn: (SpStringTableColumn 
+			title: 'capabilities'
+			evaluated: [ :pin | pin roles keys asString ]);
+		yourself
+]
+
 { #category : #adding }
 PotsController >> installDevice: aPotsDevice [
 
