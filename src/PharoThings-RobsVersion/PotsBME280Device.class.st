@@ -1,3 +1,12 @@
+"
+I represent a BME280 sensor connected to a PotsDevice. My code is 99% taken from the PharoThings project.
+My main methods are:
+- readHumidity - humidity in %
+- readTemperature - temp in degrees Celsius
+- readPressure -  presure in 
+
+
+"
 Class {
 	#name : #PotsBME280Device,
 	#superclass : #PotsI2CDevice,

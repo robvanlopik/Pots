@@ -50,6 +50,8 @@ MockPotsPiGPIODriver >> providePinInfo [
 			driver: self;
 			min: 500;
 			max: 2500;
+			minDegrees: 0;
+			maxDegrees: 180;
 			yourself) ].
 	i2cRole := PotsI2CRole new driver: self.
 	(pinDict  at: 2) addRole: i2cRole.

@@ -5,7 +5,7 @@ Class {
 }
 
 { #category : #tests }
-PotsControllerTests >> testParamater [
+PotsControllerTests >> testParameter [
 	| ctrl |
 	ctrl := PotsController new driver: (PotsFakeDriver parameter: 'test').
 	self assert: [ctrl driver parameter = 'test'].

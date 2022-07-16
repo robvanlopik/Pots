@@ -30,6 +30,10 @@ PotsPicodDriver >> analogValueFromPin: aPin [
 	^(self rawAnalogValueFromPin: aPin) * ref / range
 ]
 
+{ #category : #'as yet unclassified' }
+PotsPicodDriver >> beAnalogInputOnPin: aPin [
+]
+
 { #category : #'private-mode' }
 PotsPicodDriver >> beDigitalInputOnPin: aPin [
 
@@ -64,6 +68,10 @@ PotsPicodDriver >> beServoOutputOnPin: aPin [
 		self closeCurrentRoleOfPin: aPin ]
 ]
 
+{ #category : #'as yet unclassified' }
+PotsPicodDriver >> closeAnalogInputOnPin: aPin [
+]
+
 { #category : #'private-mode' }
 PotsPicodDriver >> closeCurrentRoleOfPin: aPin [
 
@@ -78,6 +86,28 @@ PotsPicodDriver >> closeCurrentRoleOfPin: aPin [
 	currentRoleShort = 'Servo' ifTrue: [ 
 		^ baseDriver servoPwmClose: aPin ].
 	"to do: close I2C role ; or doesn't this happen because an i2c connection closes itself and can release the pin?" 
+]
+
+{ #category : #'private-mode' }
+PotsPicodDriver >> closeDigitalOutputOnPin: aPin [
+
+]
+
+{ #category : #initialization }
+PotsPicodDriver >> closePWMOutputOnPin: aPin [
+
+	"in principle PWM and Servo are equivalenet;
+	 so of former role wa servo, no action is needed"
+
+]
+
+{ #category : #initialization }
+PotsPicodDriver >> closeServoOutputOnPin:  aPin [
+
+	"in principle PWM and Servo are equivalenet;
+	 so of former role was PWM, no action is needed"
+
+
 ]
 
 { #category : #controlling }

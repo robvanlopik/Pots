@@ -74,6 +74,15 @@ PotsPinTest >> testDriverParameter [
 ]
 
 { #category : #tests }
+PotsPinTest >> testPWMWrite [
+self skip.
+	p5 bePWMOutput.
+	self assert: [ p5 currentRole range = 255 ].
+	p5 value: 50.
+	self assert: [p5 lastValue = 50]
+]
+
+{ #category : #tests }
 PotsPinTest >> testPin1Role [
 	self assert: [ (controller pins at: 1) currentRole class = PotsDigitalInputRole ]
 ]

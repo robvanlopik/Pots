@@ -27,7 +27,7 @@ Instance Variables
 - devices:	an OrderedCollection of the PotsDevices that have been installed on this controller
 
 Implementation Points
-The PotsController makes sure that pins are correctly used, devices allocae their pins etc. Basic is the common API of all PotsDrivers. Functionality that is specific to a specific driver can be used through 
+The PotsController makes sure that pins are correctly used, devices allocate their pins etc. At the basis is the common API of all PotsDrivers. Functionality that is specific to a specific driver can be used through 
 ```Smalltalk
 myController driver baseDriver
 ```

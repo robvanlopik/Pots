@@ -150,6 +150,8 @@ PotsPiGPIODriver >> providePinInfo [
 			driver: self;
 			min: 500;
 			max: 2500;
+			minDegrees: 0;
+			maxDegrees: 180;
 			yourself) ].
 	i2cRole := PotsI2CRole new driver: self.
 	(pinDict  at: 2) addRole: i2cRole.
@@ -182,6 +184,14 @@ PotsPiGPIODriver >> rawServoValue: aNumber intoPin: aPin [
 
 { #category : #'io protocols' }
 PotsPiGPIODriver >> servoValue: aNumber intoPin: aPin [
+	| min max minDegrees maxDegrees raw|
+	min := aPin currentRole min.
+	max := aPin currentRole max.
+	minDegrees := aPin currentRole minDegrees .
+	maxDegrees := aPin currentRole maxDegrees.
+	raw := aNumber * (max - min) / (maxDegrees - minDegrees ) + min.
+	self rawServoValue: raw intoPin: aPin.
+	
 ]
 
 { #category : #initialization }

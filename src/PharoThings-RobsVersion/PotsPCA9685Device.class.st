@@ -15,6 +15,8 @@ Main methods:
 - pwmForPin:  microSeconds: - on time, used for servos in range 500 - 2500
 - pwmForPin:  percentage: - percentage on time 
 - pinOn: and pinOff: - to turn a pin fully ON or OFF
+
+Note: equally usable for servo's. with appropriate frequency and pulse length
 "
 Class {
 	#name : #PotsPCA9685Device,
@@ -168,7 +170,7 @@ PotsPCA9685Device >> pinOn: aPinNumber [
 
 { #category : #initialization }
 PotsPCA9685Device >> prescaleValue [
-	"readd the prescalevalue used"
+	"read the prescalevalue used"
 	^i2cConnection read8BitsAt: 16rFE
 ]
 

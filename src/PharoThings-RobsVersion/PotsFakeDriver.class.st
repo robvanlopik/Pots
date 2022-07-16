@@ -130,7 +130,7 @@ PotsFakeDriver >> pin4 [
 PotsFakeDriver >> pin5 [
 	| pin role|
 	role := PotsDigitalInputRole new driver: self.
-	pin := PotsActivePin new id: 4; currentRole: role.
+	pin := PotsActivePin new id: 5; currentRole: role.
 	pin addRole: role.
 	pin addRole: (PotsPWMRole new driver: self; range: 255; yourself).
 	^pin

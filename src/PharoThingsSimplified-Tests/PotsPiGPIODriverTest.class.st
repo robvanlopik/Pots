@@ -50,6 +50,17 @@ PotsPiGPIODriverTest >> testBeDigitalOuput [
 ]
 
 { #category : #tests }
+PotsPiGPIODriverTest >> testBeServo [
+	self assert: [ p3 currentRole class short = 'DI' ].
+	mockDriver on: #digitalRead: with: 3 respond: 1.
+	
+	self assert: [p3 value = 1]. 
+
+	self verify: mockDriver
+	
+]
+
+{ #category : #tests }
 PotsPiGPIODriverTest >> testBeServoOutput [
 	self assert: [ p3 currentRole class short = 'DI' ].
 	mockDriver on: #pin:servoPulsewidth: with: 3 with: 0. "cleanup PWM"
@@ -103,6 +114,18 @@ PotsPiGPIODriverTest >> testRawPwmValueIntoPin [
 	
 	p3 bePWMOutput .
 	p3 rawValue: 123.
+	
+	self verify: mockDriver
+	
+]
+
+{ #category : #tests }
+PotsPiGPIODriverTest >> testServoValueSet [
+	mockDriver on: #pin:servoPulsewidth: with: 3 with: 1500.
+	
+	p3 beServoOutput .
+	p3 value: 90.
+	self assert: [ p3 lastValue = 90 ].
 	
 	self verify: mockDriver
 	
