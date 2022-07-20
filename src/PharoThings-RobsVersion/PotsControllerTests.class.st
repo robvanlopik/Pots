@@ -1,7 +1,7 @@
 Class {
 	#name : #PotsControllerTests,
 	#superclass : #TestCase,
-	#category : #'PharoThingsSimplified-Tests'
+	#category : #'PharoThings-RobsVersion-tests'
 }
 
 { #category : #tests }

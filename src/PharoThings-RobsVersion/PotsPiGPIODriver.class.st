@@ -29,37 +29,6 @@ PotsPiGPIODriver class >> onIP: anIpAddressString port: aPortNumber [
 		yourself
 ]
 
-{ #category : #controlling }
-PotsPiGPIODriver >> beDigitalInputOnPin: aPin [
-	baseDriver pin: aPin id mode: 0
-	
-]
-
-{ #category : #controlling }
-PotsPiGPIODriver >> beDigitalOutputOnPin: aPin [
-	baseDriver pin: aPin id mode: 1
-	
-]
-
-{ #category : #controlling }
-PotsPiGPIODriver >> bePWMOutputOnPin: aPin [
-	
-]
-
-{ #category : #controlling }
-PotsPiGPIODriver >> closePWMOutputOnPin: aPin [
-	"just set it to 0"
-	self rawPwmValue: 0 intoPin: aPin
-	
-]
-
-{ #category : #controlling }
-PotsPiGPIODriver >> closeServoOutputOnPin: aPin [
-	"just set it to 0"
-	self rawServoValue: 0 intoPin: aPin
-	
-]
-
 { #category : #initialization }
 PotsPiGPIODriver >> connect [
 	

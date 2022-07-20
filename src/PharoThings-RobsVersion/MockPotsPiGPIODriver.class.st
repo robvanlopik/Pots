@@ -15,7 +15,7 @@ The IP=address and port number are not used but are returned by `testPi driver i
 Class {
 	#name : #MockPotsPiGPIODriver,
 	#superclass : #PotsPiGPIODriver,
-	#category : #'PharoThingsSimplified-Tests'
+	#category : #'PharoThings-RobsVersion'
 }
 
 { #category : #initialization }

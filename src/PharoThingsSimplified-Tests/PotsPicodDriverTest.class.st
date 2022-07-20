@@ -47,3 +47,30 @@ PotsPicodDriverTest >> testBeDigitalOuput [
 	self verify: mockDriver
 	
 ]
+
+{ #category : #tests }
+PotsPicodDriverTest >> testBePWMOutput [
+	self assert: [ p2 currentRole class short = 'DI' ].
+	mockDriver on: #closeGpio: with: 2.
+	
+	
+	p2 bePWMOutput. 
+	
+	self verify: mockDriver
+	
+]
+
+{ #category : #tests }
+PotsPicodDriverTest >> testPWMtoDO [
+	self assert: [ p2 currentRole class short = 'DI' ].
+	mockDriver on: #closeGpio: with: 2.
+	mockDriver on: #servoPwmClose: with: 2.
+	mockDriver on: #setGpioOutput:value: with: 2 with: 0.
+	
+	
+	p2 bePWMOutput. 
+	p2 beDigitalOutput.
+	
+	self verify: mockDriver
+	
+]
