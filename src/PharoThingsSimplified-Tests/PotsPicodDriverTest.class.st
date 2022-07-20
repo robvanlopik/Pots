@@ -39,6 +39,7 @@ PotsPicodDriverTest >> testBeDigitalInput [
 { #category : #tests }
 PotsPicodDriverTest >> testBeDigitalOuput [
 	self assert: [ p2 currentRole class short = 'DI' ].
+	mockDriver on: #closeGpio: with: 2.
 	mockDriver on: #setGpioOutput:value: with: 2 with: 0.
 	
 	p2 beDigitalOutput. 

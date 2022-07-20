@@ -100,7 +100,7 @@ PotsController >> initialize [
 	
 ]
 
-{ #category : #'as yet unclassified' }
+{ #category : #'inspector extensions' }
 PotsController >> inspectionController [
 	<inspectorPresentationOrder: 0 title: 'Pins'>
 	| table pinList|

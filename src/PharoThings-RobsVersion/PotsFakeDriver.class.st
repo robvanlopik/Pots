@@ -22,6 +22,7 @@ Class {
 		'parameter',
 		'pin2Value',
 		'bit',
+		'pwmValue',
 		'i2cPins'
 	],
 	#category : #'PharoThings-RobsVersion'
@@ -148,6 +149,12 @@ PotsFakeDriver >> providePinInfo [
 	pinDict at: 5 put: self pin5.
 	
 	^pinDict
+]
+
+{ #category : #'io protocols' }
+PotsFakeDriver >> pwmValue: aNumber intoPin: aPin [
+	pwmValue := aNumber
+
 ]
 
 { #category : #initialization }
