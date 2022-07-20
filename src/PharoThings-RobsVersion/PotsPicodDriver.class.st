@@ -79,12 +79,12 @@ PotsPicodDriver >> closeCurrentRoleOfPin: aPin [
 
 	| currentRoleShort |
 	currentRoleShort := aPin currentRole class short.
-	currentRoleShort = 'DI' ifTrue: [ ^ baseDriver closeGpio: aPin ].
-	currentRoleShort = 'DO' ifTrue: [ ^ baseDriver closeGpio: aPin ].
-	currentRoleShort = 'AI' ifTrue: [ ^ baseDriver analogClose: aPin ].
-	currentRoleShort = 'PWM' ifTrue: [ ^ baseDriver servoPwmClose: aPin ].
+	currentRoleShort = 'DI' ifTrue: [ ^ baseDriver closeGpio: aPin id].
+	currentRoleShort = 'DO' ifTrue: [ ^ baseDriver closeGpio: aPin id].
+	currentRoleShort = 'AI' ifTrue: [ ^ baseDriver analogClose: aPin id].
+	currentRoleShort = 'PWM' ifTrue: [ ^ baseDriver servoPwmClose: aPin id].
 	currentRoleShort = 'Servo' ifTrue: [ 
-		^ baseDriver servoPwmClose: aPin ].
+		^ baseDriver servoPwmClose: aPin id].
 	"to do: close I2C role ; or doesn't this happen because an i2c connection closes itself and can release the pin?" 
 ]
 

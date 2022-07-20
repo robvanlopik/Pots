@@ -195,8 +195,8 @@ PotsActivePin >> playRole: shortName [
 			ifAbsent: [ PotsError signal: 'Pin ', id asString, ' cannot be ', shortName ].
 	"and now we must tell the driver to change the mode"
 	currentRole deactivateOn: self.
-	currentRole := newRole.
-	currentRole activateOn: self
+	newRole activateOn: self.
+	currentRole := newRole. "only when activation succeeded"
 ]
 
 { #category : #printing }
