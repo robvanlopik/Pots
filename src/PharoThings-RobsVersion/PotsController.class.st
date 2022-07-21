@@ -103,27 +103,64 @@ PotsController >> initialize [
 { #category : #'inspector extensions' }
 PotsController >> inspectionController [
 	<inspectorPresentationOrder: 0 title: 'Pins'>
-	| table pinList|
-	pinList := pins values sorted: [ :c1 :c2 | c1 id < c2 id ].
+	| table list |
+	
+	layout ifNil: [ 
+	list := pins values sorted: [ :c1 :c2 | c1 id < c2 id ].
 	
 	^ (table := SpTablePresenter new)
-		items: pinList ;
+		items: list ;
 		addColumn: ((SpStringTableColumn 
 			title: 'pinId'
-			evaluated: [ :pin | pin id asString ])
+			evaluated: [ :pin | pin idString ])
 				compareFunction: [ :c1 :c2 | c1 id < c2 id]);
 		addColumn: (SpStringTableColumn
 			title: 'altId'
-			evaluated: [ :pin | pin altId asString]);
+			evaluated: [ :pin | pin altIdString]);
 		addColumn: (SpStringTableColumn 
 			title: 'role'
-			evaluated: [ :pin | pin currentRole class short ]);
+			evaluated: [ :pin | pin roleString ]);
 		addColumn: (SpStringTableColumn 
 			title: 'value'
-			evaluated: [ :pin | pin lastValue asString ]);
+			evaluated: [ :pin | pin valueString ]);
 		addColumn: (SpStringTableColumn 
 			title: 'capabilities'
-			evaluated: [ :pin | pin roles keys asString ]);
+			evaluated: [ :pin | pin capabilitiesString ]);
+		yourself ].
+	
+	list := layout pinMatrix groupsOf: 2.
+	^ (table := SpTablePresenter new)
+		items: list;
+		addColumn: (SpStringTableColumn 
+			title: 'capabilities'
+			evaluated: [ :row | (row at: 1) capabilitiesString ]);
+		addColumn: (SpStringTableColumn 
+			title: 'value'
+			evaluated: [ :row | (row at: 1) valueString ]);
+		addColumn: (SpStringTableColumn 
+			title: 'role'
+			evaluated: [ :row | (row at: 1) roleString ]);
+		addColumn: (SpStringTableColumn 
+			title: 'altId'
+			evaluated: [ :row | (row at: 1) altIdString ]);
+		addColumn: (SpStringTableColumn 
+			title: 'id'
+			evaluated: [ :row | (row at: 1) idString ]);
+		addColumn: (SpStringTableColumn 
+			title: 'id'
+			evaluated: [ :row | (row at: 2) idString ]);
+		addColumn: (SpStringTableColumn 
+			title: 'altId'
+			evaluated: [ :row | (row at: 2) altIdString  ]);
+		addColumn: (SpStringTableColumn 
+			title: 'role'
+			evaluated: [ :row | (row at: 1) roleString ]);
+		addColumn: (SpStringTableColumn 
+			title: 'value'
+			evaluated: [ :row | (row at: 1) valueString ]);
+		addColumn: (SpStringTableColumn 
+			title: 'capabilities'
+			evaluated: [ :row | (row at: 2) capabilitiesString ]);
 		yourself
 ]
 
@@ -138,6 +175,15 @@ PotsController >> installDevice: aPotsDevice [
 	aPotsDevice connectTo: self.
 	devices add: aPotsDevice.
 	^ aPotsDevice
+]
+
+{ #category : #'inspector extensions' }
+PotsController >> installLayout: aPotsLayout [
+	"install a PotsLayout. This presuppoese that the layout has been initialised
+	with a plainMatrix for a specific board, so the incantation would be e.g:
+	installLayout: PotsLayout forPico"
+	
+	layout := aPotsLayout applyTo: self
 ]
 
 { #category : #accessing }

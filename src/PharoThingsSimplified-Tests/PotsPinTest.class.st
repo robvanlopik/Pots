@@ -9,7 +9,7 @@ Class {
 		'p4',
 		'p5'
 	],
-	#category : #'PharoThings-RobsVersion-Tests'
+	#category : #'PharoThingsSimplified-Tests'
 }
 
 { #category : #running }

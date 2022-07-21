@@ -66,6 +66,12 @@ PotsActivePin >> altId: anId [
 	altId := anId
 ]
 
+{ #category : #'inspector extensions' }
+PotsActivePin >> altIdString [
+	self altId ifNil: [ ^'' ].
+	^self altId asString
+]
+
 { #category : #configuration }
 PotsActivePin >> beAnalogInput [
 	self playRole: 'AI'
@@ -94,6 +100,14 @@ PotsActivePin >> bePWMOutput [
 { #category : #configuration }
 PotsActivePin >> beServoOutput [
 	self playRole: 'Servo'
+]
+
+{ #category : #'inspector extensions' }
+PotsActivePin >> capabilitiesString [
+	| response |
+	response := ''.
+	self roles keys  sorted do: [  :role | response := response , role, ' ' ].
+	^ response
 ]
 
 { #category : #accessing }
@@ -155,6 +169,11 @@ PotsActivePin >> id [
 { #category : #accessing }
 PotsActivePin >> id: anObject [
 	id := anObject
+]
+
+{ #category : #'inspector extensions' }
+PotsActivePin >> idString [
+	^self id asString
 ]
 
 { #category : #'private - bookkeeping' }
@@ -220,6 +239,11 @@ PotsActivePin >> rawValue: aNumber [
 	^currentRole rawValue: aNumber forPin: self
 ]
 
+{ #category : #'inspector extensions' }
+PotsActivePin >> roleString [
+	^self currentRole class short
+]
+
 { #category : #accessing }
 PotsActivePin >> roles [
 	^ roles
@@ -244,4 +268,9 @@ PotsActivePin >> value [
 { #category : #accessing }
 PotsActivePin >> value: aNumber [
 	currentRole value: aNumber forPin: self
+]
+
+{ #category : #'inspector extensions' }
+PotsActivePin >> valueString [
+	^self value asString
 ]

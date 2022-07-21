@@ -4,7 +4,7 @@ I function like a PotsPicodDriver, but my communication with the PicodDriver has
 Class {
 	#name : #MockPotsPicodDriver,
 	#superclass : #PotsPicodDriver,
-	#category : #'PharoThings-RobsVersion'
+	#category : #'PharoThingsSimplified-Tests'
 }
 
 { #category : #initialization }

@@ -15,6 +15,16 @@ Class {
 	#category : #'PharoThings-RobsVersion'
 }
 
+{ #category : #'inspector extensions' }
+PotsPin >> altIdString [
+	^self subclassResponsibility
+]
+
+{ #category : #'inspector extensions' }
+PotsPin >> capabilitiesString [
+	^self subclassResponsibility
+]
+
 { #category : #accessing }
 PotsPin >> controller [
 	^ controller
@@ -23,4 +33,19 @@ PotsPin >> controller [
 { #category : #accessing }
 PotsPin >> controller: anObject [
 	controller := anObject
+]
+
+{ #category : #'inspector extensions' }
+PotsPin >> idString [
+	^self subclassResponsibility
+]
+
+{ #category : #'inspector extensions' }
+PotsPin >> roleString [
+	^self subclassResponsibility
+]
+
+{ #category : #'inspector extensions' }
+PotsPin >> valueString [
+	^self subclassResponsibility
 ]
