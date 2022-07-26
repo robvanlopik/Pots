@@ -272,5 +272,6 @@ PotsActivePin >> value: aNumber [
 
 { #category : #'inspector extensions' }
 PotsActivePin >> valueString [
-	^self value asString
+	"this is meant for an inspector, so display lastValue"
+	^self lastValue asString
 ]

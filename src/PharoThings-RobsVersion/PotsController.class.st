@@ -133,34 +133,48 @@ PotsController >> inspectionController [
 		items: list;
 		addColumn: (SpStringTableColumn 
 			title: 'capabilities'
-			evaluated: [ :row | (row at: 1) capabilitiesString ]);
+			evaluated: [ :row | (row at: 1) capabilitiesString ]
+			width: 150);
 		addColumn: (SpStringTableColumn 
 			title: 'value'
-			evaluated: [ :row | (row at: 1) valueString ]);
+			evaluated: [ :row | (row at: 1) valueString ]
+			width: 40);
 		addColumn: (SpStringTableColumn 
 			title: 'role'
-			evaluated: [ :row | (row at: 1) roleString ]);
+			evaluated: [ :row | (row at: 1) roleString ]
+			width: 40);
 		addColumn: (SpStringTableColumn 
 			title: 'altId'
-			evaluated: [ :row | (row at: 1) altIdString ]);
+			evaluated: [ :row | (row at: 1) altIdString ]
+			width: 40);
 		addColumn: (SpStringTableColumn 
 			title: 'id'
-			evaluated: [ :row | (row at: 1) idString ]);
+			evaluated: [ :row | (row at: 1) idString ]
+			width: 30);
+		addColumn: (SpStringTableColumn 
+			title: ' '
+			evaluated: [ :row | '' ]
+			width: 30);
 		addColumn: (SpStringTableColumn 
 			title: 'id'
-			evaluated: [ :row | (row at: 2) idString ]);
+			evaluated: [ :row | (row at: 2) idString ]
+			width: 40);
 		addColumn: (SpStringTableColumn 
 			title: 'altId'
-			evaluated: [ :row | (row at: 2) altIdString  ]);
+			evaluated: [ :row | (row at: 2) altIdString  ]
+			width: 40);
 		addColumn: (SpStringTableColumn 
 			title: 'role'
-			evaluated: [ :row | (row at: 1) roleString ]);
+			evaluated: [ :row | (row at: 2) roleString ]
+			width: 40);
 		addColumn: (SpStringTableColumn 
 			title: 'value'
-			evaluated: [ :row | (row at: 1) valueString ]);
+			evaluated: [ :row | (row at: 2) valueString ]
+			width: 40);
 		addColumn: (SpStringTableColumn 
 			title: 'capabilities'
-			evaluated: [ :row | (row at: 2) capabilitiesString ]);
+			evaluated: [ :row | (row at: 2) capabilitiesString ]
+			width: 150);
 		yourself
 ]
 
