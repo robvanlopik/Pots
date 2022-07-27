@@ -23,9 +23,21 @@ Class {
 }
 
 { #category : #'as yet unclassified' }
+PotsLayout class >> forArduinoUno [ 
+	"fill the plain matrix for a Pico board"
+	^ self new forArduinoUno 
+]
+
+{ #category : #'as yet unclassified' }
 PotsLayout class >> forPi3 [
 	"fill the plain matrix for a Pico board"
 	^ self new forPi3
+]
+
+{ #category : #'as yet unclassified' }
+PotsLayout class >> forPiZero [
+	"fill the plain matrix for a Pico board"
+	^ self new forPiZero
 ]
 
 { #category : #'as yet unclassified' }

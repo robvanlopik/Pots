@@ -112,20 +112,25 @@ PotsController >> inspectionController [
 		items: list ;
 		addColumn: ((SpStringTableColumn 
 			title: 'pinId'
-			evaluated: [ :pin | pin idString ])
+			evaluated: [ :pin | pin idString ]
+			width: 40)
 				compareFunction: [ :c1 :c2 | c1 id < c2 id]);
 		addColumn: (SpStringTableColumn
 			title: 'altId'
-			evaluated: [ :pin | pin altIdString]);
+			evaluated: [ :pin | pin altIdString]
+			width: 40);
 		addColumn: (SpStringTableColumn 
 			title: 'role'
-			evaluated: [ :pin | pin roleString ]);
+			evaluated: [ :pin | pin roleString ]
+			width: 40);
 		addColumn: (SpStringTableColumn 
 			title: 'value'
-			evaluated: [ :pin | pin valueString ]);
+			evaluated: [ :pin | pin valueString ]
+			width: 40);
 		addColumn: (SpStringTableColumn 
 			title: 'capabilities'
-			evaluated: [ :pin | pin capabilitiesString ]);
+			evaluated: [ :pin | pin capabilitiesString ]
+			width: 150);
 		yourself ].
 	
 	list := layout pinMatrix groupsOf: 2.
