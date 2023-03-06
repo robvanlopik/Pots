@@ -39,6 +39,6 @@ PotsPCF8574Device >> readByte [
 ]
 
 { #category : #writing }
-PotsPCF8574Device >> writeByte: aByte [ 
+PotsPCF8574Device >> writeByte: aByte [
 		i2cConnection write8Bits: aByte
 ]

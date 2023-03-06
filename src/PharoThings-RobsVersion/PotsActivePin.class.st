@@ -1,10 +1,10 @@
 "
-I represent the active pins of a controller board. I am created by the PotsDriver.
+I represent the active (GPIO-)pins of a controller board. I am created by the PotsDriver.
 
 A Pin can play different roles, but only one of them can be the currentRole.
 When the currentRole is a SoloRole, the pin responds to #value and #value: for read and write operations. The value range depends on the Role, that also has the task of communicating the requested operation with the PotsDriver. Note that possible roles are assigned by the PotsDriver, so a Role will not request an operation that de driver is not capable of.
 
-A Pin can be take part in a PotsDevice; this can happen in two ways:
+A Pin can take part in a PotsDevice; this can happen in two ways:
 1) The device code manipulates the pin directly
 2) The pin is ontrolled by a protocol driver like i2C or Stepper
 
@@ -31,7 +31,7 @@ Instance variables:
 - roles  -  a dictionary of al possible roles the pin can have (key is a short name of the role)
 - currentRolethe  -  current role of the pin
 - deviceCount  -  the number of devices that use the pin (can be >1 in the case of I2C pins)
-- isReporting  -  boolean used by some drivers indicating that the pin regularly reports its value (maybe also usefull for state change announcements)
+- isReporting  -  boolean used by some drivers indicating that the pin regularly reports its value (maybe also useful for state change announcements)
 
 
 "
@@ -210,7 +210,7 @@ PotsActivePin >> playRole: shortName [
 	| newRole |
 	(deviceCount > 0) ifTrue: [ Error signal: 'Pin ', id asString, ' is in use' ].
 	(currentRole class short = shortName) ifTrue: [ ^currentRole ].
-	newRole := roles at: shortName 
+	newRole := roles at: shortName
 			ifAbsent: [ PotsError signal: 'Pin ', id asString, ' cannot be ', shortName ].
 	"and now we must tell the driver to change the mode"
 	currentRole deactivateOn: self.

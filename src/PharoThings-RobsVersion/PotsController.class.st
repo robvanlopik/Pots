@@ -1,10 +1,7 @@
 "
 I represent a Microprocesssor Controller board. 
-
 I initiate the communication with the hardware and hold the pins that eventually interact with the outside world.
-
-Pins are my external interface, that may be detailed by a layout (where is each pin located on the board or device?))
-
+Pins are my external interface, that may be detailed by a layout (where is each pin located on the board or device)
 I also hold devices that are mor complex objects that manipulate my pins, be it directly or through some protocol (like I2C).)
 
 A controller is created by naming its PotsDriver, e,g
@@ -21,9 +18,9 @@ Internal Representation and Key Implementation Points.
 
 Instance Variables
 - driver:		a PotsDriver (itself using a device driver)
-- layout:		describes the layout of pins on the physical device (not needed and not yet implemented)
+- layout:		describes the layout of pins on the physical device (only needed for inspectors)
 - pins:		a dictionary of all active pins, indexed by GPIO Id. It is created by the PotsDriver as a result of a call to #getPinInfo.
-- name:		optional nameof the controllelr, aString
+- name:		optional name of the controller
 - devices:	an OrderedCollection of the PotsDevices that have been installed on this controller
 
 Implementation Points
@@ -47,7 +44,7 @@ Class {
 
 { #category : #initialization }
 PotsController >> connectDriver [
-	driver startBaseDriver
+	driver setup "for a DriverDriver start the base driver, for a DeviceDriver do other inits"
 ]
 
 { #category : #'io protocols' }
@@ -87,10 +84,10 @@ PotsController >> driver: aControllerDriver [
 { #category : #initialization }
 PotsController >> getPinInfo [
 	"let the driver provide the pin info"
-	"AND take ownership of the pins"	
-			
+	"AND take ownership of the pins"
+
 	pins := driver providePinInfo.
-	pins valuesDo: [ :pin | pin controller: self ] "make sure the pins know where they live"
+	pins valuesDo: [ :pin | pin controller: self ] "make sure the pins know where they belong to"
 ]
 
 { #category : #initialization }
@@ -183,7 +180,7 @@ PotsController >> inspectionController [
 		yourself
 ]
 
-{ #category : #adding }
+{ #category : #'add/remove device' }
 PotsController >> installDevice: aPotsDevice [
 
 	"return an instance of a PotsDevice. 
@@ -249,8 +246,18 @@ PotsController >> pins: anObject [
 	pins := anObject
 ]
 
-{ #category : #removing }
+{ #category : #'add/remove device' }
 PotsController >> removeDevice: aDevice [
 	aDevice disconnect.
 	devices remove: aDevice
+]
+
+{ #category : #finalization }
+PotsController >> reset [
+	"back to state after initialisation, that is"
+	"no devices, pins in original state, reset of base driver"
+
+	devices do: [  :each | each disconnect ].
+	driver reset.
+	self getPinInfo
 ]

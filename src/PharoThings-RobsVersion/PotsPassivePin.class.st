@@ -1,7 +1,7 @@
 "
 I am a pin that can not be controlled by software
 
-Maybe I will be used in a layout
+I am used in a PotsLayout
 
 "
 Class {

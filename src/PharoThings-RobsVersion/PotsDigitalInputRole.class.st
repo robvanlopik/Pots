@@ -26,6 +26,6 @@ PotsDigitalInputRole >> deactivateOn: aPin [
 
 { #category : #'private - accessing' }
 PotsDigitalInputRole >> valueForPin: aPin [
-	
+
 	^lastValue := driver digitalValueFromPin: aPin
 ]

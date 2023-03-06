@@ -18,9 +18,6 @@ ivars:
 `ioMap - a Byte where each bit represent the function of each pin 
 		(with 1 being input and 0 output. Note: this is contrary to Arduino modes, where 0 is input)
 
-
-)
-
     Implementation Points
 "
 Class {

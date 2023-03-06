@@ -44,6 +44,12 @@ PotsSoloPinRole >> lastValue [
 ]
 
 { #category : #'private - accessing' }
+PotsSoloPinRole >> toggleValueForPin: aPin [
+	"catch-all for pin/roles that cannot be toggled"
+	PotsError signal: 'Pin ', aPin id asString, 'cannot be toggled'
+]
+
+{ #category : #'private - accessing' }
 PotsSoloPinRole >> value: aNmber forPin: aPin [
 	"subclass decides whether to implement or not"
 	PotsError signal: 'Pin ', aPin id asString, ' has no output role'

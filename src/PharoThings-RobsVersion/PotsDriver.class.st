@@ -101,7 +101,7 @@ PotsDriver >> disconnect [
 { #category : #initialization }
 PotsDriver >> providePinInfo [
 	"return a dict of pins to the caller, with their poperties"
-self subclassResponsibility 
+	self subclassResponsibility
 ]
 
 { #category : #'io protocols' }
@@ -114,7 +114,17 @@ PotsDriver >> rawAnalogValueFromPin: aPin [
 	PotsError signal: 'cannot do raw Analog Input'
 ]
 
+{ #category : #initialization }
+PotsDriver >> reset [
+]
+
 { #category : #'io protocols' }
 PotsDriver >> servoValue: degrees intoPin: aPin [
 	PotsError signal: 'cannot do servo'
+]
+
+{ #category : #initialization }
+PotsDriver >> setup [
+	"for a PotsDriverDriver start the baseDriver, for a PotsDeviceDriver do toehr inits"
+	self subclassResponsibility
 ]

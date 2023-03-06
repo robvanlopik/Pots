@@ -1,5 +1,6 @@
 "
-I function like a PotsPicodDriver, but my communication with the PicodDriver has been replace by a MockObject
+I function like a PotsPicodDriver, but my communication with the PicodDriver has been replace by a MockObject.
+#getPinInfo is borrowed from the real PostPicodDriver
 "
 Class {
 	#name : #MockPotsPicodDriver,
@@ -8,6 +9,6 @@ Class {
 }
 
 { #category : #initialization }
-MockPotsPicodDriver >> startBaseDriver [ 
+MockPotsPicodDriver >> setup [ 
 	baseDriver := MockObject new
 ]

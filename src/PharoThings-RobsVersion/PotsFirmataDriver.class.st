@@ -233,7 +233,7 @@ PotsFirmataDriver >> rawPwmValue: aNumber intoPin: aPin [
 ]
 
 { #category : #initialization }
-PotsFirmataDriver >> startBaseDriver [ 
+PotsFirmataDriver >> setup [ 
 	"start the Firmata driver and save it"
 	"Note: probably we should do some error handling !!!"
 	baseDriver := Firmata onPort: port baudRate: baudRate .

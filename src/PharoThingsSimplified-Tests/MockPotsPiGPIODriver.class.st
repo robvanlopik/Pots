@@ -62,6 +62,6 @@ MockPotsPiGPIODriver >> providePinInfo [
 ]
 
 { #category : #initialization }
-MockPotsPiGPIODriver >> startBaseDriver [ 
+MockPotsPiGPIODriver >> setup [ 
 	baseDriver := MockObject new
 ]

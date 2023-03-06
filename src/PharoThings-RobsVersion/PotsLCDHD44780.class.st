@@ -153,7 +153,7 @@ PotsLCDHD44780 >> initialize [
 
 { #category : #initialization }
 PotsLCDHD44780 >> initializeRegisters [
-	self subclassResponsibility 
+	self subclassResponsibility
 ]
 
 { #category : #testing }

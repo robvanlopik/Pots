@@ -24,8 +24,3 @@ PotsDriverDriver >> baseDriver: aDriver [
 	"only to be used for testing; noormally the baseDriver is set by #startBaseDriver"
 	baseDriver := aDriver
 ]
-
-{ #category : #initialization }
-PotsDriverDriver >> startBaseDriver [ 
-	self subclassResponsibility 
-]

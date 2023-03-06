@@ -262,7 +262,7 @@ PotsPicodDriver >> rawServoValue: aNumber intoPin: aPin [
 ]
 
 { #category : #initialization }
-PotsPicodDriver >> startBaseDriver [
+PotsPicodDriver >> setup [
 
 	"start the PicodDriver with its parameters"
 

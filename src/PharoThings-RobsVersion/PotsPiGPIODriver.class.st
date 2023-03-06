@@ -92,11 +92,11 @@ PotsPiGPIODriver >> providePinInfo [
 	"return a dict of pins to the caller, with their poperties"
 	| pinDict i2cRole|
 	i2cPins := OrderedCollection new.
-	"first enumerate the pins"	
+	"first enumerate the pins"
 	pinDict := Dictionary new.
 	2 to: 27 do:
-		[ :pinId | pinDict at: pinId put: 
-			(PotsActivePin new 
+		[ :pinId | pinDict at: pinId put:
+			(PotsActivePin new
 			id: pinId;
 			currentRole: (PotsDigitalInputRole new
 			driver: self)
@@ -109,13 +109,13 @@ PotsPiGPIODriver >> providePinInfo [
 	pinDict valuesDo: [  :pin | pin addRole: (PotsDigitalOutputRole new driver: self) ].
 	"for the PWM role we have the courtesy to ask the driver for its range
 	note that the frequency can be set for pins separately, TODO??"
-	pinDict valuesDo: [  :pin | pin addRole: 
-		(PotsPWMRole new 
-			driver: self; 
+	pinDict valuesDo: [  :pin | pin addRole:
+		(PotsPWMRole new
+			driver: self;
 			range: (baseDriver pwmRangeOnPin: pin id ))].
 	"servo mode; PiGPIO sets min and max to 500 and 2500; frequency fixedd at 50 Hz"
 	pinDict valuesDo: [  :pin | pin addRole:
-		(PotsServoRole new 
+		(PotsServoRole new
 			driver: self;
 			min: 500;
 			max: 2500;
@@ -164,7 +164,7 @@ PotsPiGPIODriver >> servoValue: aNumber intoPin: aPin [
 ]
 
 { #category : #initialization }
-PotsPiGPIODriver >> startBaseDriver [ 
+PotsPiGPIODriver >> setup [ 
 	"start the PiGPIO driver with its parameters"
 	"Note: we might want to do some error checking at this point"
 	baseDriver := PiGPIO onIP: ip port: port

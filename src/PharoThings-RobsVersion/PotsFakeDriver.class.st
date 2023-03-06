@@ -158,6 +158,6 @@ PotsFakeDriver >> pwmValue: aNumber intoPin: aPin [
 ]
 
 { #category : #initialization }
-PotsFakeDriver >> startBaseDriver [ 	
+PotsFakeDriver >> setup [ 	
 	"do nothing"
 ]
