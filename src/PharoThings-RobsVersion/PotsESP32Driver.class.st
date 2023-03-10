@@ -1,0 +1,115 @@
+"
+I am a driver for the EPS32 board, to be used in Pots. 
+Basically I forward to ESP32Driver but with PotsPin replaced by its id.
+And I implement getPinfo to flesh out the controller configuration
+"
+Class {
+	#name : #PotsESP32Driver,
+	#superclass : #PotsDriverDriver,
+	#instVars : [
+		'deviceName',
+		'brokerIP'
+	],
+	#category : #'PharoThings-RobsVersion'
+}
+
+{ #category : #'analog io' }
+PotsESP32Driver >> analogValue: aValue intoPin: aPin [
+	baseDriver analogValue: aValue intoPin: aPin id
+]
+
+{ #category : #'analog io' }
+PotsESP32Driver >> analogValuefromPin: aPin [
+	^baseDriver analogValuefromPin: aPin id
+]
+
+{ #category : #'analog io' }
+PotsESP32Driver >> beAnalogInputOnPin: aPin [
+	baseDriver beAnalogInputOnPin: aPin id
+]
+
+{ #category : #'analog io' }
+PotsESP32Driver >> beAnalogOutputOnPin: aPin [
+	^baseDriver beAnalogOutputOnPin: aPin id
+]
+
+{ #category : #'analog io' }
+PotsESP32Driver >> beDigitalInputOnPin: aPin [
+	^baseDriver beDigitalInputOnPin: aPin id
+]
+
+{ #category : #'digital io' }
+PotsESP32Driver >> beDigitalOutputOnPin: aPin [
+	^baseDriver beDigitalOutputOnPin: aPin id
+]
+
+{ #category : #pwm }
+PotsESP32Driver >> bePWMOutputOnPin: aPin [
+	^baseDriver bePWMOutputOnPin: aPin id
+]
+
+{ #category : #initialization }
+PotsESP32Driver >> connect [
+	
+]
+
+{ #category : #'digital io' }
+PotsESP32Driver >> digitalValue: oneOrZero intoPin: aPin [
+	^baseDriver digitalValue: oneOrZero intoPin: aPin id
+]
+
+{ #category : #'digital io' }
+PotsESP32Driver >> digitalValuefromPin: aPin [
+	^baseDriver digitalValuefromPin: aPin id
+]
+
+{ #category : #finalization }
+PotsESP32Driver >> disconnect [
+		
+]
+
+{ #category : #initialization }
+PotsESP32Driver >> providePinInfo [
+	"This is called after setup and returns a pinDict dictionary"
+	"the id is the index and the value is a fully filled out PotsActivePin"
+	"the ESP32 has no altId's and all pins can be DI, that is also their defaul state"
+	| pinDict allIds|
+
+	pinDict := Dictionary new.
+	"first fill out the dictionary"
+	allIds := baseDriver pinList.
+	allIds do: [ :id | pinDict at: id put:
+		(PotsActivePin new
+		id: id;
+		currentRole: (PotsDigitalInputRole new driver: self)) ].
+	"next fill the roledis, one by one"
+	"first the default DI"
+	pinDict valuesDo: [  :pin | pin addRole: (pin currentRole) ].
+	"DO and PWM and maybe servo as well??"
+	baseDriver outputList do: [ :id |
+		(pinDict at: id) addRole: (PotsDigitalOutputRole new driver: self).
+		(pinDict at: id) addRole: (PotsPWMRole new driver: self)].
+	"ADC"
+	baseDriver adcList do: [ :id |
+		 (pinDict at: id) addRole: (PotsAnalogInputRole new driver: self)].
+	"DAC"
+	baseDriver dacList do: [ :id |
+		 (pinDict at: id) addRole: (PotsAnalogOutputRole new driver: self)].
+	"I2C"
+	baseDriver i2cList do: [ :id |
+		(pinDict at: id) addRole: (PotsI2CRole new driver: self) ].
+	^pinDict
+]
+
+{ #category : #pwm }
+PotsESP32Driver >> pwmValue: aPercentage intoPin: aPin [
+	baseDriver pwmValue: aPercentage intoPin: aPin id
+]
+
+{ #category : #initialization }
+PotsESP32Driver >> setup [
+	baseDriver := ESP32Driver new
+		deviceName: deviceName;
+		brokerIP: brokerIP;
+		setup
+]
