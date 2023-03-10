@@ -23,9 +23,9 @@ Class {
 }
 
 { #category : #configuration }
-PotsLayout class >> forArduinoUno [ 
+PotsLayout class >> forArduinoUno [
 	"fill the plain matrix for a Pico board"
-	^ self new forArduinoUno 
+	^ self new forArduinoUno
 ]
 
 { #category : #configuration }
