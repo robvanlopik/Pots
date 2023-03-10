@@ -4,6 +4,11 @@ Class {
 	#category : #'PharoThings-RobsVersion'
 }
 
+{ #category : #'accessing structure variables' }
+PotsAnalogOutputRole class >> short [
+	^'AO'
+]
+
 { #category : #'private - controlling' }
 PotsAnalogOutputRole >> activateOn: aPin [
 	driver beAnalogOutputOnPin: aPin

@@ -48,9 +48,33 @@ PotsESP32Driver >> bePWMOutputOnPin: aPin [
 	^baseDriver bePWMOutputOnPin: aPin id
 ]
 
+{ #category : #accessing }
+PotsESP32Driver >> brokerIP [
+
+	^ brokerIP
+]
+
+{ #category : #accessing }
+PotsESP32Driver >> brokerIP: anObject [
+
+	brokerIP := anObject
+]
+
 { #category : #initialization }
 PotsESP32Driver >> connect [
 	
+]
+
+{ #category : #accessing }
+PotsESP32Driver >> deviceName [
+
+	^ deviceName
+]
+
+{ #category : #accessing }
+PotsESP32Driver >> deviceName: anObject [
+
+	deviceName := anObject
 ]
 
 { #category : #'digital io' }

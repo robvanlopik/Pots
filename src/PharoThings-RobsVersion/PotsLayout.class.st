@@ -22,25 +22,30 @@ Class {
 	#category : #'PharoThings-RobsVersion'
 }
 
-{ #category : #'as yet unclassified' }
+{ #category : #configuration }
 PotsLayout class >> forArduinoUno [ 
 	"fill the plain matrix for a Pico board"
 	^ self new forArduinoUno 
 ]
 
-{ #category : #'as yet unclassified' }
+{ #category : #configuration }
+PotsLayout class >> forESP32_30pins [
+	^self new forESP32_30pins
+]
+
+{ #category : #configuration }
 PotsLayout class >> forPi3 [
 	"fill the plain matrix for a Pico board"
 	^ self new forPi3
 ]
 
-{ #category : #'as yet unclassified' }
+{ #category : #configuration }
 PotsLayout class >> forPiZero [
 	"fill the plain matrix for a Pico board"
 	^ self new forPiZero
 ]
 
-{ #category : #'as yet unclassified' }
+{ #category : #configuration }
 PotsLayout class >> forPico [
 	"fill the plain matrix for a Pico board"
 	^ self new forPico
@@ -79,6 +84,27 @@ PotsLayout >> forArduinoUno [
 		'AREF' ''
 		18    ''
 		19    '')
+]
+
+{ #category : #configuration }
+PotsLayout >> forESP32_30pins [
+
+plainMatrix := #(
+	'EN' 23
+	36   22
+	39   'NA'
+	34   'NA'
+	35   21
+	32   19
+	33   19
+	25   5
+	26   17
+	27   16
+	14   4
+	12   2
+	13  15
+	'GND' 'GND'
+	'VIN' '3V3')
 ]
 
 { #category : #initialization }
