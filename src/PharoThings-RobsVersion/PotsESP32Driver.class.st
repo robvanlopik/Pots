@@ -83,8 +83,8 @@ PotsESP32Driver >> digitalValue: oneOrZero intoPin: aPin [
 ]
 
 { #category : #'digital io' }
-PotsESP32Driver >> digitalValuefromPin: aPin [
-	^baseDriver digitalValuefromPin: aPin id
+PotsESP32Driver >> digitalValueFromPin: aPin [
+	^baseDriver digitalValueFromPin: aPin id
 ]
 
 { #category : #finalization }
