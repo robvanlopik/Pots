@@ -173,7 +173,7 @@ PotsDS1307Device >> packedBCDFromInt: anInt [
 PotsDS1307Device >> readRegister: anInteger [
 	"read register anInterger and convert from BCD"
 
-	^self intFromBCD: (i2cConnection read8BitsAt: anInteger)
+	^self intFromBCD: (i2cConnection readByteAt: anInteger)
 
 ]
 
@@ -201,7 +201,7 @@ PotsDS1307Device >> second: anInt [
 PotsDS1307Device >> writeRegister: anInteger data: aNumber [
 	"comment stating purpose of message"
 
-	i2cConnection write8BitsAt: anInteger data: (self packedBCDFromInt: aNumber)
+	i2cConnection writeByteAt: anInteger data: (self packedBCDFromInt: aNumber)
 ]
 
 { #category : #accessing }

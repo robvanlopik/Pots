@@ -8,7 +8,8 @@ Class {
 	#superclass : #PotsDriverDriver,
 	#instVars : [
 		'deviceName',
-		'brokerIP'
+		'brokerIP',
+		'i2cPins'
 	],
 	#category : #'PharoThings-RobsVersion'
 }
@@ -65,6 +66,12 @@ PotsESP32Driver >> connect [
 	
 ]
 
+{ #category : #'io protocols' }
+PotsESP32Driver >> connectToI2CDevice: deviceAddressInt [
+	^baseDriver openI2C: deviceAddressInt
+	
+]
+
 { #category : #accessing }
 PotsESP32Driver >> deviceName [
 
@@ -92,13 +99,19 @@ PotsESP32Driver >> disconnect [
 		
 ]
 
+{ #category : #accessing }
+PotsESP32Driver >> i2cPins [
+
+	^ i2cPins
+]
+
 { #category : #initialization }
 PotsESP32Driver >> providePinInfo [
 	"This is called after setup and returns a pinDict dictionary"
 	"the id is the index and the value is a fully filled out PotsActivePin"
 	"the ESP32 has no altId's and all pins can be DI, that is also their defaul state"
 	| pinDict allIds|
-
+	i2cPins := OrderedCollection new.
 	pinDict := Dictionary new.
 	"first fill out the dictionary"
 	allIds := baseDriver pinList.
@@ -121,7 +134,8 @@ PotsESP32Driver >> providePinInfo [
 		 (pinDict at: id) addRole: (PotsAnalogOutputRole new driver: self)].
 	"I2C"
 	baseDriver i2cList do: [ :id |
-		(pinDict at: id) addRole: (PotsI2CRole new driver: self) ].
+		(pinDict at: id) addRole: (PotsI2CRole new driver: self).
+			i2cPins add: (pinDict at: id) ].
 	^pinDict
 ]
 
