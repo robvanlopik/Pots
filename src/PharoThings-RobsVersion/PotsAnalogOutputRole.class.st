@@ -17,5 +17,6 @@ PotsAnalogOutputRole >> activateOn: aPin [
 
 { #category : #'private - accessing' }
 PotsAnalogOutputRole >> value: anAnalogValue forPin: aPin [
-	driver analogValue: anAnalogValue  intoPin: aPin
+	driver analogValue: anAnalogValue  intoPin: aPin.
+	lastValue := anAnalogValue
 ]

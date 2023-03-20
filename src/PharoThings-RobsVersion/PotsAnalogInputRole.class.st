@@ -28,7 +28,7 @@ PotsAnalogInputRole class >> short [
 
 { #category : #'private - controlling' }
 PotsAnalogInputRole >> activateOn: aPin [
-	"driver beAnalogInputOnPin: aPin"
+	driver beAnalogInputOnPin: aPin
 ]
 
 { #category : #'private - controlling' }

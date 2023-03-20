@@ -10,3 +10,9 @@ Class {
 	#superclass : #PotsPinRole,
 	#category : #'PharoThings-RobsVersion'
 }
+
+{ #category : #accessing }
+PotsEnsemblePinRole >> lastValue [
+	^nil
+	
+]

@@ -20,8 +20,8 @@ PotsESP32Driver >> analogValue: aValue intoPin: aPin [
 ]
 
 { #category : #'analog io' }
-PotsESP32Driver >> analogValuefromPin: aPin [
-	^baseDriver analogValuefromPin: aPin id
+PotsESP32Driver >> analogValueFromPin: aPin [
+	^baseDriver analogValueFromPin: aPin id
 ]
 
 { #category : #'analog io' }
