@@ -66,11 +66,16 @@ The following is only possible on Arduino, Pico:
 ```smalltalk
 a0 := myArduino pinWithAltId: 0. "On an Arduino Uno this is pin 14, on the Pico it is gpio26"
 a0 beAnalogInput. "note that analog pins can also do digital i/o"
-a0 enableReporting. "This is specific to Firmata, ot necessary on Pico"
+a0 enableReporting. "This is specific to Firmata, not necessary on Pico"
 measurement := a0 value. "The result is in Volts"
 ```
 The ESP32 has no altId's defined so for analog input you can use pins 32, 33, 34, 35, 39 sand for analog output pins 25 and 26.
 #### Inspector and PotsLayout
+When you inspect an instance of PotsController, you get a list of the pins in numerical order. Each line has the following informatio: pin number, alternative pin number, current role, last value and permitted roles (named capabilities). To make this look more like the actual board or connector you can apply a PotsLayout to the controller like
+```smalltalk
+myArduino installLayout: : PotsLayout forArduinoUno.
+```
+There are definitions for the Pi3, Pico, ESP32-30pins and the Uno. The pins are now arranged in two columns with their details on the left and the right. From the code it will be evident how to make your own layout
 
 ### Devices
 
@@ -116,7 +121,5 @@ Metacello new
     repository: 'github://robvanlopik/Pots:main';
     load.
 ```
-This will also load the three drivers (PiGPIO, Picod and Firmata). Also loaded is my fork of an FFI-based SerialPort driver by Pablo Tesone, 
-so the code can be used in Pharo 9 or 10.
-    
+This will also load the four drivers (PiGPIO, Picod, Firmata and ESP32). Also loaded is my fork of an FFI-based SerialPort driver by Pablo Tesone and the MQTT package by Sven van Caekenberghe.
 ```
