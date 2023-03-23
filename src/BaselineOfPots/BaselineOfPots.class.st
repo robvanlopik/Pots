@@ -12,13 +12,22 @@ BaselineOfPots >> baseline: spec [
 		self
 			declareFirmataOn: spec;
 			declarePiGPIOOn: spec;
-			declarePicodDriverOn: spec.
-
+			declarePicodDriverOn: spec;
+			declareESP32DriverOn: spec.
 		spec
 			package: 'PharoThings-RobsVersion'
-			with: [ spec requires: #( 'Firmata' 'PiGPIO' 'PicodDriver' ) ];
+			with: [ spec requires: #( 'Firmata' 'PiGPIO' 'PicodDriver' 'ESP32Driver' ) ];
 			package: 'PharoThingsSimplified-Tests'
 			with: [ spec requires: #( 'PharoThings-RobsVersion' ) ] ]
+]
+
+{ #category : #'external projects' }
+BaselineOfPots >> declareESP32DriverOn: spec [
+
+	spec
+		baseline: 'ESP32Drver'
+		with: [ 
+		spec repository: 'github://robvanlopik/toit-pharo:main' ]
 ]
 
 { #category : #'external projects' }

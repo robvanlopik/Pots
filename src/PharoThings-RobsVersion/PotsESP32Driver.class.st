@@ -14,6 +14,15 @@ Class {
 	#category : #'PharoThings-RobsVersion'
 }
 
+{ #category : #'instance creation' }
+PotsESP32Driver class >> brokerIP: aBrokerAddress devicename: aName [
+
+	^self new
+		brokerIP: aBrokerAddress;
+		deviceName: aName ;
+		yourself
+]
+
 { #category : #'analog io' }
 PotsESP32Driver >> analogValue: aValue intoPin: aPin [
 	baseDriver analogValue: aValue intoPin: aPin id
