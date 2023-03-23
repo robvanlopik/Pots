@@ -4,7 +4,7 @@
 
 ## Attribution
 
-*This project is indebted to the Pharo-of-Things project (https://github.com/pharo-iot/PharoThings)  for ideas, modelling and code. Especially the pin and device model stem from Pot. It misses the remote capabilities of Telepharo and the nice board inspector (although they could come back). On the other hand it fully supports digital I/O, PWM and servo functions on  Raspberry Pi, Pico and Arduino devices. The design considerations are documented in Pot-to-Pots.md in this repo. In this readme no previous knowledge of PharoThings is presupposed. If you are acquainted with Pharo-of-Things you should know that the term `Board` has been replaced by `Controller` and `Mode` and `Function` coalesced into `Role`.*
+*This project is indebted to the Pharo-of-Things project (https://github.com/pharo-iot/PharoThings)  for ideas, modelling and code. Especially the pin and device model stem from Pot. It misses the remote capabilities of Telepharo. On the other hand it fully supports digital I/O, PWM and servo functions on  Raspberry Pi, Pico, Arduino and ESP32 devices. The design considerations are documented in Pot-to-Pots.md in this repo. In this readme no previous knowledge of PharoThings is presupposed. If you are acquainted with Pharo-of-Things you should know that the term `Board` has been replaced by `Controller` and `Mode` and `Function` coalesced into `Role`.*
 
 ## Main classes and relations between them
 
@@ -16,19 +16,19 @@ A controller (class `PotsController`) is a concept that stands for a physical de
 
 The driver has two functions:
 
-1. Communicate with the physical device. This can be through an existing driver (like PiGPIO for the Raspberry Pi or Firmata for an Arduino or PicodDriver for thee Raspberry Pico) or through a device (`PotsDevice`) that has been defined for an existing controller (see under "Device"). We call this lower level driver the "base driver". The PotsDriver presents a common API to the Controller.
+1. Communicate with the physical device. This can be through an existing driver (like PiGPIO for the Raspberry Pi or Firmata for an Arduino, PicodDriver for thee Raspberry Pico), or ESP32Driver for the ESP32 or through a device (`PotsDevice`) that has been defined for an existing controller (see under "Device"). We call this lower level driver the "base driver". The PotsDriver presents a common API to the Controller.
 2. Provide the controller with a list of all pins with their ID's and their capabilities (possible roles). A controller is completely defined by its driver, so there will usually be no need to subclass `PotsController`.
 
 #### Example code
 
-The following code fragments would create two controllers, one for a Pi (with pigpiod running on the Pi) and the second for an Arduino (loaded with a Firmata sketch):
+The following code fragments would create four controllers, one for a Pi (with pigpiod running on the Pi), the second for an Arduino (loaded with a Firmata sketch), the third for a Raspberry Pico (with Picod daemon) and the last for an ESP32 running my own deaemon.toit :
 
 ```smalltalk
-myPi := PotsController new driver: (PotsPiGPIODriver onIP: '192.168.1.92' port: 8888)
+myPi := PotsController new driver: (PotsPiGPIODriver onIP: '192.168.1.92' port: 8888).
 myArduino := PotsController new driver: (PotsFirmataDriver onPort: 'COM3' baudRate: 57600).
-myPico := PotsController new driver: (PotsPicodDriver onPort: '/dev/ttyACM0')
+myPico := PotsController new driver: (PotsPicodDriver onPort: '/dev/ttyACM0').
+myESP32 := PotsController new driver: (PotsESP32Driver brokerIP: 'test.mosquitto.org' deviceName: 'test1'.
 ```
-
 If you are running this on the Raspberry Pi itself, you should use the localhost address 127.0.0.1.
 
 ### Pin
@@ -37,9 +37,9 @@ A controller has a number of pins (else it wouldn't be of much use). Pins are de
 
 Pins respond to the messages `value` or `value:`.  The result or parameter depends on the role the pins play. 
 
-Roles are set by the messages `beDigitalInput`, `beDigitalOutput`, `beAnalogInput`,  `bePWMoutput` or `beServoOutput`.  
+Roles are set by the messages `beDigitalInput`, `beDigitalOutput`, `beAnalogInput`, beAnalogOutput, `bePWMoutput` or `beServoOutput`.  
 
-Values are returned and provided in meaningful units: 0/1 for digital pins, volts for analog inputs, percentage for PWM and degrees (0 - 180) for servo pins. If you know the internals, you can use `rawValue`.
+Values are returned and provided in meaningful units: 0/1 for digital pins, volts for analog i/o, percentage for PWM and degrees (0 - 180) for servo pins. If you know the internals, you can use `rawValue`.
 
 ### Role
 
@@ -47,10 +47,10 @@ Role (`PotsRole`) is a central concept. A role captures what  a pin can do, its 
 
 #### Example code
 
-Let's start with a LED. Most Arduinos have a LED on pin 13 en on the Pico the internal LED is on GPIO 25; for the Pi you will have to connect a LED to  GPIO pin 13 (that is 33 on the connector), or simply use a volt meter. We use `myController` instead of `myPi` or `myArduino`.
+Let's start with a LED. Most Arduinos have a LED on pin 13 en on the Pico the internal LED is on GPIO 25; for the Pi you will have to connect a LED to  GPIO pin 13 (that is 33 on the connector), or simply use a volt meter. On an ESP32 there is often a LED on pin 2. We use `myController` instead of `myPi` or `myArduino`.
 
 ```smalltalk
-led := myController pinWithId: 13. "or 25 for a Pico"
+led := myController pinWithId: 13. "or 25 for a Pico or 2 for ESP32"
 led beDigitalOutput.
 led value: 1.
 led toggle.
@@ -61,14 +61,21 @@ led incrementValueBy: 20.
 
 For the Arduino you must connect a LED to a PWM capable pin. 
 
-The following is only possible on Arduino and Pico:
+The following is only possible on Arduino, Pico:
 
 ```smalltalk
 a0 := myArduino pinWithAltId: 0. "On an Arduino Uno this is pin 14, on the Pico it is gpio26"
 a0 beAnalogInput. "note that analog pins can also do digital i/o"
-a0 enableReporting. "This is specific to Firmata, ot necessary on Pico"
+a0 enableReporting. "This is specific to Firmata, not necessary on Pico"
 measurement := a0 value. "The result is in Volts"
 ```
+The ESP32 has no altId's defined so for analog input you can use pins 32, 33, 34, 35, 39 sand for analog output pins 25 and 26.
+#### Inspector and PotsLayout
+When you inspect an instance of PotsController, you get a list of the pins in numerical order. Each line has the following informatio: pin number, alternative pin number, current role, last value and permitted roles (named capabilities). To make this look more like the actual board or connector you can apply a PotsLayout to the controller like
+```smalltalk
+myArduino installLayout: : PotsLayout forArduinoUno.
+```
+There are definitions for the Pi3, Pico, ESP32-30pins and the Uno. The pins are now arranged in two columns with their details on the left and the right. From the code it will be evident how to make your own layout
 
 ### Devices
 
@@ -114,7 +121,5 @@ Metacello new
     repository: 'github://robvanlopik/Pots:main';
     load.
 ```
-This will also load the three drivers (PiGPIO, Picod and Firmata). Also loaded is my fork of an FFI-based SerialPort driver by Pablo Tesone, 
-so the code can be used in Pharo 9 or 10.
-    
+This will also load the four drivers (PiGPIO, Picod, Firmata and ESP32). Also loaded is my fork of an FFI-based SerialPort driver by Pablo Tesone and the MQTT package by Sven van Caekenberghe.
 ```
