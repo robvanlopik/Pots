@@ -159,8 +159,7 @@ PotsPiGPIODriver >> servoValue: aNumber intoPin: aPin [
 	minDegrees := aPin currentRole minDegrees .
 	maxDegrees := aPin currentRole maxDegrees.
 	raw := aNumber * (max - min) / (maxDegrees - minDegrees ) + min.
-	self rawServoValue: raw intoPin: aPin.
-	
+	self rawServoValue: raw intoPin: aPin
 ]
 
 { #category : #initialization }

@@ -177,7 +177,7 @@ PotsPicodDriver >> providePinInfo [
 	| pinDict i2cRole |
 	"first enumerate all pins"
 	pinDict := Dictionary new.
-	0 to: 29 do: [ :pinId | 
+	0 to: 29 do: [ :pinId |
 		pinDict at: pinId put: (PotsActivePin new
 				 id: pinId;
 				 currentRole: (PotsDigitalInputRole new driver: self)) ].
@@ -191,24 +191,21 @@ PotsPicodDriver >> providePinInfo [
 	"fill the role dictionaries of each pin"
 	pinDict valuesDo: [ :pin | pin addRole: pin currentRole ].
 	"all pins can be DO, except 29"
-	0 to: 28 do: [ :id | 
+	0 to: 28 do: [ :id |
 		(pinDict at: id) addRole: (PotsDigitalOutputRole new driver: self) ].
 	"servo"
-	0 to: 28 do: [ :id | 
+	0 to: 28 do: [ :id |
 		(pinDict at: id) addRole: (PotsServoRole new
-				 driver: self;
-				 min: 500;
-				 max: 2500;
-				 yourself) ].
+				 driver: self )].
 	"pwm"
-	0 to: 28 do: [ :id | 
+	0 to: 28 do: [ :id |
 		(pinDict at: id) addRole: (PotsPWMRole new
 				 driver: self;
 				 range: 100;
 				 yourself) ].
 
 	"almost all pins can play an i2c role and there are 2 channels.
-	 Due to the limitations of the present Controller model, 
+	 Due to the limitations of the present Controller model,
 	we settle for one channel (0) and fixed pins: 0 for sda and
 	1 for scl -- to be defined in #onnectToI2CDevice"
 	i2cPins := OrderedCollection new.
@@ -218,7 +215,7 @@ PotsPicodDriver >> providePinInfo [
 	(pinDict at: 1) addRole: i2cRole.
 	i2cPins add: (pinDict at: 1).
 	"analog inputs 26, 27, 28, 29 are a0 through a3"
-	0 to: 3 do: [ :id | 
+	0 to: 3 do: [ :id |
 		(pinDict at: id + 26)
 			altId: id;
 			addRole: (PotsAnalogInputRole new

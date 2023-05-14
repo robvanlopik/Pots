@@ -44,6 +44,15 @@ PotsServoRole >> incrementValueBy: aNumber forPin: aPin [
 	self value: newValue forPin: aPin
 ]
 
+{ #category : #initialization }
+PotsServoRole >> initialize [ 
+	"set min max (in microseconds) and minDegres and maxDegrees to defaults"
+	min := 500.
+	max := 2500.
+	minDegrees := 0.
+	maxDegrees := 180
+]
+
 { #category : #parameters }
 PotsServoRole >> max [
 	^ max

@@ -25,7 +25,7 @@ BaselineOfPots >> baseline: spec [
 BaselineOfPots >> declareESP32DriverOn: spec [
 
 	spec
-		baseline: 'ESP32Drver'
+		baseline: 'ESP32Driver'
 		with: [ 
 		spec repository: 'github://robvanlopik/toit-pharo:main' ]
 ]

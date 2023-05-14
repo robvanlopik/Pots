@@ -58,6 +58,11 @@ PotsESP32Driver >> bePWMOutputOnPin: aPin [
 	^baseDriver bePWMOutputOnPin: aPin id
 ]
 
+{ #category : #'private - controlling' }
+PotsESP32Driver >> beServoOutputOnPin: aPin [
+		^baseDriver beServoOutputOnPin: aPin id
+]
+
 { #category : #accessing }
 PotsESP32Driver >> brokerIP [
 
@@ -134,7 +139,8 @@ PotsESP32Driver >> providePinInfo [
 	"DO and PWM and maybe servo as well??"
 	baseDriver outputList do: [ :id |
 		(pinDict at: id) addRole: (PotsDigitalOutputRole new driver: self).
-		(pinDict at: id) addRole: (PotsPWMRole new driver: self)].
+		(pinDict at: id) addRole: (PotsPWMRole new driver: self).
+		(pinDict at: id) addRole: (PotsServoRole new driver: self)].
 	"ADC"
 	baseDriver adcList do: [ :id |
 		 (pinDict at: id) addRole: (PotsAnalogInputRole new driver: self)].
@@ -151,6 +157,23 @@ PotsESP32Driver >> providePinInfo [
 { #category : #pwm }
 PotsESP32Driver >> pwmValue: aPercentage intoPin: aPin [
 	baseDriver pwmValue: aPercentage intoPin: aPin id
+]
+
+{ #category : #'io protocols' }
+PotsESP32Driver >> rawServoValue: aNumber intoPin: aPin [
+
+	baseDriver servoOnPin: aPin id pulseWidth: aNumber
+]
+
+{ #category : #'io protocols' }
+PotsESP32Driver >> servoValue: aNumber intoPin: aPin [
+	| min max minDegrees maxDegrees raw|
+	min := aPin currentRole min.
+	max := aPin currentRole max.
+	minDegrees := aPin currentRole minDegrees .
+	maxDegrees := aPin currentRole maxDegrees.
+	raw := aNumber * (max - min) / (maxDegrees - minDegrees ) + min.
+	self rawServoValue: raw intoPin: aPin
 ]
 
 { #category : #initialization }
