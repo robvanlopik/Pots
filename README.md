@@ -27,7 +27,7 @@ The following code fragments would create four controllers, one for a Pi (with p
 myPi := PotsController new driver: (PotsPiGPIODriver onIP: '192.168.1.92' port: 8888).
 myArduino := PotsController new driver: (PotsFirmataDriver onPort: 'COM3' baudRate: 57600).
 myPico := PotsController new driver: (PotsPicodDriver onPort: '/dev/ttyACM0').
-myESP32 := PotsController new driver: (PotsESP32Driver brokerIP: 'test.mosquitto.org' deviceName: 'test1'.
+myESP32 := PotsController new driver: (PotsESP32Driver brokerIP: 'mqtt://test.mosquitto.org' deviceName: 'test1'.
 ```
 If you are running this on the Raspberry Pi itself, you should use the localhost address 127.0.0.1.
 
