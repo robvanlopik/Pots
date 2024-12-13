@@ -6,3 +6,8 @@ Class {
 	#superclass : #PotsPinRole,
 	#category : #'PharoThings-RobsVersion'
 }
+
+{ #category : #'as yet unclassified' }
+PotsNARole >> lastValue [ 
+	^nil
+]

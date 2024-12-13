@@ -15,7 +15,7 @@ Class {
 }
 
 { #category : #'instance creation' }
-PotsESP32Driver class >> brokerIP: aBrokerAddress devicename: aName [
+PotsESP32Driver class >> brokerIP: aBrokerAddress deviceName: aName [
 
 	^self new
 		brokerIP: aBrokerAddress;
