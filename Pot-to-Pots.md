@@ -29,7 +29,7 @@ Somewhere I found the term "peripheral"; I have no clear understanding whether t
 
 # Starting points 
 
-With the above in mind and based pn my experience with the different drivers, I laid out the following principles that an "improved" (and maybe "simplified" PoT should follow.
+With the above in mind and based on my experience with the different drivers, I laid out the following principles that an "improved" (and maybe "simplified" PoT should follow.
 
 1.  Layout must be separated from the basic functional model;
 2.  Pins are designated by their default GPIO numbers;
@@ -48,8 +48,7 @@ To be free to experiment, I did not try to fork PoT but started anew. I call it 
 This leads to a very limited number of classes:
 
 #### PotsController
-Contains pins and the PotsDriver that will bring it to life. It also contains a layout that can be used to enable a graphical inspector. Because a controller instance derives its identity/behaviour from its driver, it probably does not have to be subclassed. (Note: layout not yet implemented)
-
+Contains pins and the PotsDriver that will bring it to life. It also contains a layout that can be used to enable a graphical inspector. Because a controller instance derives its identity/behaviour from its driver, it probably does not have to be subclassed.
 #### PotsPin
 Belongs to a PotsController and is identified by its GPIO ID, usually a number. A Pin can have different Roles, but only one can be active/current. A pin accepts requests, but they are acted upon by its current Role. A pin responds to #value and/or #value: . Depending on the role this translates to the appropriate driver commands. In principle values are "real life": volts for analog input, percentage for PWM, angle for servo. The Role, together with the driver, holds the necessary info for conversions.
 
@@ -74,7 +73,7 @@ This presents the pins of a PotsDevice to the Controller and instructs the PotsD
 In this way devices that behave like controllers can be used just like any other controller. Examples are port expanders. Specifivally the standaard 16x2 LCD device can be connected to an PCF8574 8-bits port expander. This is an I2CDevice and can also function as a controller, so there is no need for a separate i2c version of the LCDDevice.
 
 #### PotsDevice
-The PotDevice is a central part of PoT, and in Pots it is the same. It follows the same modeling. Special care is taken for claiming and releasing the needed gpio pins. In the case of I2C, pins are only released when all devipces on the bus have been closed.
+The PotDevice is a central part of PoT, and in Pots it is the same. It follows the same modeling. Special care is taken for claiming and releasing the needed gpio pins. In the case of I2C, pins are only released when all devices on the bus have been closed.
 
 # Testing
 
