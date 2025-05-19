@@ -2,7 +2,7 @@
 
 ### Design Considerations
 
-Roughly two years ago I came across Pharo of Things (PoT). Before that I already had Squeak running on an old Pi, partly from the Scratch installation that comes with the Pi. I liked the idea and started to experiment and to think how I could contribute. Around January 2020 I started to expand the Firmata driver.
+Roughly five years ago I came across Pharo of Things (PoT). Before that I already had Squeak running on an old Pi, partly from the Scratch installation that comes with the Pi. I liked the idea and started to experiment and to think how I could contribute. Around January 2020 I started to expand the Firmata driver.
 
 After that I looked at an alternative for the WiringPi driver and started a driver on the basis of PiGPIO. I also started to have a deeper look at the design of PoT, because I saw it as a means to introduce electronics and microprocessor hobbyists to Smalltalk, especially because of its easy scripting capabilities. This led me to the following observations on the design of PoT.
 
@@ -80,13 +80,8 @@ The PotDevice is a central part of PoT, and in Pots it is the same. It follows t
 At the level of the device driver I have no tests. I wonder how people manage to test things other than using a breadboard and oscilloscope. I have tried setting up a PotsFakeDriver, but I am not sure that is the way to go. In PiGPIO I started writing tests with MockObject which seems promising.
 
 # Layout/inspector
-
-A PotsController has an attribute "layout". My intent is to have a somewhat generalized description of a PCB, something like a grid. From there you could develop inspectors. I didn't look into this for three reasons:
--   Personally I prefer voltmeter and oscilloscope;
--   Most of the time you would be interested in the temporal behavior of a pin;
--   I would want to do it with NewTools and was waiting for SerialPort to be available for Pharo9 and beyond.
-
-When I come to this, I would also want to built in some timeline/oscilloscope function.
+Inspecting a controller gives a list of all pins with the number, alternative number, value, last value and possible roles.
+An instance of class PotsLayout can be installed in a PotsController to change this display that more resemble the layout of the pins on the boar or connector.
 
 # Announcements
 
@@ -94,13 +89,13 @@ In PoT it was recognized that many devices would have some kind of loop to poll 
 
 ## Error handling.
 
-There is a lot that can go wrong in an IoT environment. In Smalltalk we often trust we can find the error with the debugger. This does not work well when you use external software/hardware. You really have to check what you send to an external program because otherwise the outcome is unpredictable. So you will have to raise some error. First I used #assert: (an idea I picked up from the AI-book by Alexandre Bergel). Then I noticed some discussion about the use of #assert: in the "bloc" channel on Discord and changed to #error, but maybe I should create something like PotsError. Other programming errors will happen when Roles don't exist; this can easily happen when you use another device or another version of Configurable Firmata. Anyway, something for consideration.
+There is a lot that can go wrong in an IoT environment. In Smalltalk we often trust we can find the error with the debugger. This does not work well when you use external software/hardware. You really have to check what you send to an external program because otherwise the outcome is unpredictable. So you will have to raise some error. First I used #assert: (an idea I picked up from the AI-book by Alexandre Bergel). Then I noticed some discussion about the use of #assert: in the "bloc" channel on Discord and changed to #error, but maybe I should create something like PotsError. Other programming errors will happen when Roles don't exist; this can easily happen when you use another device or another version of Configurable Firmata. Anyway, something for consideration. Especially when using Pots in a playground it is important to catch input errors and make them resumable
 
 Another source of error is the data communication. How do you signal or recover in a real life application?
 
 # Status
 
-The basic classes are working and I have implemented a number of devices, that work with  PiGPIO. PicodDriver and Firmata. It runs in Pharo 9 and 10, 
+The basic classes are working and I have implemented a number of devices, that work with  PiGPIO. PicodDriver, Firmata and a Toit-based daemon on the ESP32. It runs in Pharo 9 through 13.
 
 Devices implemented:
 -   ADS1015 - 4 channel ADC
@@ -117,5 +112,5 @@ Cleanup.
 Tests. 
 Framework for announcements, devices using announcements.
 
-April 2022
+April 2022 (updated may 2025)
 Rob van Lopik
