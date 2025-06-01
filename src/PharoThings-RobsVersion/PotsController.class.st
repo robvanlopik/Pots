@@ -30,8 +30,8 @@ myController driver baseDriver
 ```
 "
 Class {
-	#name : #PotsController,
-	#superclass : #Object,
+	#name : 'PotsController',
+	#superclass : 'Object',
 	#instVars : [
 		'driver',
 		'pins',
@@ -39,15 +39,16 @@ Class {
 		'name',
 		'devices'
 	],
-	#category : #'PharoThings-RobsVersion'
+	#category : 'PharoThings-RobsVersion',
+	#package : 'PharoThings-RobsVersion'
 }
 
-{ #category : #initialization }
+{ #category : 'initialization' }
 PotsController >> connectDriver [
 	driver setup "for a DriverDriver start the base driver, for a DeviceDriver do other inits"
 ]
 
-{ #category : #'io protocols' }
+{ #category : 'io protocols' }
 PotsController >> connectToI2CDevice: deviceAddressInt [
 
 	"private !
@@ -57,31 +58,31 @@ PotsController >> connectToI2CDevice: deviceAddressInt [
 	^ driver connectToI2CDevice: deviceAddressInt
 ]
 
-{ #category : #accessing }
+{ #category : 'accessing' }
 PotsController >> devices [
 	^devices 
 ]
 
-{ #category : #finalization }
+{ #category : 'finalization' }
 PotsController >> disconnect [ 
 	"orderly shutdown"
 	devices do: [  :each | each disconnect ].
 	driver disconnect
 ]
 
-{ #category : #accessing }
+{ #category : 'accessing' }
 PotsController >> driver [
 	^ driver
 ]
 
-{ #category : #initialization }
+{ #category : 'initialization' }
 PotsController >> driver: aControllerDriver [
 	driver := aControllerDriver.
 	self connectDriver.
 	self getPinInfo
 ]
 
-{ #category : #initialization }
+{ #category : 'initialization' }
 PotsController >> getPinInfo [
 	"let the driver provide the pin info"
 	"AND take ownership of the pins"
@@ -90,22 +91,22 @@ PotsController >> getPinInfo [
 	pins valuesDo: [ :pin | pin controller: self ] "make sure the pins know where they belong to"
 ]
 
-{ #category : #initialization }
+{ #category : 'initialization' }
 PotsController >> initialize [ 
 	super initialize.
 	devices := OrderedCollection new
 	
 ]
 
-{ #category : #'inspector extensions' }
-PotsController >> inspectionController [
+{ #category : 'inspector extensions' }
+PotsController >> inspectionController: aBuilder [
 	<inspectorPresentationOrder: 0 title: 'Pins'>
 	| table list |
 	
 	layout ifNil: [ 
 	list := pins values sorted: [ :c1 :c2 | c1 id < c2 id ].
 	
-	^ (table := SpTablePresenter new)
+	^ aBuilder newTable
 		items: list ;
 		addColumn: ((SpStringTableColumn 
 			title: 'pinId'
@@ -131,7 +132,7 @@ PotsController >> inspectionController [
 		yourself ].
 	
 	list := layout pinMatrix groupsOf: 2.
-	^ (table := SpTablePresenter new)
+	^ aBuilder newTable
 		items: list;
 		addColumn: (SpStringTableColumn 
 			title: 'capabilities'
@@ -180,7 +181,7 @@ PotsController >> inspectionController [
 		yourself
 ]
 
-{ #category : #'add/remove device' }
+{ #category : 'add/remove device' }
 PotsController >> installDevice: aPotsDevice [
 
 	"return an instance of a PotsDevice. 
@@ -193,7 +194,7 @@ PotsController >> installDevice: aPotsDevice [
 	^ aPotsDevice
 ]
 
-{ #category : #'inspector extensions' }
+{ #category : 'inspector extensions' }
 PotsController >> installLayout: aPotsLayout [
 	"install a PotsLayout. This presuppoese that the layout has been initialised
 	with a plainMatrix for a specific board, so the incantation would be e.g:
@@ -202,27 +203,27 @@ PotsController >> installLayout: aPotsLayout [
 	layout := aPotsLayout applyTo: self
 ]
 
-{ #category : #accessing }
+{ #category : 'accessing' }
 PotsController >> layout [
 	^ layout
 ]
 
-{ #category : #accessing }
+{ #category : 'accessing' }
 PotsController >> layout: anObject [
 	layout := anObject
 ]
 
-{ #category : #accessing }
+{ #category : 'accessing' }
 PotsController >> name [
 	^ name
 ]
 
-{ #category : #accessing }
+{ #category : 'accessing' }
 PotsController >> name: anObject [
 	name := anObject
 ]
 
-{ #category : #accessing }
+{ #category : 'accessing' }
 PotsController >> pinWithAltId: anId [
 	"return the pin with altId anId or nil"
 
@@ -230,29 +231,29 @@ PotsController >> pinWithAltId: anId [
 	^nil
 ]
 
-{ #category : #accessing }
+{ #category : 'accessing' }
 PotsController >> pinWithId: id [
 	"return the pin with altId id or nil "
 	^pins at: id
 ]
 
-{ #category : #accessing }
+{ #category : 'accessing' }
 PotsController >> pins [
 	^ pins
 ]
 
-{ #category : #accessing }
+{ #category : 'accessing' }
 PotsController >> pins: anObject [
 	pins := anObject
 ]
 
-{ #category : #'add/remove device' }
+{ #category : 'add/remove device' }
 PotsController >> removeDevice: aDevice [
 	aDevice disconnect.
 	devices remove: aDevice
 ]
 
-{ #category : #finalization }
+{ #category : 'finalization' }
 PotsController >> reset [
 	"back to state after initialisation, that is"
 	"no devices, pins in original state, reset of base driver"

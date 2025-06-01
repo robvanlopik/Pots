@@ -12,37 +12,38 @@ Internal Representation and Key Implementation Points.
     Implementation Points
 "
 Class {
-	#name : #PotsAnalogInputRole,
-	#superclass : #PotsSoloPinRole,
+	#name : 'PotsAnalogInputRole',
+	#superclass : 'PotsSoloPinRole',
 	#instVars : [
 		'resolution',
 		'refVoltage'
 	],
-	#category : #'PharoThings-RobsVersion'
+	#category : 'PharoThings-RobsVersion',
+	#package : 'PharoThings-RobsVersion'
 }
 
-{ #category : #'accessing structure variables' }
+{ #category : 'accessing structure variables' }
 PotsAnalogInputRole class >> short [ 
 	^'AI'
 ]
 
-{ #category : #'private - controlling' }
+{ #category : 'private - controlling' }
 PotsAnalogInputRole >> activateOn: aPin [
 	driver beAnalogInputOnPin: aPin
 ]
 
-{ #category : #'private - controlling' }
+{ #category : 'private - controlling' }
 PotsAnalogInputRole >> deactivateOn: aPin [
 	"driver bcloseAnalogInputOnPin: aPin"
 ]
 
-{ #category : #'private - controlling' }
+{ #category : 'private - controlling' }
 PotsAnalogInputRole >> disableReportingOnPin: aPin [
 	"forr the time being only for Firmata; but ther drivers have no AI role"
 	driver disableAnalogReportingOnPin: aPin
 ]
 
-{ #category : #'private - controlling' }
+{ #category : 'private - controlling' }
 PotsAnalogInputRole >> enableReportingOnPin: aPin [
 
 	"forr the time being only for Firmata; but their drivers have no AI role"
@@ -50,37 +51,37 @@ PotsAnalogInputRole >> enableReportingOnPin: aPin [
 	driver enableAnalogReportingOnPin: aPin
 ]
 
-{ #category : #'private - accessing' }
+{ #category : 'private - accessing' }
 PotsAnalogInputRole >> rawValueFromPin: aPin [
 	^driver rawAnalogValueFromPin: aPin
 ]
 
-{ #category : #parameters }
+{ #category : 'parameters' }
 PotsAnalogInputRole >> refVoltage [
 	^ refVoltage
 ]
 
-{ #category : #parameters }
+{ #category : 'parameters' }
 PotsAnalogInputRole >> refVoltage: anObject [
 	refVoltage := anObject
 ]
 
-{ #category : #parameters }
+{ #category : 'parameters' }
 PotsAnalogInputRole >> resolution [
 	^ resolution
 ]
 
-{ #category : #parameters }
+{ #category : 'parameters' }
 PotsAnalogInputRole >> resolution: anObject [
 	resolution := anObject
 ]
 
-{ #category : #'private - accessing' }
+{ #category : 'private - accessing' }
 PotsAnalogInputRole >> valueForPin: aPin [
 	^driver analogValueFromPin: aPin
 ]
 
-{ #category : #'private - accessing' }
+{ #category : 'private - accessing' }
 PotsAnalogInputRole >> valueFromPin: aPin [
 	^driver analogValueFromPin: aPin
 ]

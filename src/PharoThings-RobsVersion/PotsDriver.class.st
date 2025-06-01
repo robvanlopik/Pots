@@ -19,111 +19,112 @@ I have a uniform API, but not all drivers have to implement all of it. Because d
 
 "
 Class {
-	#name : #PotsDriver,
-	#superclass : #Object,
-	#category : #'PharoThings-RobsVersion'
+	#name : 'PotsDriver',
+	#superclass : 'Object',
+	#category : 'PharoThings-RobsVersion',
+	#package : 'PharoThings-RobsVersion'
 }
 
-{ #category : #'io protocols' }
+{ #category : 'io protocols' }
 PotsDriver >> analogValueFromPin: aPin [
 	PotsError signal: 'cannot do analog input'
 ]
 
-{ #category : #'as yet unclassified' }
+{ #category : 'as yet unclassified' }
 PotsDriver >> beAnalogInputOnPin: aPin [
 	"subclass may usee this"
 ]
 
-{ #category : #'as yet unclassified' }
+{ #category : 'as yet unclassified' }
 PotsDriver >> beDigitalInputOnPin: aPin [
 	"subclass may usee this"
 ]
 
-{ #category : #'as yet unclassified' }
+{ #category : 'as yet unclassified' }
 PotsDriver >> beDigitalOutputOnPin: aPin [
 	"subclass may usee this"
 ]
 
-{ #category : #'as yet unclassified' }
+{ #category : 'as yet unclassified' }
 PotsDriver >> bePWMOutputOnPin: aPin [
 	"subclass may usee this"
 ]
 
-{ #category : #'as yet unclassified' }
+{ #category : 'as yet unclassified' }
 PotsDriver >> beServoOutputOnPin: aPin [
 	"subclass may use this"
 ]
 
-{ #category : #'as yet unclassified' }
+{ #category : 'as yet unclassified' }
 PotsDriver >> closeAnalogInputOnPin: aPin [
 	"subclass may usee this"
 ]
 
-{ #category : #'as yet unclassified' }
+{ #category : 'as yet unclassified' }
 PotsDriver >> closeDigitalInputOnPin: aPin [
 	"subclass may usee this"
 ]
 
-{ #category : #'as yet unclassified' }
+{ #category : 'as yet unclassified' }
 PotsDriver >> closeDigitalOutputOnPin: aPin [
 	"subclass may usee this"
 ]
 
-{ #category : #'as yet unclassified' }
+{ #category : 'as yet unclassified' }
 PotsDriver >> closePWMOutputOnPin: aPin [
 	"subclass may usee this"
 ]
 
-{ #category : #'as yet unclassified' }
+{ #category : 'as yet unclassified' }
 PotsDriver >> closeServoOutputOnPin: aPin [
 	"subclass may usee this"
 ]
 
-{ #category : #initialization }
+{ #category : 'initialization' }
 PotsDriver >> connect [
 		self subclassResponsibility 
 ]
 
-{ #category : #'io protocols' }
+{ #category : 'io protocols' }
 PotsDriver >> digitalValue: oneOrZero intoPin: aPin [
 	PotsError signal: 'cannot do Digital Output'
 ]
 
-{ #category : #'io protocols' }
+{ #category : 'io protocols' }
 PotsDriver >> digitalValueFromPin: aPin [
 ]
 
-{ #category : #finalization }
+{ #category : 'finalization' }
 PotsDriver >> disconnect [
 		self subclassResponsibility 
 ]
 
-{ #category : #initialization }
+{ #category : 'initialization' }
 PotsDriver >> providePinInfo [
 	"return a dict of pins to the caller, with their poperties"
 	self subclassResponsibility
 ]
 
-{ #category : #'io protocols' }
+{ #category : 'io protocols' }
 PotsDriver >> pwmValue: aNumber intoPin: aPin [
 	PotsError signal: 'cannot do PWM'
 ]
 
-{ #category : #'io protocols' }
+{ #category : 'io protocols' }
 PotsDriver >> rawAnalogValueFromPin: aPin [
 	PotsError signal: 'cannot do raw Analog Input'
 ]
 
-{ #category : #initialization }
+{ #category : 'initialization' }
 PotsDriver >> reset [
 ]
 
-{ #category : #'io protocols' }
+{ #category : 'io protocols' }
 PotsDriver >> servoValue: degrees intoPin: aPin [
 	PotsError signal: 'cannot do servo'
 ]
 
-{ #category : #initialization }
+{ #category : 'initialization' }
 PotsDriver >> setup [
 	"for a PotsDriverDriver start the baseDriver, for a PotsDeviceDriver do toehr inits"
 	self subclassResponsibility

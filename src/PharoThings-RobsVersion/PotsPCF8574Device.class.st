@@ -23,22 +23,23 @@ You can create a PotsHD44780Device with the class method #defaultPCF8574
 see: https://alselectro.wordpress.com/2016/05/12/serial-lcd-i2c-module-pcf8574/
 "
 Class {
-	#name : #PotsPCF8574Device,
-	#superclass : #PotsI2CDevice,
-	#category : #'PharoThings-RobsVersion'
+	#name : 'PotsPCF8574Device',
+	#superclass : 'PotsI2CDevice',
+	#category : 'PharoThings-RobsVersion',
+	#package : 'PharoThings-RobsVersion'
 }
 
-{ #category : #'instance creation' }
+{ #category : 'instance creation' }
 PotsPCF8574Device class >> defaultI2CAddress [ 
 	^16r27
 ]
 
-{ #category : #'reading-primitive data' }
+{ #category : 'reading-primitive data' }
 PotsPCF8574Device >> readByte [
 	^i2cConnection read8Bits
 ]
 
-{ #category : #writing }
+{ #category : 'writing' }
 PotsPCF8574Device >> writeByte: aByte [
 		i2cConnection write8Bits: aByte
 ]

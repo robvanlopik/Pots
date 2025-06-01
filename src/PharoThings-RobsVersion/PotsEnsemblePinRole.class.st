@@ -6,12 +6,13 @@ Specifially, the pins are used by a lower level protocol and accessed indivudual
 Specific for an ensemble role is that the DRIVER decides which pins can play that role
 "
 Class {
-	#name : #PotsEnsemblePinRole,
-	#superclass : #PotsPinRole,
-	#category : #'PharoThings-RobsVersion'
+	#name : 'PotsEnsemblePinRole',
+	#superclass : 'PotsPinRole',
+	#category : 'PharoThings-RobsVersion',
+	#package : 'PharoThings-RobsVersion'
 }
 
-{ #category : #accessing }
+{ #category : 'accessing' }
 PotsEnsemblePinRole >> lastValue [
 	^nil
 	

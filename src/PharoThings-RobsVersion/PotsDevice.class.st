@@ -27,60 +27,61 @@ Internal Representation and Key Implementation Points.
 - `PotsDevice>>#connect` sets up the actual device
 "
 Class {
-	#name : #PotsDevice,
-	#superclass : #Object,
+	#name : 'PotsDevice',
+	#superclass : 'Object',
 	#instVars : [
 		'controller',
 		'name',
 		'resources'
 	],
-	#category : #'PharoThings-RobsVersion'
+	#category : 'PharoThings-RobsVersion',
+	#package : 'PharoThings-RobsVersion'
 }
 
-{ #category : #'as yet unclassified' }
+{ #category : 'as yet unclassified' }
 PotsDevice >> claimResources [
 	self subclassResponsibility 
 ]
 
-{ #category : #controlling }
+{ #category : 'controlling' }
 PotsDevice >> connect [ 
 	"this method starts the device; all relevnt info has to be present"
 	self subclassResponsibility 
 ]
 
-{ #category : #default }
+{ #category : 'default' }
 PotsDevice >> connectTo: aController [
 	controller := aController.
 	self claimResources.
 	self connect
 ]
 
-{ #category : #accessing }
+{ #category : 'accessing' }
 PotsDevice >> controller [
 	^ controller
 ]
 
-{ #category : #accessing }
+{ #category : 'accessing' }
 PotsDevice >> controller: anObject [
 	controller := anObject
 ]
 
-{ #category : #accessing }
+{ #category : 'accessing' }
 PotsDevice >> disconnect [
 	self releaseResources 
 ]
 
-{ #category : #accessing }
+{ #category : 'accessing' }
 PotsDevice >> name [
 	^ name
 ]
 
-{ #category : #accessing }
+{ #category : 'accessing' }
 PotsDevice >> name: anObject [
 	name := anObject
 ]
 
-{ #category : #'as yet unclassified' }
+{ #category : 'as yet unclassified' }
 PotsDevice >> releaseResources [
 	self subclassResponsibility 
 ]

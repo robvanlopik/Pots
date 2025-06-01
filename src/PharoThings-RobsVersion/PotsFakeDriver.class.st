@@ -16,8 +16,8 @@ Internal Representation and Key Implementation Points.
     Implementation Points
 "
 Class {
-	#name : #PotsFakeDriver,
-	#superclass : #PotsDriver,
+	#name : 'PotsFakeDriver',
+	#superclass : 'PotsDriver',
 	#instVars : [
 		'parameter',
 		'pin2Value',
@@ -25,70 +25,71 @@ Class {
 		'pwmValue',
 		'i2cPins'
 	],
-	#category : #'PharoThings-RobsVersion'
+	#category : 'PharoThings-RobsVersion',
+	#package : 'PharoThings-RobsVersion'
 }
 
-{ #category : #'as yet unclassified' }
+{ #category : 'as yet unclassified' }
 PotsFakeDriver class >> i2cPins [
 	^#(2 3)
 ]
 
-{ #category : #accessing }
+{ #category : 'accessing' }
 PotsFakeDriver class >> parameter: anObject [
 	^self new 
 		parameter: anObject;
 		yourself
 ]
 
-{ #category : #'private-mode' }
+{ #category : 'private-mode' }
 PotsFakeDriver >> beDigitalInputOnPin: aPin [
 ]
 
-{ #category : #'private-mode' }
+{ #category : 'private-mode' }
 PotsFakeDriver >> beDigitalOutputOnPin: aPin [
 ]
 
-{ #category : #'private-mode' }
+{ #category : 'private-mode' }
 PotsFakeDriver >> bePWMOutputOnPin: aPin [
 ]
 
-{ #category : #'private-mode' }
+{ #category : 'private-mode' }
 PotsFakeDriver >> beServoOutputOnPin: aPin [
 ]
 
-{ #category : #writing }
+{ #category : 'writing' }
 PotsFakeDriver >> digitalValue: oneOrZero intoPin: aPin [
 	bit := oneOrZero
 ]
 
-{ #category : #'as yet unclassified' }
+{ #category : 'as yet unclassified' }
 PotsFakeDriver >> digitalValueFromPin: aPin [
 	^bit
 ]
 
-{ #category : #accessing }
+{ #category : 'accessing' }
 PotsFakeDriver >> i2cPins [
 	^i2cPins 
 ]
 
-{ #category : #initialization }
+{ #category : 'initialization' }
 PotsFakeDriver >> initialize [ 
 	super initialize.
 	bit := 0
 ]
 
-{ #category : #accessing }
+{ #category : 'accessing' }
 PotsFakeDriver >> parameter [
 	^parameter
 ]
 
-{ #category : #accessing }
+{ #category : 'accessing' }
 PotsFakeDriver >> parameter: anObject [
 "get the paramater to use during initialisation by startBaseDriver"
 	parameter := anObject
 ]
 
-{ #category : #initialization }
+{ #category : 'initialization' }
 PotsFakeDriver >> pin1 [ 	
 	| pin role|
 	role := PotsDigitalInputRole new driver: self.
@@ -97,7 +98,7 @@ PotsFakeDriver >> pin1 [
 	^pin
 ]
 
-{ #category : #initialization }
+{ #category : 'initialization' }
 PotsFakeDriver >> pin2 [
 	| pin role|
 	role := PotsDigitalInputRole new driver: self.
@@ -107,7 +108,7 @@ PotsFakeDriver >> pin2 [
 	^pin
 ]
 
-{ #category : #initialization }
+{ #category : 'initialization' }
 PotsFakeDriver >> pin3 [
 	| pin role|
 	role := PotsDigitalInputRole new driver: self.
@@ -117,7 +118,7 @@ PotsFakeDriver >> pin3 [
 	^pin
 ]
 
-{ #category : #initialization }
+{ #category : 'initialization' }
 PotsFakeDriver >> pin4 [
 	| pin role|
 	role := PotsDigitalInputRole new driver: self.
@@ -127,7 +128,7 @@ PotsFakeDriver >> pin4 [
 	^pin
 ]
 
-{ #category : #initialization }
+{ #category : 'initialization' }
 PotsFakeDriver >> pin5 [
 	| pin role|
 	role := PotsDigitalInputRole new driver: self.
@@ -137,7 +138,7 @@ PotsFakeDriver >> pin5 [
 	^pin
 ]
 
-{ #category : #initialization }
+{ #category : 'initialization' }
 PotsFakeDriver >> providePinInfo [
 	"return a dictionary (key = id) of all pins with their attributes"
 	| pinDict |
@@ -151,13 +152,13 @@ PotsFakeDriver >> providePinInfo [
 	^pinDict
 ]
 
-{ #category : #'io protocols' }
+{ #category : 'io protocols' }
 PotsFakeDriver >> pwmValue: aNumber intoPin: aPin [
 	pwmValue := aNumber
 
 ]
 
-{ #category : #initialization }
+{ #category : 'initialization' }
 PotsFakeDriver >> setup [ 	
 	"do nothing"
 ]

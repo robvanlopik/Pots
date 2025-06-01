@@ -1,10 +1,11 @@
 Class {
-	#name : #PotsVREFPin,
-	#superclass : #PotsPassivePin,
-	#category : #'PharoThings-RobsVersion'
+	#name : 'PotsVREFPin',
+	#superclass : 'PotsPassivePin',
+	#category : 'PharoThings-RobsVersion',
+	#package : 'PharoThings-RobsVersion'
 }
 
-{ #category : #'inspector extensions' }
+{ #category : 'inspector extensions' }
 PotsVREFPin >> idString [ 
 	^'VREF'
 ]

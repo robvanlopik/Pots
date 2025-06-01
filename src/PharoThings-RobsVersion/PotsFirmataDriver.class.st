@@ -25,18 +25,19 @@ Internal Representation and Key Implementation Points.
     Implementation Points
 "
 Class {
-	#name : #PotsFirmataDriver,
-	#superclass : #PotsDriverDriver,
+	#name : 'PotsFirmataDriver',
+	#superclass : 'PotsDriverDriver',
 	#instVars : [
 		'port',
 		'baudRate',
 		'modeDict',
 		'i2cPins'
 	],
-	#category : #'PharoThings-RobsVersion'
+	#category : 'PharoThings-RobsVersion',
+	#package : 'PharoThings-RobsVersion'
 }
 
-{ #category : #'instance creation' }
+{ #category : 'instance creation' }
 PotsFirmataDriver class >> onPort: aSerialPortName baudRate: aNumber [
 		"create new instance"
 		^self new 
@@ -45,7 +46,7 @@ PotsFirmataDriver class >> onPort: aSerialPortName baudRate: aNumber [
 			
 ]
 
-{ #category : #'io protocols' }
+{ #category : 'io protocols' }
 PotsFirmataDriver >> analogValueFromPin: aPin [
 	"we use continuous pin numbers and translate conform analog mapping"
 	| measurement ref range|
@@ -55,44 +56,44 @@ PotsFirmataDriver >> analogValueFromPin: aPin [
 	^measurement * ref / range
 ]
 
-{ #category : #accessing }
+{ #category : 'accessing' }
 PotsFirmataDriver >> baseDriver [
 	^baseDriver
 ]
 
-{ #category : #accessing }
+{ #category : 'accessing' }
 PotsFirmataDriver >> baudRate: anObject [
 	baudRate := anObject
 ]
 
-{ #category : #'role changing' }
+{ #category : 'role changing' }
 PotsFirmataDriver >> beDigitalInputOnPin: aPin [
 	baseDriver pin: aPin id mode: FirmataConstants pinModeInput.
 	baseDriver activateDigitalPort: ((aPin id) // 8)
 ]
 
-{ #category : #'role changing' }
+{ #category : 'role changing' }
 PotsFirmataDriver >> beDigitalOutputOnPin: aPin [
 	baseDriver pin: aPin id mode: FirmataConstants pinModeOutput
 ]
 
-{ #category : #'role changing' }
+{ #category : 'role changing' }
 PotsFirmataDriver >> bePWMOutputOnPin: aPin [
 	baseDriver pin: aPin id mode: FirmataConstants pinModePwm
 ]
 
-{ #category : #'role changing' }
+{ #category : 'role changing' }
 PotsFirmataDriver >> beServoOutputOnPin: aPin [
 	baseDriver pin: aPin id mode: FirmataConstants pinModeServo
 ]
 
-{ #category : #'io protocols' }
+{ #category : 'io protocols' }
 PotsFirmataDriver >> connectToI2CDevice: i2cAddress [
 	"return an I2CConnection that is specific to this I2C address"
 		^baseDriver openI2C: i2cAddress
 ]
 
-{ #category : #initialization }
+{ #category : 'initialization' }
 PotsFirmataDriver >> createPinWithFirmataInfo: id [
 	"create a PotsPin from the info in capabilities, mapping and pinstate"
 	| potsPin firmataPin |
@@ -127,51 +128,51 @@ PotsFirmataDriver >> createPinWithFirmataInfo: id [
 
 ]
 
-{ #category : #'io protocols' }
+{ #category : 'io protocols' }
 PotsFirmataDriver >> digitalValue: oneOrZero into: aPin [
 	baseDriver directDigitalWrite: aPin id value: oneOrZero
 ]
 
-{ #category : #'io protocols' }
+{ #category : 'io protocols' }
 PotsFirmataDriver >> digitalValue: oneOrZero intoPin: aPin [
 	baseDriver directDigitalWrite: aPin id value: oneOrZero
 ]
 
-{ #category : #'io protocols' }
+{ #category : 'io protocols' }
 PotsFirmataDriver >> digitalValueFromPin: aPin [
 	^baseDriver digitalRead: aPin id
 ]
 
-{ #category : #'role changing' }
+{ #category : 'role changing' }
 PotsFirmataDriver >> disableAnalogReportingOnPin: aPin [
 	baseDriver deactivateAnalogPin: aPin id
 ]
 
-{ #category : #finalization }
+{ #category : 'finalization' }
 PotsFirmataDriver >> disconnect [ 
 	baseDriver disconnect
 	
 ]
 
-{ #category : #'role changing' }
+{ #category : 'role changing' }
 PotsFirmataDriver >> enableAnalogReportingOnPin: aPin [
 	baseDriver activateAnalogPin: aPin altId. "use the analog pin number"
 	20 milliSeconds wait. "make sure the first reading is ready"
 ]
 
-{ #category : #initialization }
+{ #category : 'initialization' }
 PotsFirmataDriver >> getCurrentModes [
 	"send #queryPinState to all pins to get the current state filled in in FirmataPins
 	Because the Arduino has to answer for each pin, we insert a delay of 30 milliseconds"
 	0 to: (baseDriver maxPins - 1) do: [  :pin | baseDriver queryPinState: pin. 30 milliSeconds wait ].
 ]
 
-{ #category : #accessing }
+{ #category : 'accessing' }
 PotsFirmataDriver >> i2cPins [
 	^i2cPins
 ]
 
-{ #category : #initialization }
+{ #category : 'initialization' }
 PotsFirmataDriver >> initialize [ 
 	super initialize.
 	modeDict := Dictionary new.
@@ -184,24 +185,24 @@ PotsFirmataDriver >> initialize [
 	i2cPins := OrderedCollection new
 ]
 
-{ #category : #'instance creation' }
+{ #category : 'instance creation' }
 PotsFirmataDriver >> onPort: aSerialPortName baudRate: aNumber [
 	"just save the data to make a connection later"
 	port := aSerialPortName.
 	baudRate := aNumber
 ]
 
-{ #category : #accessing }
+{ #category : 'accessing' }
 PotsFirmataDriver >> port [
 	^ port
 ]
 
-{ #category : #accessing }
+{ #category : 'accessing' }
 PotsFirmataDriver >> port: anObject [
 	port := anObject
 ]
 
-{ #category : #initialization }
+{ #category : 'initialization' }
 PotsFirmataDriver >> providePinInfo [
 	"This is called after the basedriver is connected; we return a dictionary with allpins, their current role and their available roles; also fill in the alternative id that is used for analog inputs"
 	| pinDict |
@@ -212,7 +213,7 @@ PotsFirmataDriver >> providePinInfo [
 	^pinDict
 ]
 
-{ #category : #'io protocols' }
+{ #category : 'io protocols' }
 PotsFirmataDriver >> pwmValue: aNumber intoPin: aPin [
 	"convert percentage to driver units (usually 8 bits, but can be different"
 	| range rawNumber|
@@ -221,18 +222,18 @@ PotsFirmataDriver >> pwmValue: aNumber intoPin: aPin [
 	baseDriver analogWrite: aPin id value: (rawNumber min: range max: 0)
 ]
 
-{ #category : #'io protocols' }
+{ #category : 'io protocols' }
 PotsFirmataDriver >> rawAnalogValueFromPin: aPin [
 	"we use continuous pin numbers and translate conform analog mapping"
 	^baseDriver analogRead: aPin altId 
 ]
 
-{ #category : #'io protocols' }
+{ #category : 'io protocols' }
 PotsFirmataDriver >> rawPwmValue: aNumber intoPin: aPin [
 	baseDriver analogWrite: aPin id value: aNumber
 ]
 
-{ #category : #initialization }
+{ #category : 'initialization' }
 PotsFirmataDriver >> setup [ 
 	"start the Firmata driver and save it"
 	"Note: probably we should do some error handling !!!"

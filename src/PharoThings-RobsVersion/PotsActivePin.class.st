@@ -36,8 +36,8 @@ Instance variables:
 
 "
 Class {
-	#name : #PotsActivePin,
-	#superclass : #PotsPin,
+	#name : 'PotsActivePin',
+	#superclass : 'PotsPin',
 	#instVars : [
 		'id',
 		'altId',
@@ -46,63 +46,64 @@ Class {
 		'deviceCount',
 		'isReporting'
 	],
-	#category : #'PharoThings-RobsVersion'
+	#category : 'PharoThings-RobsVersion',
+	#package : 'PharoThings-RobsVersion'
 }
 
-{ #category : #'private - initialization' }
+{ #category : 'private - initialization' }
 PotsActivePin >> addRole: aPotsPinRole [
 	"add thi role to the roles dictionary. The key is provides by the class method ##short.
 	In principle only the driver will call this method, using the info it hs about the real device"
 	roles at: (aPotsPinRole class short) put: aPotsPinRole.
 ]
 
-{ #category : #accessing }
+{ #category : 'accessing' }
 PotsActivePin >> altId [
 	^altId 
 ]
 
-{ #category : #accessing }
+{ #category : 'accessing' }
 PotsActivePin >> altId: anId [
 	altId := anId
 ]
 
-{ #category : #'inspector extensions' }
+{ #category : 'inspector extensions' }
 PotsActivePin >> altIdString [
 	self altId ifNil: [ ^'' ].
 	^self altId asString
 ]
 
-{ #category : #configuration }
+{ #category : 'configuration' }
 PotsActivePin >> beAnalogInput [
 	self playRole: 'AI'
 ]
 
-{ #category : #configuration }
+{ #category : 'configuration' }
 PotsActivePin >> beAnalogOutput [
 	self playRole: 'AO'
 ]
 
-{ #category : #configuration }
+{ #category : 'configuration' }
 PotsActivePin >> beDigitalInput [
 	self playRole: 'DI'
 ]
 
-{ #category : #configuration }
+{ #category : 'configuration' }
 PotsActivePin >> beDigitalOutput [
 	self playRole: 'DO'
 ]
 
-{ #category : #configuration }
+{ #category : 'configuration' }
 PotsActivePin >> bePWMOutput [
 	self playRole: 'PWM'
 ]
 
-{ #category : #configuration }
+{ #category : 'configuration' }
 PotsActivePin >> beServoOutput [
 	self playRole: 'Servo'
 ]
 
-{ #category : #'inspector extensions' }
+{ #category : 'inspector extensions' }
 PotsActivePin >> capabilitiesString [
 	| response |
 	response := ''.
@@ -110,17 +111,17 @@ PotsActivePin >> capabilitiesString [
 	^ response
 ]
 
-{ #category : #accessing }
+{ #category : 'accessing' }
 PotsActivePin >> currentRole [
 	^ currentRole
 ]
 
-{ #category : #accessing }
+{ #category : 'accessing' }
 PotsActivePin >> currentRole: anObject [
 	currentRole := anObject
 ]
 
-{ #category : #'private - bookkeeping' }
+{ #category : 'private - bookkeeping' }
 PotsActivePin >> decrementDeviceCount [
 
 	deviceCount := deviceCount - 1.
@@ -130,22 +131,22 @@ PotsActivePin >> decrementDeviceCount [
 	"deviceCount := 0 looks wrong "
 ]
 
-{ #category : #accessing }
+{ #category : 'accessing' }
 PotsActivePin >> decrementValueBy: aNumber [
 	currentRole decrementValueBy: aNumber forPin: self
 ]
 
-{ #category : #accessing }
+{ #category : 'accessing' }
 PotsActivePin >> deviceCount [
 	^ deviceCount
 ]
 
-{ #category : #accessing }
+{ #category : 'accessing' }
 PotsActivePin >> deviceCount: anObject [
 	deviceCount := anObject
 ]
 
-{ #category : #'private - controlling' }
+{ #category : 'private - controlling' }
 PotsActivePin >> disableReporting [
 	"used by analog input with Firmata, or PinChange announcements in PiGPIO"
 	isReporting ifFalse: [ ^self ].
@@ -153,7 +154,7 @@ PotsActivePin >> disableReporting [
 	isReporting := false.
 ]
 
-{ #category : #'private - controlling' }
+{ #category : 'private - controlling' }
 PotsActivePin >> enableReporting [
 	"used by analog input with Firmata, or PinChange announcements in PiGPIO"
 	isReporting ifTrue: [ ^self ].
@@ -161,32 +162,32 @@ PotsActivePin >> enableReporting [
 	isReporting := true.
 ]
 
-{ #category : #accessing }
+{ #category : 'accessing' }
 PotsActivePin >> id [
 	^ id
 ]
 
-{ #category : #accessing }
+{ #category : 'accessing' }
 PotsActivePin >> id: anObject [
 	id := anObject
 ]
 
-{ #category : #'inspector extensions' }
+{ #category : 'inspector extensions' }
 PotsActivePin >> idString [
 	^self id asString
 ]
 
-{ #category : #'private - bookkeeping' }
+{ #category : 'private - bookkeeping' }
 PotsActivePin >> incrementDeviceCount [
 	deviceCount := deviceCount + 1
 ]
 
-{ #category : #accessing }
+{ #category : 'accessing' }
 PotsActivePin >> incrementValueBy: aNumber [
 	currentRole incrementValueBy: aNumber forPin: self
 ]
 
-{ #category : #initialization }
+{ #category : 'initialization' }
 PotsActivePin >> initialize [
 	super initialize.
 	
@@ -195,12 +196,12 @@ PotsActivePin >> initialize [
 	isReporting := false.
 ]
 
-{ #category : #accessing }
+{ #category : 'accessing' }
 PotsActivePin >> lastValue [
 	^currentRole lastValue
 ]
 
-{ #category : #'private - controlling' }
+{ #category : 'private - controlling' }
 PotsActivePin >> playRole: shortName [
 	"change the current role
 	if the pin already has the role, do nothing
@@ -218,7 +219,7 @@ PotsActivePin >> playRole: shortName [
 	currentRole := newRole. "only when activation succeeded"
 ]
 
-{ #category : #printing }
+{ #category : 'printing' }
 PotsActivePin >> printOn: aStream [
 	super printOn: aStream.
 	aStream nextPut: $(.
@@ -229,48 +230,48 @@ PotsActivePin >> printOn: aStream [
 	
 ]
 
-{ #category : #accessing }
+{ #category : 'accessing' }
 PotsActivePin >> rawValue [ 	
 	^currentRole rawValueFromPin: self
 ]
 
-{ #category : #accessing }
+{ #category : 'accessing' }
 PotsActivePin >> rawValue: aNumber [	
 	^currentRole rawValue: aNumber forPin: self
 ]
 
-{ #category : #'inspector extensions' }
+{ #category : 'inspector extensions' }
 PotsActivePin >> roleString [
 	^self currentRole class short
 ]
 
-{ #category : #accessing }
+{ #category : 'accessing' }
 PotsActivePin >> roles [
 	^ roles
 ]
 
-{ #category : #'private - initialization' }
+{ #category : 'private - initialization' }
 PotsActivePin >> roles: anObject [
 	roles := anObject
 ]
 
-{ #category : #accessing }
+{ #category : 'accessing' }
 PotsActivePin >> toggle [ 
 	currentRole toggleValueForPin: self
 ]
 
-{ #category : #accessing }
+{ #category : 'accessing' }
 PotsActivePin >> value [ 
 	"relay to my currentRole"
 	^currentRole valueForPin: self
 ]
 
-{ #category : #accessing }
+{ #category : 'accessing' }
 PotsActivePin >> value: aNumber [
 	currentRole value: aNumber forPin: self
 ]
 
-{ #category : #'inspector extensions' }
+{ #category : 'inspector extensions' }
 PotsActivePin >> valueString [
 	"this is meant for an inspector, so display lastValue"
 	^self lastValue asString

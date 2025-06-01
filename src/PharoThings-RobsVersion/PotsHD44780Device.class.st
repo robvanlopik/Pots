@@ -8,18 +8,19 @@ I use the following instance variables (defaults are for Arduino):
 
 "
 Class {
-	#name : #PotsHD44780Device,
-	#superclass : #PotsLCDHD44780,
+	#name : 'PotsHD44780Device',
+	#superclass : 'PotsLCDHD44780',
 	#instVars : [
 		'enPin',
 		'rsPin',
 		'dataPins',
 		'pinIds'
 	],
-	#category : #'PharoThings-RobsVersion'
+	#category : 'PharoThings-RobsVersion',
+	#package : 'PharoThings-RobsVersion'
 }
 
-{ #category : #'instance creation' }
+{ #category : 'instance creation' }
 PotsHD44780Device class >> enPin: aPin1 rsPin: aPin2 dataPins: anArrayOf4Pins [
 	^self new 	
 		enPin: aPin1;
@@ -27,13 +28,13 @@ PotsHD44780Device class >> enPin: aPin1 rsPin: aPin2 dataPins: anArrayOf4Pins [
 		dataPins: anArrayOf4Pins
 ]
 
-{ #category : #'as yet unclassified' }
+{ #category : 'as yet unclassified' }
 PotsHD44780Device class >> pinIds: pinNumbers [
 	^self new
 		pinIds: pinNumbers
 ]
 
-{ #category : #'as yet unclassified' }
+{ #category : 'as yet unclassified' }
 PotsHD44780Device >> assignDefaultPins [
 	
 	pinIds := self defaultPinIds .
@@ -42,7 +43,7 @@ PotsHD44780Device >> assignDefaultPins [
 	dataPins := (pinIds allButFirst: 2) collect: [  :id | controller pinWithId: id ]
 ]
 
-{ #category : #'as yet unclassified' }
+{ #category : 'as yet unclassified' }
 PotsHD44780Device >> assignPins [
 	
 	enPin := controller pinWithId: (pinIds at: 1).
@@ -50,7 +51,7 @@ PotsHD44780Device >> assignPins [
 	dataPins := (pinIds allButFirst: 2) collect: [  :id | controller pinWithId: id ]
 ]
 
-{ #category : #'as yet unclassified' }
+{ #category : 'as yet unclassified' }
 PotsHD44780Device >> claimResources [
 	"we need the pins and claim them"
 	pinIds ifNil: [ pinIds := self defaultPinIds ].
@@ -61,53 +62,53 @@ PotsHD44780Device >> claimResources [
 	
 ]
 
-{ #category : #commands }
+{ #category : 'commands' }
 PotsHD44780Device >> clearDisplay [
 	"clear display and reset cursor"
 	self writeCommand: 2r00000001.
 	3 milliSeconds wait
 ]
 
-{ #category : #controlling }
+{ #category : 'controlling' }
 PotsHD44780Device >> connect [
 	"pins already have been set in claimResources. Remains the initialisationof the display
 	which may be left as default"
 	self initializeRegisters
 ]
 
-{ #category : #accessing }
+{ #category : 'accessing' }
 PotsHD44780Device >> dataPins [
 	^ dataPins
 ]
 
-{ #category : #accessing }
+{ #category : 'accessing' }
 PotsHD44780Device >> dataPins: anObject [
 	dataPins := anObject
 ]
 
-{ #category : #initialization }
+{ #category : 'initialization' }
 PotsHD44780Device >> defaultPinIds [
 		"return an array of pinIds in case the device has no pins assigned. To be used in claimResources"
 		"sequence EN, RS, D4, D5, D6, D7"
 		^#(11 12 5 4 3 2)
 ]
 
-{ #category : #controlling }
+{ #category : 'controlling' }
 PotsHD44780Device >> disconnect [
 	self releaseResources .
 ]
 
-{ #category : #accessing }
+{ #category : 'accessing' }
 PotsHD44780Device >> enPin [
 	^ enPin
 ]
 
-{ #category : #accessing }
+{ #category : 'accessing' }
 PotsHD44780Device >> enPin: anObject [
 	enPin := anObject
 ]
 
-{ #category : #initialization }
+{ #category : 'initialization' }
 PotsHD44780Device >> initializeRegisters [
 	"the magic sequence"
 	self writeCommand: 16r33.
@@ -124,14 +125,14 @@ PotsHD44780Device >> initializeRegisters [
 		clearDisplay
 ]
 
-{ #category : #accessing }
+{ #category : 'accessing' }
 PotsHD44780Device >> pinIds: arrayOfPinNumbers [
 	"sequence: RS EN d4 d5 d6 d7"
 	"misschien optioneel aan eind backlligt toevoegen"
 	pinIds := arrayOfPinNumbers
 ]
 
-{ #category : #'as yet unclassified' }
+{ #category : 'as yet unclassified' }
 PotsHD44780Device >> releaseResources [
 	enPin  deviceCount: 0 .
 	rsPin deviceCount: 0.
@@ -139,17 +140,17 @@ PotsHD44780Device >> releaseResources [
 
 ]
 
-{ #category : #accessing }
+{ #category : 'accessing' }
 PotsHD44780Device >> rsPin [
 	^ rsPin
 ]
 
-{ #category : #accessing }
+{ #category : 'accessing' }
 PotsHD44780Device >> rsPin: anObject [
 	rsPin := anObject
 ]
 
-{ #category : #writing }
+{ #category : 'writing' }
 PotsHD44780Device >> showMessage: aString [
 	| i |
 	i := 1.
@@ -160,12 +161,12 @@ PotsHD44780Device >> showMessage: aString [
 				ifFalse: [ self writeCharacter: char asciiValue ] ]
 ]
 
-{ #category : #'as yet unclassified' }
+{ #category : 'as yet unclassified' }
 PotsHD44780Device >> syncPulse [
 	enPin value: 0; value: 1; value: 0  "would like to time this"
 ]
 
-{ #category : #writing }
+{ #category : 'writing' }
 PotsHD44780Device >> write: aByte mode: oneOrZero [
 	"mode 0 i command,mode 1 is char. Use writeCommand: and writeCharacter"
 	0.001 milliSeconds wait. "That's from PotLCDHD44780Gpio "
@@ -177,12 +178,12 @@ PotsHD44780Device >> write: aByte mode: oneOrZero [
 	self syncPulse
 ]
 
-{ #category : #writing }
+{ #category : 'writing' }
 PotsHD44780Device >> writeCharacter: aByte [
 	self write: aByte mode: 1
 ]
 
-{ #category : #writing }
+{ #category : 'writing' }
 PotsHD44780Device >> writeCommand: aByte [
 	self write: aByte mode: 0
 ]

@@ -6,20 +6,21 @@ When a controller is created. my first task is to provide it with all necessary 
 After that I accept commands from the different roles a pin can play and translate these into baseDriver instructions.
 "
 Class {
-	#name : #PotsDriverDriver,
-	#superclass : #PotsDriver,
+	#name : 'PotsDriverDriver',
+	#superclass : 'PotsDriver',
 	#instVars : [
 		'baseDriver'
 	],
-	#category : #'PharoThings-RobsVersion'
+	#category : 'PharoThings-RobsVersion',
+	#package : 'PharoThings-RobsVersion'
 }
 
-{ #category : #accessing }
+{ #category : 'accessing' }
 PotsDriverDriver >> baseDriver [
 	^baseDriver
 ]
 
-{ #category : #'private - accessing' }
+{ #category : 'private - accessing' }
 PotsDriverDriver >> baseDriver: aDriver [
 	"only to be used for testing; noormally the baseDriver is set by #startBaseDriver"
 	baseDriver := aDriver

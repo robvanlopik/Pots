@@ -20,15 +20,16 @@ Internal Representation and Key Implementation Points.
     Implementation Points
 "
 Class {
-	#name : #PotsDeviceDriver,
-	#superclass : #PotsDriver,
+	#name : 'PotsDeviceDriver',
+	#superclass : 'PotsDriver',
 	#instVars : [
 		'baseDevice'
 	],
-	#category : #'PharoThings-RobsVersion'
+	#category : 'PharoThings-RobsVersion',
+	#package : 'PharoThings-RobsVersion'
 }
 
-{ #category : #initialization }
+{ #category : 'initialization' }
 PotsDeviceDriver >> usingDevice: aDevice [
 	baseDevice := aDevice
 ]

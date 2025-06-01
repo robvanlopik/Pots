@@ -22,7 +22,9 @@ The main structure is:
 
 "
 Class {
-	#name : #ManifestPharoThingsRobsVersion,
-	#superclass : #PackageManifest,
-	#category : #'PharoThings-RobsVersion-Manifest'
+	#name : 'ManifestPharoThingsRobsVersion',
+	#superclass : 'PackageManifest',
+	#category : 'PharoThings-RobsVersion-Manifest',
+	#package : 'PharoThings-RobsVersion',
+	#tag : 'Manifest'
 }

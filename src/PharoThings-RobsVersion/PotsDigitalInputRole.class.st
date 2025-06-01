@@ -4,27 +4,28 @@ I play the Digital Input Role (DI)
 my values can be 0 or 1
 "
 Class {
-	#name : #PotsDigitalInputRole,
-	#superclass : #PotsSoloPinRole,
-	#category : #'PharoThings-RobsVersion'
+	#name : 'PotsDigitalInputRole',
+	#superclass : 'PotsSoloPinRole',
+	#category : 'PharoThings-RobsVersion',
+	#package : 'PharoThings-RobsVersion'
 }
 
-{ #category : #'accessing structure variables' }
+{ #category : 'accessing structure variables' }
 PotsDigitalInputRole class >> short [ 
 	^'DI'
 ]
 
-{ #category : #'private - controlling' }
+{ #category : 'private - controlling' }
 PotsDigitalInputRole >> activateOn: aPin [
 		driver beDigitalInputOnPin: aPin
 ]
 
-{ #category : #'private - controlling' }
+{ #category : 'private - controlling' }
 PotsDigitalInputRole >> deactivateOn: aPin [
 		driver closeDigitalInputOnPin: aPin
 ]
 
-{ #category : #'private - accessing' }
+{ #category : 'private - accessing' }
 PotsDigitalInputRole >> valueForPin: aPin [
 
 	^lastValue := driver digitalValueFromPin: aPin

@@ -6,22 +6,23 @@ Of special interest are the role changing commands (beXyzOnPin:); The PotsContro
 
 "
 Class {
-	#name : #PotsPicodDriver,
-	#superclass : #PotsDriverDriver,
+	#name : 'PotsPicodDriver',
+	#superclass : 'PotsDriverDriver',
 	#instVars : [
 		'port',
 		'baudRate',
 		'i2cPins'
 	],
-	#category : #'PharoThings-RobsVersion'
+	#category : 'PharoThings-RobsVersion',
+	#package : 'PharoThings-RobsVersion'
 }
 
-{ #category : #initialization }
+{ #category : 'initialization' }
 PotsPicodDriver class >> onPort: aPortString [
 	^self new onPort: aPortString
 ]
 
-{ #category : #'io protocols' }
+{ #category : 'io protocols' }
 PotsPicodDriver >> analogValueFromPin: aPin [
 
 	| ref range |
@@ -30,25 +31,25 @@ PotsPicodDriver >> analogValueFromPin: aPin [
 	^(self rawAnalogValueFromPin: aPin) * ref / range
 ]
 
-{ #category : #'as yet unclassified' }
+{ #category : 'as yet unclassified' }
 PotsPicodDriver >> beAnalogInputOnPin: aPin [
 ]
 
-{ #category : #'private-mode' }
+{ #category : 'private-mode' }
 PotsPicodDriver >> beDigitalInputOnPin: aPin [
 
 	self closeCurrentRoleOfPin: aPin.
 	baseDriver setGpioInput: aPin id
 ]
 
-{ #category : #'private-mode' }
+{ #category : 'private-mode' }
 PotsPicodDriver >> beDigitalOutputOnPin: aPin [
 
 	self closeCurrentRoleOfPin: aPin.
 	baseDriver setGpioOutput: aPin id value: 0 "preset with 0"
 ]
 
-{ #category : #initialization }
+{ #category : 'initialization' }
 PotsPicodDriver >> bePWMOutputOnPin: aPin [
 
 	"in principle PWM and Servo are equivalenet;
@@ -58,7 +59,7 @@ PotsPicodDriver >> bePWMOutputOnPin: aPin [
 		self closeCurrentRoleOfPin: aPin ]
 ]
 
-{ #category : #initialization }
+{ #category : 'initialization' }
 PotsPicodDriver >> beServoOutputOnPin: aPin [
 
 	"in principle PWM and Servo are equivalenet;
@@ -68,11 +69,11 @@ PotsPicodDriver >> beServoOutputOnPin: aPin [
 		self closeCurrentRoleOfPin: aPin ]
 ]
 
-{ #category : #'as yet unclassified' }
+{ #category : 'as yet unclassified' }
 PotsPicodDriver >> closeAnalogInputOnPin: aPin [
 ]
 
-{ #category : #'private-mode' }
+{ #category : 'private-mode' }
 PotsPicodDriver >> closeCurrentRoleOfPin: aPin [
 
 	"close the current role off the pin; called by beXyzOnPin:"
@@ -88,12 +89,12 @@ PotsPicodDriver >> closeCurrentRoleOfPin: aPin [
 	"to do: close I2C role ; or doesn't this happen because an i2c connection closes itself and can release the pin?" 
 ]
 
-{ #category : #'private-mode' }
+{ #category : 'private-mode' }
 PotsPicodDriver >> closeDigitalOutputOnPin: aPin [
 
 ]
 
-{ #category : #initialization }
+{ #category : 'initialization' }
 PotsPicodDriver >> closePWMOutputOnPin: aPin [
 
 	"in principle PWM and Servo are equivalenet;
@@ -101,7 +102,7 @@ PotsPicodDriver >> closePWMOutputOnPin: aPin [
 
 ]
 
-{ #category : #initialization }
+{ #category : 'initialization' }
 PotsPicodDriver >> closeServoOutputOnPin:  aPin [
 
 	"in principle PWM and Servo are equivalenet;
@@ -110,12 +111,12 @@ PotsPicodDriver >> closeServoOutputOnPin:  aPin [
 
 ]
 
-{ #category : #controlling }
+{ #category : 'controlling' }
 PotsPicodDriver >> connect [ 
 	"do nothing"
 ]
 
-{ #category : #'io protocols' }
+{ #category : 'io protocols' }
 PotsPicodDriver >> connectToI2CDevice: i2cAddress [
 
 	"return an I2CConnection that is specific to this I2C address
@@ -132,44 +133,44 @@ PotsPicodDriver >> connectToI2CDevice: i2cAddress [
 	^ baseDriver i2cOpenConnectionOn: 0 i2cAddress: i2cAddress
 ]
 
-{ #category : #'io protocols' }
+{ #category : 'io protocols' }
 PotsPicodDriver >> digitalValue: oneZero intoPin: aPin [
 
 	^ baseDriver digitalWrite:  aPin id value: oneZero
 ]
 
-{ #category : #'io protocols' }
+{ #category : 'io protocols' }
 PotsPicodDriver >> digitalValueFromPin: aPin [
 
 	^ baseDriver digitalRead: aPin id
 ]
 
-{ #category : #finalization }
+{ #category : 'finalization' }
 PotsPicodDriver >> disconnect [
 
 	baseDriver disconnect
 ]
 
-{ #category : #accessing }
+{ #category : 'accessing' }
 PotsPicodDriver >> i2cPins [ 
 	^i2cPins 
 ]
 
-{ #category : #initialization }
+{ #category : 'initialization' }
 PotsPicodDriver >> onPort: aPortName [
 	"use default baudrate of 230400"
 	
 	self onPort: aPortName baudRate: 230400
 ]
 
-{ #category : #initialization }
+{ #category : 'initialization' }
 PotsPicodDriver >> onPort: aPortName baudRate: aNumber [
 	"just save the data to make the connection later"
 	port := aPortName.
 	baudRate := aNumber
 ]
 
-{ #category : #initialization }
+{ #category : 'initialization' }
 PotsPicodDriver >> providePinInfo [
 
 	"return a dict of pins to the caller, with their poperties"
@@ -231,7 +232,7 @@ PotsPicodDriver >> providePinInfo [
 	^ pinDict
 ]
 
-{ #category : #'io protocols' }
+{ #category : 'io protocols' }
 PotsPicodDriver >> pwmValue: aNumber intoPin: aPin [
 
 	"no conversion needed as the base driver already uses percentages
@@ -240,25 +241,25 @@ PotsPicodDriver >> pwmValue: aNumber intoPin: aPin [
 	^baseDriver pwmOnPin: aPin id value: aNumber frequency: 1000
 ]
 
-{ #category : #'io protocols' }
+{ #category : 'io protocols' }
 PotsPicodDriver >> rawAnalogValueFromPin: aPin [
 "the basedriver uses seperate analog pin numbers"
 	^ baseDriver analogRead: aPin altId
 ]
 
-{ #category : #'io protocols' }
+{ #category : 'io protocols' }
 PotsPicodDriver >> rawPwmValue: aNumber intoPin: aPin [
 	self pwmValue: aNumber intoPin: aPin
 ]
 
-{ #category : #'io protocols' }
+{ #category : 'io protocols' }
 PotsPicodDriver >> rawServoValue: aNumber intoPin: aPin [
 
 	baseDriver servoOnPin: aPin id pulseWidth: aNumber
 	
 ]
 
-{ #category : #initialization }
+{ #category : 'initialization' }
 PotsPicodDriver >> setup [
 
 	"start the PicodDriver with its parameters"

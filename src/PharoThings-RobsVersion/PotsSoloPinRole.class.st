@@ -10,52 +10,53 @@ lastValue:	the last value written to the pin at the time this role was its curre
 
 "
 Class {
-	#name : #PotsSoloPinRole,
-	#superclass : #PotsPinRole,
+	#name : 'PotsSoloPinRole',
+	#superclass : 'PotsPinRole',
 	#instVars : [
 		'lastValue'
 	],
-	#category : #'PharoThings-RobsVersion'
+	#category : 'PharoThings-RobsVersion',
+	#package : 'PharoThings-RobsVersion'
 }
 
-{ #category : #'private - controlling' }
+{ #category : 'private - controlling' }
 PotsSoloPinRole >> activateOn: aPin [
 		self subclassResponsibility 
 ]
 
-{ #category : #'private - controlling' }
+{ #category : 'private - controlling' }
 PotsSoloPinRole >> deactivateOn: aPin [
 	"only implement when cleanup after use is necessary"
 ]
 
-{ #category : #'private - controlling' }
+{ #category : 'private - controlling' }
 PotsSoloPinRole >> disableReportingOnPin: aPin [
 	"subclass can implement, else do nothing"
 ]
 
-{ #category : #'private - controlling' }
+{ #category : 'private - controlling' }
 PotsSoloPinRole >> enableReportingOnPin: aPin [
 	"subclass can implement, else do nothing"
 ]
 
-{ #category : #'private - accessing' }
+{ #category : 'private - accessing' }
 PotsSoloPinRole >> lastValue [
 	^ lastValue
 ]
 
-{ #category : #'private - accessing' }
+{ #category : 'private - accessing' }
 PotsSoloPinRole >> toggleValueForPin: aPin [
 	"catch-all for pin/roles that cannot be toggled"
 	PotsError signal: 'Pin ', aPin id asString, 'cannot be toggled'
 ]
 
-{ #category : #'private - accessing' }
+{ #category : 'private - accessing' }
 PotsSoloPinRole >> value: aNmber forPin: aPin [
 	"subclass decides whether to implement or not"
 	PotsError signal: 'Pin ', aPin id asString, ' has no output role'
 ]
 
-{ #category : #'private - accessing' }
+{ #category : 'private - accessing' }
 PotsSoloPinRole >> valueForPin: aPin [
 	"subclass decides whether to implement or not"
 	PotsError signal: 'Pin ', aPin id asString, ' has no inputRole'

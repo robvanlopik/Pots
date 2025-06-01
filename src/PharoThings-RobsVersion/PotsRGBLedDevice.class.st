@@ -11,23 +11,24 @@ usage: lamp color: Color lightBlue
 
 "
 Class {
-	#name : #PotsRGBLedDevice,
-	#superclass : #PotsDevice,
+	#name : 'PotsRGBLedDevice',
+	#superclass : 'PotsDevice',
 	#instVars : [
 		'pinIds',
 		'pinG',
 		'pinB',
 		'pinR'
 	],
-	#category : #'PharoThings-RobsVersion'
+	#category : 'PharoThings-RobsVersion',
+	#package : 'PharoThings-RobsVersion'
 }
 
-{ #category : #accessing }
+{ #category : 'accessing' }
 PotsRGBLedDevice class >> pinIds: aList [
 	^self basicNew pinIds: aList
 ]
 
-{ #category : #'as yet unclassified' }
+{ #category : 'as yet unclassified' }
 PotsRGBLedDevice >> assignPins [
 	pinR := controller pinWithId: (pinIds at: 1).
 	pinG := controller pinWithId: (pinIds at: 2).
@@ -39,7 +40,7 @@ PotsRGBLedDevice >> assignPins [
 	
 ]
 
-{ #category : #'as yet unclassified' }
+{ #category : 'as yet unclassified' }
 PotsRGBLedDevice >> claimResources [
 	self assignPins.
 	pinR bePWMOutput deviceCount: 1.
@@ -47,24 +48,24 @@ PotsRGBLedDevice >> claimResources [
 	pinB bePWMOutput deviceCount: 1.
 ]
 
-{ #category : #accessing }
+{ #category : 'accessing' }
 PotsRGBLedDevice >> color: aColor [
 	pinR value: (aColor red * 100) rounded.
 	pinG value: (aColor green * 100) rounded .
 	pinB value: (aColor blue * 100) rounded.
 ]
 
-{ #category : #controlling }
+{ #category : 'controlling' }
 PotsRGBLedDevice >> connect [
 	"nothing to do"
 ]
 
-{ #category : #'as yet unclassified' }
+{ #category : 'as yet unclassified' }
 PotsRGBLedDevice >> pinIds: aList [
 	pinIds := aList
 ]
 
-{ #category : #'as yet unclassified' }
+{ #category : 'as yet unclassified' }
 PotsRGBLedDevice >> releaseResources [
 	pinR deviceCount: 0; beDigitalOutput.
 	pinG deviceCount: 0; beDigitalOutput.

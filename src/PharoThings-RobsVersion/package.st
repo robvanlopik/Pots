@@ -1,1 +1,1 @@
-Package { #name : #'PharoThings-RobsVersion' }
+Package { #name : 'PharoThings-RobsVersion' }

@@ -17,35 +17,36 @@ pwmForPin:  percentage: - percentage on time
 pinOn: and pinOff: - to turn a pin fully ON or OFF
 "
 Class {
-	#name : #PotsPCA9685Device2,
-	#superclass : #PotsI2CDevice,
+	#name : 'PotsPCA9685Device2',
+	#superclass : 'PotsI2CDevice',
 	#instVars : [
 		'clockFrequency'
 	],
-	#category : #'PharoThings-RobsVersion'
+	#category : 'PharoThings-RobsVersion',
+	#package : 'PharoThings-RobsVersion'
 }
 
-{ #category : #'instance creation' }
+{ #category : 'instance creation' }
 PotsPCA9685Device2 class >> defaultI2CAddress [
 "on the adafruit board you can configure more driver ic's 
 furthermmore iall of them also are on address 16r70"
 	^16r40
 ]
 
-{ #category : #initialization }
+{ #category : 'initialization' }
 PotsPCA9685Device2 >> adjustedClockFrequency: aNumber [
 	"change the clockfrequencyvalue used for calculating the PRESCALE value. It is sais the clock (nominally at 25 MHz) can also be 27 MHz. Adjust when the measured period of the signal is off (oscilloscope)."
 	clockFrequency := aNumber
 ]
 
-{ #category : #'as yet unclassified' }
+{ #category : 'as yet unclassified' }
 PotsPCA9685Device2 >> allFree [
 	" clear the ON and OFF bit and load registers with zero, effectively output zero"
 	i2cConnection write16BitsAt: 16rFA data: 0.
 	i2cConnection write16BitsAt: 16rFC data: 0.
 ]
 
-{ #category : #'as yet unclassified' }
+{ #category : 'as yet unclassified' }
 PotsPCA9685Device2 >> allOff [
 	"turn all pins OFF" 
 
@@ -54,14 +55,14 @@ PotsPCA9685Device2 >> allOff [
 	i2cConnection write8BitsAt: 16rFD  data: temp
 ]
 
-{ #category : #accessing }
+{ #category : 'accessing' }
 PotsPCA9685Device2 >> allOn [
 	"turn all pins ON; no need to read the registers first, because they are write only. Bit 4 high" 
 	i2cConnection write8BitsAt: 16rFD  data: 2r00000000.
 	i2cConnection write8BitsAt: 16rFB  data: 2r00010000
 ]
 
-{ #category : #accessing }
+{ #category : 'accessing' }
 PotsPCA9685Device2 >> allPinsOnAt: onTime offAt: offTime [
 	"send PWM settings to all pins"
 
@@ -69,7 +70,7 @@ PotsPCA9685Device2 >> allPinsOnAt: onTime offAt: offTime [
 	i2cConnection write16BitsAt: 16rFC data: offTime.
 ]
 
-{ #category : #accessing }
+{ #category : 'accessing' }
 PotsPCA9685Device2 >> beInverted [
 	"invert all outputs; makes sense when using open drain configuration"
 
@@ -78,7 +79,7 @@ PotsPCA9685Device2 >> beInverted [
 	i2cConnection write8BitsAt: 16r01 data: temp
 ]
 
-{ #category : #accessing }
+{ #category : 'accessing' }
 PotsPCA9685Device2 >> beNonInverted [
 	" cancel beInverted "
 	| temp |
@@ -86,7 +87,7 @@ PotsPCA9685Device2 >> beNonInverted [
 	i2cConnection write8BitsAt: 16r01 data: temp
 ]
 
-{ #category : #initialization }
+{ #category : 'initialization' }
 PotsPCA9685Device2 >> beOpenDrain [
 	"make the outputs open drain. It can sink max. 25 mA. The adafruit board has 220 ohm resistors in series with the output. Bit 2 off register MODE2 must be 0"
 
@@ -95,7 +96,7 @@ PotsPCA9685Device2 >> beOpenDrain [
 	i2cConnection write8BitsAt: 1 data: (oldMode bitAnd: 2r11111011 ).
 ]
 
-{ #category : #initialization }
+{ #category : 'initialization' }
 PotsPCA9685Device2 >> beTotemPole [
 	"set outputs to totempole, with a 25 mA sink and 10 mA source capability at 5V.
 	set bit 2 of MODE2 register to 1"
@@ -105,7 +106,7 @@ PotsPCA9685Device2 >> beTotemPole [
 	i2cConnection write8BitsAt: 1 data: (oldMode bitAnd: 2r00000100)
 ]
 
-{ #category : #controlling }
+{ #category : 'controlling' }
 PotsPCA9685Device2 >> connect [
 	"initialisation"
 
@@ -118,14 +119,14 @@ PotsPCA9685Device2 >> connect [
 	self wakeUp
 ]
 
-{ #category : #accessing }
+{ #category : 'accessing' }
 PotsPCA9685Device2 >> connection [
 	"comment stating purpose of message"
 
 	^i2cConnection
 ]
 
-{ #category : #initialization }
+{ #category : 'initialization' }
 PotsPCA9685Device2 >> frequency: freq [
 	"calculate and set the PRESCALE register 16rFE, limited to the range 3 to 255"
 
@@ -145,7 +146,7 @@ PotsPCA9685Device2 >> frequency: freq [
 
 ]
 
-{ #category : #initialization }
+{ #category : 'initialization' }
 PotsPCA9685Device2 >> pin: aPinNumber onAt: onTime offAt: offTime [
 	"set pin aPinNumber (numbered from 0 through 15, tocorrespond with the silk screen on the board
 	to an onTime (0-4095) en offTime (0-4095. 16r06 is the register address of LED0"
@@ -154,7 +155,7 @@ PotsPCA9685Device2 >> pin: aPinNumber onAt: onTime offAt: offTime [
 	i2cConnection write16BitsAt: 16r06 + 2 + (4 * aPinNumber) data: offTime.
 ]
 
-{ #category : #'as yet unclassified' }
+{ #category : 'as yet unclassified' }
 PotsPCA9685Device2 >> pinOff: pinNumber [
 	" turn pin pinNumber full off"
 	| temp |
@@ -163,7 +164,7 @@ PotsPCA9685Device2 >> pinOff: pinNumber [
 
 ]
 
-{ #category : #'as yet unclassified' }
+{ #category : 'as yet unclassified' }
 PotsPCA9685Device2 >> pinOn: pinNumber [
 	" turn pin pinNumber full on"
 	| temp |
@@ -171,13 +172,13 @@ PotsPCA9685Device2 >> pinOn: pinNumber [
 	i2cConnection write8BitsAt: (16r07 + (4 * pinNumber)) data: temp
 ]
 
-{ #category : #initialization }
+{ #category : 'initialization' }
 PotsPCA9685Device2 >> prescaleValue [
 	"readd the prescalevalue used"
 	^i2cConnection read8BitsAt: 16rFE
 ]
 
-{ #category : #operations }
+{ #category : 'operations' }
 PotsPCA9685Device2 >> pwmForAllPinsMicroSeconds: aNumber [
 	"For servo purposes set the pulse width of ALL pins to aNumber microseconds. 
 	This only makes sense when the frequency is set tot 50-100 Hz, "
@@ -189,7 +190,7 @@ PotsPCA9685Device2 >> pwmForAllPinsMicroSeconds: aNumber [
 	self allPinsOnAt: 0 offAt: ticks
 ]
 
-{ #category : #'as yet unclassified' }
+{ #category : 'as yet unclassified' }
 PotsPCA9685Device2 >> pwmForAllPinsPercentage: aPercentage [
 	"set output for ALL pins to aPercentage percent of the time on. 
 	Special care is taken that values
@@ -202,7 +203,7 @@ PotsPCA9685Device2 >> pwmForAllPinsPercentage: aPercentage [
 	self allPinsOnAt: 0 offAt: ticks rounded "no staging, all start at 0"
 ]
 
-{ #category : #initialization }
+{ #category : 'initialization' }
 PotsPCA9685Device2 >> pwmForPin: aPinNumber microSeconds: aNumber [
 	"For servo purposes set the pulse width to aNumber microseconds. 
 	This only makes sense when the frequency is set tot 50-100 Hz, "
@@ -214,7 +215,7 @@ PotsPCA9685Device2 >> pwmForPin: aPinNumber microSeconds: aNumber [
 	self pin: aPinNumber onAt: 0 offAt: ticks
 ]
 
-{ #category : #initialization }
+{ #category : 'initialization' }
 PotsPCA9685Device2 >> pwmForPin: aPinNumber percentage: aPercentage [
 	"set output for aPercentage percent of the time on. Special care is taken that values
 	less than 0.01 and greater than 99.99 are treated as full off or full on"
@@ -226,7 +227,7 @@ PotsPCA9685Device2 >> pwmForPin: aPinNumber percentage: aPercentage [
 	self pin: aPinNumber onAt: 0 offAt: ticks rounded
 ]
 
-{ #category : #initialization }
+{ #category : 'initialization' }
 PotsPCA9685Device2 >> pwmValuesAtPin: aPinNumber [
 	"report an array off the registervalues in the order LED_ON_L, LED_ON_H, LED_OFF_L, LED_OFF_H"
 
@@ -238,17 +239,17 @@ PotsPCA9685Device2 >> pwmValuesAtPin: aPinNumber [
 	^values                                                                                                                             
 ]
 
-{ #category : #'as yet unclassified' }
+{ #category : 'as yet unclassified' }
 PotsPCA9685Device2 >> reg16Hex: regno [
 	^(self connection read16BitsAt: regno) printStringRadix: 16
 ]
 
-{ #category : #'as yet unclassified' }
+{ #category : 'as yet unclassified' }
 PotsPCA9685Device2 >> regHex: regno [
 	^(self connection read8BitsAt: regno) printStringRadix: 16
 ]
 
-{ #category : #initialization }
+{ #category : 'initialization' }
 PotsPCA9685Device2 >> reset [
 	"reset MODE1_RESTART to MODE1 register"
 
@@ -256,7 +257,7 @@ PotsPCA9685Device2 >> reset [
 	10 milliSeconds wait. "according to Adafruit"
 ]
 
-{ #category : #'world state' }
+{ #category : 'world state' }
 PotsPCA9685Device2 >> sleep [
 	"go into sleep mode; set sleep bit 16r10 high in MODE1 geister"
 
@@ -268,7 +269,7 @@ PotsPCA9685Device2 >> sleep [
 	
 ]
 
-{ #category : #initialization }
+{ #category : 'initialization' }
 PotsPCA9685Device2 >> wakeUp [
 	"set sleepbit 16r10 low"
 

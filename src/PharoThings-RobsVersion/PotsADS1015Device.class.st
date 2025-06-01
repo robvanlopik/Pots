@@ -12,28 +12,29 @@ A reading is taken with #readSingleChannel:
 The result is in volts. Negative values are impossible. Overload is NOT detected, but suspected when the value reaches the full cale value.
 "
 Class {
-	#name : #PotsADS1015Device,
-	#superclass : #PotsI2CDevice,
+	#name : 'PotsADS1015Device',
+	#superclass : 'PotsI2CDevice',
 	#instVars : [
 		'baseCommand',
 		'scaleFactors',
 		'range'
 	],
-	#category : #'PharoThings-RobsVersion'
+	#category : 'PharoThings-RobsVersion',
+	#package : 'PharoThings-RobsVersion'
 }
 
-{ #category : #'instance creation' }
+{ #category : 'instance creation' }
 PotsADS1015Device class >> defaultI2CAddress [ 
 	^16r48
 ]
 
-{ #category : #controlling }
+{ #category : 'controlling' }
 PotsADS1015Device >> connect [
 	super connect.
 		self initIvars
 ]
 
-{ #category : #initialization }
+{ #category : 'initialization' }
 PotsADS1015Device >> initIvars [
 	range := #(2 2 2 2). "default scale +/- 2.048V "
 	scaleFactors := #(6144 4096 2048 1024 512 256).
@@ -51,14 +52,14 @@ PotsADS1015Device >> initIvars [
 	"
 ]
 
-{ #category : #'as yet unclassified' }
+{ #category : 'as yet unclassified' }
 PotsADS1015Device >> rangeForChannel: channelNumber [
 	"return the full scal range for a channel, 
 	taking care of the fact that channels are numbered for 0 to 3"
 	^scaleFactors at: ((range at: (channelNumber + 1)) + 1)
 ]
 
-{ #category : #'as yet unclassified' }
+{ #category : 'as yet unclassified' }
 PotsADS1015Device >> rawFromChannel: channelNumber [
 	"execute a single read and return result"	
 	| command |
@@ -70,7 +71,7 @@ PotsADS1015Device >> rawFromChannel: channelNumber [
 	^ (i2cConnection readWordBigEndianAt: 0) >> 4.
 ]
 
-{ #category : #reading }
+{ #category : 'reading' }
 PotsADS1015Device >> readSingleChannel: channelNumber [
 	"execute a single read and return result"	
 	|  raw scaleFactor |
@@ -81,7 +82,7 @@ PotsADS1015Device >> readSingleChannel: channelNumber [
 	^ raw * scaleFactor
 ]
 
-{ #category : #controlling }
+{ #category : 'controlling' }
 PotsADS1015Device >> setChannel: aChannel scale: aValue [
 	"set the scale factor fo a single-eded channel (0..3) 
 	It can be set by an index (0..5) or the actual full-scale value 

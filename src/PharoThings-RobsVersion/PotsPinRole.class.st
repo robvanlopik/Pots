@@ -18,16 +18,17 @@ Instance  variables:
 
 "
 Class {
-	#name : #PotsPinRole,
-	#superclass : #Object,
+	#name : 'PotsPinRole',
+	#superclass : 'Object',
 	#instVars : [
 		'pin',
 		'driver'
 	],
-	#category : #'PharoThings-RobsVersion'
+	#category : 'PharoThings-RobsVersion',
+	#package : 'PharoThings-RobsVersion'
 }
 
-{ #category : #'accessing structure variables' }
+{ #category : 'accessing structure variables' }
 PotsPinRole class >> short [
 	"return an abbreviation of this dunction, for use in
 	layout and dictioannie of roles"
@@ -35,17 +36,17 @@ PotsPinRole class >> short [
 	^'NA'
 ]
 
-{ #category : #accessing }
+{ #category : 'accessing' }
 PotsPinRole >> driver [
 	^ driver
 ]
 
-{ #category : #accessing }
+{ #category : 'accessing' }
 PotsPinRole >> driver: anObject [
 	driver := anObject
 ]
 
-{ #category : #accessing }
+{ #category : 'accessing' }
 PotsPinRole >> pin: anObject [
 	pin := anObject
 ]

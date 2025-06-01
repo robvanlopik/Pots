@@ -6,28 +6,29 @@ ioMask - 16 bits where 0 means the pin is digital output and 1 means servo or pw
 servo - true means all servo, false means all pwm.
 "
 Class {
-	#name : #PotsPCA9685Driver,
-	#superclass : #PotsDeviceDriver,
+	#name : 'PotsPCA9685Driver',
+	#superclass : 'PotsDeviceDriver',
 	#instVars : [
 		'ioMask',
 		'servo'
 	],
-	#category : #'PharoThings-RobsVersion'
+	#category : 'PharoThings-RobsVersion',
+	#package : 'PharoThings-RobsVersion'
 }
 
-{ #category : #'as yet unclassified' }
+{ #category : 'as yet unclassified' }
 PotsPCA9685Driver class >> usingDevice: aDevice [
 	^self basicNew usingDevice: aDevice
 ]
 
-{ #category : #'private - controlling' }
+{ #category : 'private - controlling' }
 PotsPCA9685Driver >> beDigitalOutputOnPin: aPin [
 	ioMask := ioMask bitAt: (aPin id + 1) put: 0.
 	"and set this output to 0, soeventual PWM or Servo is switched off"
 	baseDevice pinOff: aPin id.
 ]
 
-{ #category : #'private - controlling' }
+{ #category : 'private - controlling' }
 PotsPCA9685Driver >> bePWMOutputOnPin: aPin [
 	"first check of pwm is active, then mask to 1"
 	servo ifFalse: [ ioMask := ioMask bitAt: (aPin id + 10) put: 1 . ^self].
@@ -35,7 +36,7 @@ PotsPCA9685Driver >> bePWMOutputOnPin: aPin [
  
 ]
 
-{ #category : #'private - controlling' }
+{ #category : 'private - controlling' }
 PotsPCA9685Driver >> beServoOutputOnPin: aPin [
 	"first check of servo is active, then mask to 1"
 	servo ifTrue: [ ioMask := ioMask bitAt: (aPin id + 10) put: 1 . ^self].
@@ -45,13 +46,13 @@ PotsPCA9685Driver >> beServoOutputOnPin: aPin [
 	ioMask := ioMask bitAt: (aPin id + 1) put: 1
 ]
 
-{ #category : #'private - accessing' }
+{ #category : 'private - accessing' }
 PotsPCA9685Driver >> digitalValue: oneOrZero intoPin: aPin [ 
 	(oneOrZero = 0) ifTrue: [ baseDevice pinOff: aPin id. ^self ].
 	baseDevice pinOn: aPin id.
 ]
 
-{ #category : #initialization }
+{ #category : 'initialization' }
 PotsPCA9685Driver >> providePinInfo [
 	"return dict of pins"
 	| pinDict |
@@ -67,13 +68,13 @@ PotsPCA9685Driver >> providePinInfo [
 	^pinDict
 ]
 
-{ #category : #'private - accessing' }
+{ #category : 'private - accessing' }
 PotsPCA9685Driver >> pwmValue: aNumber intoPin: aPin [
 	"The PCA9685 already accepts percentages"
 	baseDevice pwmForPin: (aPin id + 1) percentage: aNumber
 ]
 
-{ #category : #initialization }
+{ #category : 'initialization' }
 PotsPCA9685Driver >> setup [ 
 	"start with all pins digital out, and default pwm"
 	ioMask := 0.
@@ -83,7 +84,7 @@ PotsPCA9685Driver >> setup [
 	
 ]
 
-{ #category : #initialization }
+{ #category : 'initialization' }
 PotsPCA9685Driver >> usingDevice: aDevice [
 	baseDevice := aDevice.
 	self setup

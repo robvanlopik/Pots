@@ -4,17 +4,18 @@ Basically I forward to ESP32Driver but with PotsPin replaced by its id.
 And I implement getPinfo to flesh out the controller configuration
 "
 Class {
-	#name : #PotsESP32Driver,
-	#superclass : #PotsDriverDriver,
+	#name : 'PotsESP32Driver',
+	#superclass : 'PotsDriverDriver',
 	#instVars : [
 		'deviceName',
 		'brokerIP',
 		'i2cPins'
 	],
-	#category : #'PharoThings-RobsVersion'
+	#category : 'PharoThings-RobsVersion',
+	#package : 'PharoThings-RobsVersion'
 }
 
-{ #category : #'instance creation' }
+{ #category : 'instance creation' }
 PotsESP32Driver class >> brokerIP: aBrokerAddress deviceName: aName [
 
 	^self new
@@ -23,103 +24,103 @@ PotsESP32Driver class >> brokerIP: aBrokerAddress deviceName: aName [
 		yourself
 ]
 
-{ #category : #'analog io' }
+{ #category : 'analog io' }
 PotsESP32Driver >> analogValue: aValue intoPin: aPin [
 	baseDriver analogValue: aValue intoPin: aPin id
 ]
 
-{ #category : #'analog io' }
+{ #category : 'analog io' }
 PotsESP32Driver >> analogValueFromPin: aPin [
 	^baseDriver analogValueFromPin: aPin id
 ]
 
-{ #category : #'analog io' }
+{ #category : 'analog io' }
 PotsESP32Driver >> beAnalogInputOnPin: aPin [
 	baseDriver beAnalogInputOnPin: aPin id
 ]
 
-{ #category : #'analog io' }
+{ #category : 'analog io' }
 PotsESP32Driver >> beAnalogOutputOnPin: aPin [
 	^baseDriver beAnalogOutputOnPin: aPin id
 ]
 
-{ #category : #'analog io' }
+{ #category : 'analog io' }
 PotsESP32Driver >> beDigitalInputOnPin: aPin [
 	^baseDriver beDigitalInputOnPin: aPin id
 ]
 
-{ #category : #'digital io' }
+{ #category : 'digital io' }
 PotsESP32Driver >> beDigitalOutputOnPin: aPin [
 	^baseDriver beDigitalOutputOnPin: aPin id
 ]
 
-{ #category : #pwm }
+{ #category : 'pwm' }
 PotsESP32Driver >> bePWMOutputOnPin: aPin [
 	^baseDriver bePWMOutputOnPin: aPin id
 ]
 
-{ #category : #'private - controlling' }
+{ #category : 'private - controlling' }
 PotsESP32Driver >> beServoOutputOnPin: aPin [
 		^baseDriver beServoOutputOnPin: aPin id
 ]
 
-{ #category : #accessing }
+{ #category : 'accessing' }
 PotsESP32Driver >> brokerIP [
 
 	^ brokerIP
 ]
 
-{ #category : #accessing }
+{ #category : 'accessing' }
 PotsESP32Driver >> brokerIP: anObject [
 
 	brokerIP := anObject
 ]
 
-{ #category : #initialization }
+{ #category : 'initialization' }
 PotsESP32Driver >> connect [
 	
 ]
 
-{ #category : #'io protocols' }
+{ #category : 'io protocols' }
 PotsESP32Driver >> connectToI2CDevice: deviceAddressInt [
 	^baseDriver openI2C: deviceAddressInt
 	
 ]
 
-{ #category : #accessing }
+{ #category : 'accessing' }
 PotsESP32Driver >> deviceName [
 
 	^ deviceName
 ]
 
-{ #category : #accessing }
+{ #category : 'accessing' }
 PotsESP32Driver >> deviceName: anObject [
 
 	deviceName := anObject
 ]
 
-{ #category : #'digital io' }
+{ #category : 'digital io' }
 PotsESP32Driver >> digitalValue: oneOrZero intoPin: aPin [
 	^baseDriver digitalValue: oneOrZero intoPin: aPin id
 ]
 
-{ #category : #'digital io' }
+{ #category : 'digital io' }
 PotsESP32Driver >> digitalValueFromPin: aPin [
 	^baseDriver digitalValueFromPin: aPin id
 ]
 
-{ #category : #finalization }
+{ #category : 'finalization' }
 PotsESP32Driver >> disconnect [
 		
 ]
 
-{ #category : #accessing }
+{ #category : 'accessing' }
 PotsESP32Driver >> i2cPins [
 
 	^ i2cPins
 ]
 
-{ #category : #initialization }
+{ #category : 'initialization' }
 PotsESP32Driver >> providePinInfo [
 	"This is called after setup and returns a pinDict dictionary"
 	"the id is the index and the value is a fully filled out PotsActivePin"
@@ -154,18 +155,18 @@ PotsESP32Driver >> providePinInfo [
 	^pinDict
 ]
 
-{ #category : #pwm }
+{ #category : 'pwm' }
 PotsESP32Driver >> pwmValue: aPercentage intoPin: aPin [
 	baseDriver pwmValue: aPercentage intoPin: aPin id
 ]
 
-{ #category : #'io protocols' }
+{ #category : 'io protocols' }
 PotsESP32Driver >> rawServoValue: aNumber intoPin: aPin [
 
 	baseDriver servoOnPin: aPin id pulseWidth: aNumber
 ]
 
-{ #category : #'io protocols' }
+{ #category : 'io protocols' }
 PotsESP32Driver >> servoValue: aNumber intoPin: aPin [
 	| min max minDegrees maxDegrees raw|
 	min := aPin currentRole min.
@@ -176,7 +177,7 @@ PotsESP32Driver >> servoValue: aNumber intoPin: aPin [
 	self rawServoValue: raw intoPin: aPin
 ]
 
-{ #category : #initialization }
+{ #category : 'initialization' }
 PotsESP32Driver >> setup [
 	baseDriver := ESP32Driver new
 		deviceName: deviceName;

@@ -6,33 +6,34 @@ Instance variables:
 - i2cAddress  -  the bus address pf the device, supplied before installing
 "
 Class {
-	#name : #PotsI2CDevice,
-	#superclass : #PotsDevice,
+	#name : 'PotsI2CDevice',
+	#superclass : 'PotsDevice',
 	#instVars : [
 		'i2cConnection',
 		'i2cAddress'
 	],
-	#category : #'PharoThings-RobsVersion'
+	#category : 'PharoThings-RobsVersion',
+	#package : 'PharoThings-RobsVersion'
 }
 
-{ #category : #'instance creation' }
+{ #category : 'instance creation' }
 PotsI2CDevice class >> defaultI2CAddress [ 
 	self subclassResponsibility 
 ]
 
-{ #category : #'instance creation' }
+{ #category : 'instance creation' }
 PotsI2CDevice class >> new [
 	^self basicNew
 		i2cAddress: self defaultI2CAddress 
 ]
 
-{ #category : #'instance creation' }
+{ #category : 'instance creation' }
 PotsI2CDevice class >> on: i2cAddress [
 	^super new
 		i2cAddress: i2cAddress 
 ]
 
-{ #category : #initialization }
+{ #category : 'initialization' }
 PotsI2CDevice >> claimResources [
 
 	| pins |
@@ -55,38 +56,38 @@ PotsI2CDevice >> claimResources [
 		aPin deviceCount: 1 ]
 ]
 
-{ #category : #controlling }
+{ #category : 'controlling' }
 PotsI2CDevice >> connect [ 
 	i2cConnection := controller connectToI2CDevice: i2cAddress
 ]
 
-{ #category : #controlling }
+{ #category : 'controlling' }
 PotsI2CDevice >> disconnect [
 	i2cConnection close.
 	self releaseResources 
 ]
 
-{ #category : #accessing }
+{ #category : 'accessing' }
 PotsI2CDevice >> i2cAddress [
 	^i2cAddress
 ]
 
-{ #category : #accessing }
+{ #category : 'accessing' }
 PotsI2CDevice >> i2cAddress: anI2CAddress [
 	i2cAddress := anI2CAddress 
 ]
 
-{ #category : #accessing }
+{ #category : 'accessing' }
 PotsI2CDevice >> i2cConnection [
 	^i2cConnection 
 ]
 
-{ #category : #testing }
+{ #category : 'testing' }
 PotsI2CDevice >> isConnected [ 
 	^i2cConnection notNil
 ]
 
-{ #category : #finalization }
+{ #category : 'finalization' }
 PotsI2CDevice >> releaseResources [
 	| pins |
 	pins := controller driver i2cPins.

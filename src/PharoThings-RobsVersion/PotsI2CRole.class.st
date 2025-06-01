@@ -13,12 +13,13 @@ Internal Representation and Key Implementation Points.
     Implementation Points
 "
 Class {
-	#name : #PotsI2CRole,
-	#superclass : #PotsEnsemblePinRole,
-	#category : #'PharoThings-RobsVersion'
+	#name : 'PotsI2CRole',
+	#superclass : 'PotsEnsemblePinRole',
+	#category : 'PharoThings-RobsVersion',
+	#package : 'PharoThings-RobsVersion'
 }
 
-{ #category : #'accessing structure variables' }
+{ #category : 'accessing structure variables' }
 PotsI2CRole class >> short [ 
 	^'I2C'
 ]

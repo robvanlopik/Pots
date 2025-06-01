@@ -8,22 +8,23 @@ My main methods are:
 
 "
 Class {
-	#name : #PotsBME280Device,
-	#superclass : #PotsI2CDevice,
+	#name : 'PotsBME280Device',
+	#superclass : 'PotsI2CDevice',
 	#instVars : [
 		'tCoeffs',
 		'hCoeffs',
 		'pCoeffs'
 	],
-	#category : #'PharoThings-RobsVersion'
+	#category : 'PharoThings-RobsVersion',
+	#package : 'PharoThings-RobsVersion'
 }
 
-{ #category : #'instance creation' }
+{ #category : 'instance creation' }
 PotsBME280Device class >> defaultI2CAddress [
 	^16r77
 ]
 
-{ #category : #controlling }
+{ #category : 'controlling' }
 PotsBME280Device >> connect [
 	"https://github.com/ControlEverythingCommunity/BME280/blob/master/Python/BME280.py"
 	super connect.
@@ -41,7 +42,7 @@ PotsBME280Device >> connect [
 	i2cConnection write8BitsAt: 16rF5 data: 16rA0
 ]
 
-{ #category : #decoding }
+{ #category : 'decoding' }
 PotsBME280Device >> decodeHumidityFrom: dataFromF7 [
 	"data: Humidity MSB, Humidity LSB
 	returns percents"
@@ -54,7 +55,7 @@ PotsBME280Device >> decodeHumidityFrom: dataFromF7 [
 	^humidity min: 100 max: 0
 ]
 
-{ #category : #decoding }
+{ #category : 'decoding' }
 PotsBME280Device >> decodePressureFrom: dataFromF7 [
 	"data: Pressure MSB, Pressure LSB, Pressure xLSB
 	returns hPa"
@@ -74,7 +75,7 @@ PotsBME280Device >> decodePressureFrom: dataFromF7 [
 	^(p + ((var1 + var2 + (pCoeffs at: 7)) / 16.0)) / 100
 ]
 
-{ #category : #decoding }
+{ #category : 'decoding' }
 PotsBME280Device >> decodeSignedWordArrayFrom: coeffs at: index size: size [
 	| result word |
 	result := Array new: size.
@@ -84,7 +85,7 @@ PotsBME280Device >> decodeSignedWordArrayFrom: coeffs at: index size: size [
 	^ result
 ]
 
-{ #category : #decoding }
+{ #category : 'decoding' }
 PotsBME280Device >> decodeSignedWordFrom: coeffs at: index [
 	| unsigned |
 	unsigned := self decodeUnsignedWordFrom: coeffs at: index.
@@ -93,7 +94,7 @@ PotsBME280Device >> decodeSignedWordFrom: coeffs at: index [
 		ifFalse: [ unsigned ]
 ]
 
-{ #category : #decoding }
+{ #category : 'decoding' }
 PotsBME280Device >> decodeTemperatureFrom: dataFromF7 [
 	"data: Temperature MSB, Temperature LSB, Temperature xLSB.
 	returns Celsius"
@@ -105,12 +106,12 @@ PotsBME280Device >> decodeTemperatureFrom: dataFromF7 [
 	^(var1 + var2) / 5120.0
 ]
 
-{ #category : #decoding }
+{ #category : 'decoding' }
 PotsBME280Device >> decodeUnsignedWordFrom: coeffs at: index [
 	^(coeffs at: index + 1) * 256 + (coeffs at: index)
 ]
 
-{ #category : #controlling }
+{ #category : 'controlling' }
 PotsBME280Device >> initHumidityCoeffs [
 	| data h1 h2 h3 h4 h5 h6 |
 	h1 := i2cConnection read8BitsAt: 16rA1.
@@ -126,7 +127,7 @@ PotsBME280Device >> initHumidityCoeffs [
 	hCoeffs := {h1. h2. h3. h4. h5. h6}
 ]
 
-{ #category : #controlling }
+{ #category : 'controlling' }
 PotsBME280Device >> initTempAndPressureCoeffs [
 
 	| data |
@@ -138,27 +139,27 @@ PotsBME280Device >> initTempAndPressureCoeffs [
 		, (self decodeSignedWordArrayFrom: data at: 9 size: 8)
 ]
 
-{ #category : #printing }
+{ #category : 'printing' }
 PotsBME280Device >> printHumidity [
 	^self readHumidity printShowingDecimalPlaces: 1
 ]
 
-{ #category : #printing }
+{ #category : 'printing' }
 PotsBME280Device >> printPressure [
 	^self readPressure printShowingDecimalPlaces: 1
 ]
 
-{ #category : #printing }
+{ #category : 'printing' }
 PotsBME280Device >> printTemperature [
 	^self readTemperature printShowingDecimalPlaces: 1
 ]
 
-{ #category : #controlling }
+{ #category : 'controlling' }
 PotsBME280Device >> readHumidity [
 	^self readParameters last round: 1
 ]
 
-{ #category : #controlling }
+{ #category : 'controlling' }
 PotsBME280Device >> readParameters [
 	"Pressure MSB, Pressure LSB, Pressure xLSB, Temperature MSB, Temperature LSB
 	Temperature xLSB, Humidity MSB, Humidity LSB"
@@ -172,12 +173,12 @@ PotsBME280Device >> readParameters [
 	 }
 ]
 
-{ #category : #controlling }
+{ #category : 'controlling' }
 PotsBME280Device >> readPressure [
 	^self readParameters second round: 1
 ]
 
-{ #category : #controlling }
+{ #category : 'controlling' }
 PotsBME280Device >> readTemperature [
 	^self readParameters first round: 1
 ]

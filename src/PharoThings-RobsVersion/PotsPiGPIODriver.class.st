@@ -12,82 +12,83 @@ You create a new instance by providing the IP-address of the Pi (or 127.0.0.1 fo
 after starting the controller will ask for the pin information
 "
 Class {
-	#name : #PotsPiGPIODriver,
-	#superclass : #PotsDriverDriver,
+	#name : 'PotsPiGPIODriver',
+	#superclass : 'PotsDriverDriver',
 	#instVars : [
 		'ip',
 		'port',
 		'i2cPins'
 	],
-	#category : #'PharoThings-RobsVersion'
+	#category : 'PharoThings-RobsVersion',
+	#package : 'PharoThings-RobsVersion'
 }
 
-{ #category : #'instance creation' }
+{ #category : 'instance creation' }
 PotsPiGPIODriver class >> onIP: anIpAddressString port: aPortNumber [
 	^self new 
 		onIP: anIpAddressString port: aPortNumber;
 		yourself
 ]
 
-{ #category : #initialization }
+{ #category : 'initialization' }
 PotsPiGPIODriver >> connect [
 	
 ]
 
-{ #category : #'io protocols' }
+{ #category : 'io protocols' }
 PotsPiGPIODriver >> connectToI2CDevice: i2cAddress [
 	"return an I2CConnection that is specific to this I2C address"
 		^baseDriver openI2C: i2cAddress
 ]
 
-{ #category : #'io protocols' }
+{ #category : 'io protocols' }
 PotsPiGPIODriver >> digitalValue: oneOrZero intoPin: aPin [ 
 	baseDriver digitalWrite: aPin id value: (oneOrZero bitAnd: 1)
 ]
 
-{ #category : #'io protocols' }
+{ #category : 'io protocols' }
 PotsPiGPIODriver >> digitalValueFromPin: aPin [
 	^baseDriver digitalRead: aPin id
 ]
 
-{ #category : #finalization }
+{ #category : 'finalization' }
 PotsPiGPIODriver >> disconnect [ 
 		baseDriver closeConnection
 ]
 
-{ #category : #accessing }
+{ #category : 'accessing' }
 PotsPiGPIODriver >> i2cPins [
 	^i2cPins 
 ]
 
-{ #category : #accessing }
+{ #category : 'accessing' }
 PotsPiGPIODriver >> ip [
 	^ ip
 ]
 
-{ #category : #accessing }
+{ #category : 'accessing' }
 PotsPiGPIODriver >> ip: anObject [
 	ip := anObject
 ]
 
-{ #category : #'instance creation' }
+{ #category : 'instance creation' }
 PotsPiGPIODriver >> onIP: anIpAddressString port: aPortNumber [
 	"save to later connect"
 	ip := anIpAddressString .
 	port := aPortNumber .
 ]
 
-{ #category : #accessing }
+{ #category : 'accessing' }
 PotsPiGPIODriver >> port [
 	^ port
 ]
 
-{ #category : #accessing }
+{ #category : 'accessing' }
 PotsPiGPIODriver >> port: anObject [
 	port := anObject
 ]
 
-{ #category : #initialization }
+{ #category : 'initialization' }
 PotsPiGPIODriver >> providePinInfo [
 	"return a dict of pins to the caller, with their poperties"
 	| pinDict i2cRole|
@@ -130,7 +131,7 @@ PotsPiGPIODriver >> providePinInfo [
 	^pinDict
 ]
 
-{ #category : #'io protocols' }
+{ #category : 'io protocols' }
 PotsPiGPIODriver >> pwmValue: aNumber intoPin: aPin [
 	"convert percentage to driver units (usually 8 bits, but can be different"
 	| range rawNumber|
@@ -139,19 +140,19 @@ PotsPiGPIODriver >> pwmValue: aNumber intoPin: aPin [
 	baseDriver pin: aPin id pwmWrite: (rawNumber min: range max: 0)
 ]
 
-{ #category : #'io protocols' }
+{ #category : 'io protocols' }
 PotsPiGPIODriver >> rawPwmValue: aNumber intoPin: aPin [
 	baseDriver pin: aPin id pwmWrite: aNumber
 ]
 
-{ #category : #'io protocols' }
+{ #category : 'io protocols' }
 PotsPiGPIODriver >> rawServoValue: aNumber intoPin: aPin [
 
 	" for PiGPIO the raw value is an integer between min and max "
 	baseDriver pin: aPin id servoPulsewidth: aNumber "microseconds"
 ]
 
-{ #category : #'io protocols' }
+{ #category : 'io protocols' }
 PotsPiGPIODriver >> servoValue: aNumber intoPin: aPin [
 	| min max minDegrees maxDegrees raw|
 	min := aPin currentRole min.
@@ -162,7 +163,7 @@ PotsPiGPIODriver >> servoValue: aNumber intoPin: aPin [
 	self rawServoValue: raw intoPin: aPin
 ]
 
-{ #category : #initialization }
+{ #category : 'initialization' }
 PotsPiGPIODriver >> setup [ 
 	"start the PiGPIO driver with its parameters"
 	"Note: we might want to do some error checking at this point"

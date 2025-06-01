@@ -12,46 +12,47 @@ I describe the layout of a PotsController board. For the time being that will be
     Implementation Points
 "
 Class {
-	#name : #PotsLayout,
-	#superclass : #Object,
+	#name : 'PotsLayout',
+	#superclass : 'Object',
 	#instVars : [
 		'pinMatrix',
 		'plainMatrix',
 		'controller'
 	],
-	#category : #'PharoThings-RobsVersion'
+	#category : 'PharoThings-RobsVersion',
+	#package : 'PharoThings-RobsVersion'
 }
 
-{ #category : #configuration }
+{ #category : 'configuration' }
 PotsLayout class >> forArduinoUno [
 	"fill the plain matrix for a Pico board"
 	^ self new forArduinoUno
 ]
 
-{ #category : #configuration }
+{ #category : 'configuration' }
 PotsLayout class >> forESP32_30pins [
 	^self new forESP32_30pins
 ]
 
-{ #category : #configuration }
+{ #category : 'configuration' }
 PotsLayout class >> forPi3 [
 	"fill the plain matrix for a Pico board"
 	^ self new forPi3
 ]
 
-{ #category : #configuration }
+{ #category : 'configuration' }
 PotsLayout class >> forPiZero [
 	"fill the plain matrix for a Pico board"
 	^ self new forPiZero
 ]
 
-{ #category : #configuration }
+{ #category : 'configuration' }
 PotsLayout class >> forPico [
 	"fill the plain matrix for a Pico board"
 	^ self new forPico
 ]
 
-{ #category : #operations }
+{ #category : 'operations' }
 PotsLayout >> applyTo: aController [
 	"populate the pinMatrix"
 	plainMatrix ifNil: [  PotsError signal: 'No layout defined' ].
@@ -60,7 +61,7 @@ PotsLayout >> applyTo: aController [
 						ifFalse: [ aController pinWithId: pin ] ]
 ]
 
-{ #category : #initialization }
+{ #category : 'initialization' }
 PotsLayout >> forArduinoUno [
 	"setuo the plainMatrix
 	Uno pins 0 and 1 are not available because they are used for Firmata's serial comms"
@@ -86,7 +87,7 @@ PotsLayout >> forArduinoUno [
 		19    '')
 ]
 
-{ #category : #configuration }
+{ #category : 'configuration' }
 PotsLayout >> forESP32_30pins [
 
 plainMatrix := #(
@@ -107,7 +108,7 @@ plainMatrix := #(
 	'VIN' '3V3')
 ]
 
-{ #category : #initialization }
+{ #category : 'initialization' }
 PotsLayout >> forPi3 [
 	"setuo the plainMatrix"
 	
@@ -134,7 +135,7 @@ PotsLayout >> forPi3 [
 		'GND' 21 )
 ]
 
-{ #category : #initialization }
+{ #category : 'initialization' }
 PotsLayout >> forPiZero [
 	"setuo the plainMatrix"
 	
@@ -161,7 +162,7 @@ PotsLayout >> forPiZero [
 		'GND' 21 )
 ]
 
-{ #category : #initialization }
+{ #category : 'initialization' }
 PotsLayout >> forPico [
 	"setuo the plainMatrix"
 	
@@ -188,7 +189,7 @@ PotsLayout >> forPico [
 		15    16 )
 ]
 
-{ #category : #accessing }
+{ #category : 'accessing' }
 PotsLayout >> pinMatrix [
 	^pinMatrix 
 ]
