@@ -12,7 +12,7 @@ I have two main responsibilities:
 1. translate uniform pin commands to actual driver commands
 2. get info about pins, board name/version to initialize the Controller
 
-I have a uniform API, but not all drivers have to implement all of it. Because driver methods are called by PotsRoles and PotsRoles are established by the driver (#getPinInfo) the methods in this super class should never be caklled directly; that is why they are all implemented to raise a PotsError.
+I have a uniform API, but not all drivers have to implement all of it. Because driver methods are called by PotsRoles and PotsRoles are established by the driver (#getPinInfo) the methods in this super class should never be called directly; that is why they are all implemented to raise a PotsError.
 
 
 
@@ -126,6 +126,6 @@ PotsDriver >> servoValue: degrees intoPin: aPin [
 
 { #category : 'initialization' }
 PotsDriver >> setup [
-	"for a PotsDriverDriver start the baseDriver, for a PotsDeviceDriver do toehr inits"
+	"for a PotsDriverDriver start the baseDriver, for a PotsDeviceDriver do the necessary inits"
 	self subclassResponsibility
 ]

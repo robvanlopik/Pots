@@ -94,6 +94,7 @@ PotsController >> getPinInfo [
 { #category : 'initialization' }
 PotsController >> initialize [ 
 	super initialize.
+	pins := Dictionary new.
 	devices := OrderedCollection new
 	
 ]
