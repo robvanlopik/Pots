@@ -1,6 +1,6 @@
 Class {
-	#name : #PotsPiDeviceTest,
-	#superclass : #TestCase,
+	#name : 'PotsPiDeviceTest',
+	#superclass : 'TestCase',
 	#instVars : [
 		'testPi',
 		'mockDriver',
@@ -9,10 +9,11 @@ Class {
 		'p4',
 		'p5'
 	],
-	#category : #'PharoThingsSimplified-Tests'
+	#category : 'PharoThingsSimplified-Tests',
+	#package : 'PharoThingsSimplified-Tests'
 }
 
-{ #category : #running }
+{ #category : 'running' }
 PotsPiDeviceTest >> setUp [
 	super setUp.
 	
@@ -26,7 +27,7 @@ PotsPiDeviceTest >> setUp [
 	mockDriver := testPi driver baseDriver
 ]
 
-{ #category : #tests }
+{ #category : 'tests' }
 PotsPiDeviceTest >> testRGBLed [
 	"Strictly speaking this not a unit test, because we exercise the full chain of creating a (simple) device and using it"
 	| led |

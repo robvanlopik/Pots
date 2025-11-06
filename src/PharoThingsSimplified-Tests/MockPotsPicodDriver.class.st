@@ -3,12 +3,13 @@ I function like a PotsPicodDriver, but my communication with the PicodDriver has
 #getPinInfo is borrowed from the real PostPicodDriver
 "
 Class {
-	#name : #MockPotsPicodDriver,
-	#superclass : #PotsPicodDriver,
-	#category : #'PharoThingsSimplified-Tests'
+	#name : 'MockPotsPicodDriver',
+	#superclass : 'PotsPicodDriver',
+	#category : 'PharoThingsSimplified-Tests',
+	#package : 'PharoThingsSimplified-Tests'
 }
 
-{ #category : #initialization }
+{ #category : 'initialization' }
 MockPotsPicodDriver >> setup [ 
 	baseDriver := MockObject new
 ]

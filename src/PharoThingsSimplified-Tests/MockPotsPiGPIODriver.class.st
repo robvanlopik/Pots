@@ -13,12 +13,13 @@ The IP=address and port number are not used but are returned by `testPi driver i
 
 "
 Class {
-	#name : #MockPotsPiGPIODriver,
-	#superclass : #PotsPiGPIODriver,
-	#category : #'PharoThingsSimplified-Tests'
+	#name : 'MockPotsPiGPIODriver',
+	#superclass : 'PotsPiGPIODriver',
+	#category : 'PharoThingsSimplified-Tests',
+	#package : 'PharoThingsSimplified-Tests'
 }
 
-{ #category : #initialization }
+{ #category : 'initialization' }
 MockPotsPiGPIODriver >> providePinInfo [
 	"return a dict of pins to the caller, with their poperties"
 	| pinDict i2cRole|
@@ -61,7 +62,7 @@ MockPotsPiGPIODriver >> providePinInfo [
 	^pinDict
 ]
 
-{ #category : #initialization }
+{ #category : 'initialization' }
 MockPotsPiGPIODriver >> setup [ 
 	baseDriver := MockObject new
 ]

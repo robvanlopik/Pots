@@ -1,6 +1,6 @@
 Class {
-	#name : #PotsPiGPIODriverTest,
-	#superclass : #TestCase,
+	#name : 'PotsPiGPIODriverTest',
+	#superclass : 'TestCase',
 	#instVars : [
 		'testPi',
 		'mockDriver',
@@ -9,10 +9,11 @@ Class {
 		'p4',
 		'p5'
 	],
-	#category : #'PharoThingsSimplified-Tests'
+	#category : 'PharoThingsSimplified-Tests',
+	#package : 'PharoThingsSimplified-Tests'
 }
 
-{ #category : #running }
+{ #category : 'running' }
 PotsPiGPIODriverTest >> setUp [
 	super setUp.
 	
@@ -28,7 +29,7 @@ PotsPiGPIODriverTest >> setUp [
 	
 ]
 
-{ #category : #tests }
+{ #category : 'tests' }
 PotsPiGPIODriverTest >> testBeDigitalInput [
 	self assert: [ p2 currentRole class short = 'DI' ].
 	
@@ -38,7 +39,7 @@ PotsPiGPIODriverTest >> testBeDigitalInput [
 	
 ]
 
-{ #category : #tests }
+{ #category : 'tests' }
 PotsPiGPIODriverTest >> testBeDigitalOuput [
 	self assert: [ p2 currentRole class short = 'DI' ].
 	mockDriver on: #pin:mode: with: 2 with: 1.
@@ -49,7 +50,7 @@ PotsPiGPIODriverTest >> testBeDigitalOuput [
 	
 ]
 
-{ #category : #tests }
+{ #category : 'tests' }
 PotsPiGPIODriverTest >> testBeServo [
 	self assert: [ p3 currentRole class short = 'DI' ].
 	mockDriver on: #digitalRead: with: 3 respond: 1.
@@ -60,7 +61,7 @@ PotsPiGPIODriverTest >> testBeServo [
 	
 ]
 
-{ #category : #tests }
+{ #category : 'tests' }
 PotsPiGPIODriverTest >> testBeServoOutput [
 	self assert: [ p3 currentRole class short = 'DI' ].
 	mockDriver on: #pin:servoPulsewidth: with: 3 with: 0. "cleanup PWM"
@@ -72,7 +73,7 @@ PotsPiGPIODriverTest >> testBeServoOutput [
 	
 ]
 
-{ #category : #tests }
+{ #category : 'tests' }
 PotsPiGPIODriverTest >> testDigitalValueFromPin [
 	self assert: [ p3 currentRole class short = 'DI' ].
 	mockDriver on: #digitalRead: with: 3 respond: 1.
@@ -83,7 +84,7 @@ PotsPiGPIODriverTest >> testDigitalValueFromPin [
 	
 ]
 
-{ #category : #tests }
+{ #category : 'tests' }
 PotsPiGPIODriverTest >> testDigitalValueIntoPin [
 	self assert: [ p3 currentRole class short = 'DI' ].
 	mockDriver on: #pin:mode: with: 3 with: 1.
@@ -97,7 +98,7 @@ PotsPiGPIODriverTest >> testDigitalValueIntoPin [
 	
 ]
 
-{ #category : #tests }
+{ #category : 'tests' }
 PotsPiGPIODriverTest >> testPwmValueIntoPin [
 	mockDriver on: #pin:pwmWrite: with: 3 with: 128.
 	
@@ -108,7 +109,7 @@ PotsPiGPIODriverTest >> testPwmValueIntoPin [
 	
 ]
 
-{ #category : #tests }
+{ #category : 'tests' }
 PotsPiGPIODriverTest >> testRawPwmValueIntoPin [
 	mockDriver on: #pin:pwmWrite: with: 3 with: 123.
 	
@@ -119,7 +120,7 @@ PotsPiGPIODriverTest >> testRawPwmValueIntoPin [
 	
 ]
 
-{ #category : #tests }
+{ #category : 'tests' }
 PotsPiGPIODriverTest >> testServoValueSet [
 	mockDriver on: #pin:servoPulsewidth: with: 3 with: 1500.
 	

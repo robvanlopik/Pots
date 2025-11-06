@@ -1,6 +1,6 @@
 Class {
-	#name : #PotsPinTest,
-	#superclass : #TestCase,
+	#name : 'PotsPinTest',
+	#superclass : 'TestCase',
 	#instVars : [
 		'controller',
 		'p1',
@@ -9,10 +9,11 @@ Class {
 		'p4',
 		'p5'
 	],
-	#category : #'PharoThingsSimplified-Tests'
+	#category : 'PharoThingsSimplified-Tests',
+	#package : 'PharoThingsSimplified-Tests'
 }
 
-{ #category : #running }
+{ #category : 'running' }
 PotsPinTest >> setUp [
 	"Hooks that subclasses may override to define the fixture of test."
 	super setUp.
@@ -25,7 +26,7 @@ PotsPinTest >> setUp [
 	
 ]
 
-{ #category : #tests }
+{ #category : 'tests' }
 PotsPinTest >> testBeDigitalInput [
 	| d1 |
 	d1 := controller pinWithId: 1.
@@ -36,7 +37,7 @@ PotsPinTest >> testBeDigitalInput [
 	
 ]
 
-{ #category : #tests }
+{ #category : 'tests' }
 PotsPinTest >> testBeDigitalOutput [
 	| d1 d2 |
 	d1 := controller pinWithId: 1.
@@ -46,7 +47,7 @@ PotsPinTest >> testBeDigitalOutput [
 	self assert: [d2 currentRole class short = 'DO']
 ]
 
-{ #category : #tests }
+{ #category : 'tests' }
 PotsPinTest >> testBePWMOutput [
 		self should: [p1 bePWMOutput] raise: PotsError.
 		p5 bePWMOutput.
@@ -54,7 +55,7 @@ PotsPinTest >> testBePWMOutput [
 		self assert: [p5 currentRole range = 255]
 ]
 
-{ #category : #tests }
+{ #category : 'tests' }
 PotsPinTest >> testDigitalIO [
 	p1 beDigitalInput .
 	p2 beDigitalOutput .
@@ -68,12 +69,12 @@ PotsPinTest >> testDigitalIO [
 	self assert: [ p1 lastValue = 1 ]
 ]
 
-{ #category : #tests }
+{ #category : 'tests' }
 PotsPinTest >> testDriverParameter [
 	self assert: [ controller driver parameter = 'test' ]
 ]
 
-{ #category : #tests }
+{ #category : 'tests' }
 PotsPinTest >> testPWMWrite [
 self skip.
 	p5 bePWMOutput.
@@ -82,17 +83,17 @@ self skip.
 	self assert: [p5 lastValue = 50]
 ]
 
-{ #category : #tests }
+{ #category : 'tests' }
 PotsPinTest >> testPin1Role [
 	self assert: [ (controller pins at: 1) currentRole class = PotsDigitalInputRole ]
 ]
 
-{ #category : #tests }
+{ #category : 'tests' }
 PotsPinTest >> testPin1roles [
 	self assert: [(controller pinWithId: 1) roles size = 1]
 ]
 
-{ #category : #tests }
+{ #category : 'tests' }
 PotsPinTest >> testPinroles [
 	self assert: [(controller pinWithId: 1) roles size = 1].
 	self assert: [(controller pinWithId: 2) roles size = 2].
@@ -100,7 +101,7 @@ PotsPinTest >> testPinroles [
 	
 ]
 
-{ #category : #tests }
+{ #category : 'tests' }
 PotsPinTest >> testPinsInitialState [
 	"on startup there are four pins, all configured as input (like usual for a real device)"
 	1 to: 4 do: [ :i | self assert: [(controller pins at: i) currentRole class short = 'DI'] ].
@@ -111,7 +112,7 @@ PotsPinTest >> testPinsInitialState [
 	
 ]
 
-{ #category : #tests }
+{ #category : 'tests' }
 PotsPinTest >> testPinsNotNil [
 	self deny: [ controller pins isNil ]
 ]

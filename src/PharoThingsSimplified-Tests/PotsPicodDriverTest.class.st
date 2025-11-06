@@ -1,6 +1,6 @@
 Class {
-	#name : #PotsPicodDriverTest,
-	#superclass : #TestCase,
+	#name : 'PotsPicodDriverTest',
+	#superclass : 'TestCase',
 	#instVars : [
 		'testPico',
 		'mockDriver',
@@ -9,10 +9,11 @@ Class {
 		'p4',
 		'p5'
 	],
-	#category : #'PharoThingsSimplified-Tests'
+	#category : 'PharoThingsSimplified-Tests',
+	#package : 'PharoThingsSimplified-Tests'
 }
 
-{ #category : #running }
+{ #category : 'running' }
 PotsPicodDriverTest >> setUp [
 	super setUp.
 	
@@ -27,7 +28,7 @@ PotsPicodDriverTest >> setUp [
 	mockDriver := testPico driver baseDriver
 ]
 
-{ #category : #tests }
+{ #category : 'tests' }
 PotsPicodDriverTest >> testBeDigitalInput [
 	self assert: [ p2 currentRole class short = 'DI' ].
 	
@@ -36,7 +37,7 @@ PotsPicodDriverTest >> testBeDigitalInput [
 	self verify: mockDriver
 ]
 
-{ #category : #tests }
+{ #category : 'tests' }
 PotsPicodDriverTest >> testBeDigitalOuput [
 	self assert: [ p2 currentRole class short = 'DI' ].
 	mockDriver on: #closeGpio: with: 2.
@@ -48,7 +49,7 @@ PotsPicodDriverTest >> testBeDigitalOuput [
 	
 ]
 
-{ #category : #tests }
+{ #category : 'tests' }
 PotsPicodDriverTest >> testBePWMOutput [
 	self assert: [ p2 currentRole class short = 'DI' ].
 	mockDriver on: #closeGpio: with: 2.
@@ -60,7 +61,7 @@ PotsPicodDriverTest >> testBePWMOutput [
 	
 ]
 
-{ #category : #tests }
+{ #category : 'tests' }
 PotsPicodDriverTest >> testPWMtoDO [
 	self assert: [ p2 currentRole class short = 'DI' ].
 	mockDriver on: #closeGpio: with: 2.

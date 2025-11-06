@@ -1,10 +1,11 @@
 Class {
-	#name : #PotsControllerTest,
-	#superclass : #TestCase,
-	#category : #'PharoThingsSimplified-Tests'
+	#name : 'PotsControllerTest',
+	#superclass : 'TestCase',
+	#category : 'PharoThingsSimplified-Tests',
+	#package : 'PharoThingsSimplified-Tests'
 }
 
-{ #category : #tests }
+{ #category : 'tests' }
 PotsControllerTest >> testParameter [
 	| ctrl |
 	ctrl := PotsController new driver: (PotsFakeDriver parameter: 'test').
