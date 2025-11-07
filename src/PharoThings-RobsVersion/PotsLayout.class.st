@@ -52,6 +52,11 @@ PotsLayout class >> forPico [
 	^ self new forPico
 ]
 
+{ #category : 'as yet unclassified' }
+PotsLayout class >> forTMXNano2040 [ 
+	^self new forTMXNano2040 
+]
+
 { #category : 'operations' }
 PotsLayout >> applyTo: aController [
 	"populate the pinMatrix"
@@ -187,6 +192,28 @@ PotsLayout >> forPico [
 		'GND' 'GND'
 		14    17
 		15    16 )
+]
+
+{ #category : 'as yet unclassified' }
+PotsLayout >> forTMXNano2040 [
+
+	plainMatrix := #(
+		6       4
+		'3V3'   7
+		'AREF'  5
+		26      21
+		27      20
+		28      19
+		29      18
+		12      17   "12 = A5 only used as SDA"
+		13      16   "13 = A6 only used as SCL"
+		'NA'      15   
+		'NA'      25
+		'5V'    'GND'
+		'REC'   'RESET'
+		'GND'   '1'   "GPIO1 = RX"
+		'VIN'   '0'   "GPIO0 = TX"
+	)
 ]
 
 { #category : 'accessing' }
