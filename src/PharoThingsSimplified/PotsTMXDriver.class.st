@@ -16,8 +16,8 @@ Instance variable:
 - port  port
 - i2cPins ?
 - guard semaphor to protect acces to the following dictionarie
-- diDict digitlinput pins key gpio
-- aiDict analog nput pins key: gpio
+- diDict digital input value key gpio filled by #processDIEvent
+- aiDict analog input value key: gpio filled by #processAIERvent
 - i2cDict i2c results, key: i2c address
 "
 Class {
@@ -60,7 +60,7 @@ PotsTMXDriver >> beDigitalInputOnPin: aPin [
 	self closeCurrentRoleOfPin: aPin.
 	baseDriver beDigitalInputOnPin: d.
 	"and get the announcements coming"
-	diDict at: aPin id put: aPin.
+	diDict at: aPin id put: 0.
 	baseDriver enableDigitalReportingOnPin: d
 ]
 
@@ -111,14 +111,25 @@ PotsTMXDriver >> closeDIOnPin: aPin [
 	"first stop reporting, then remove from diDict"
 	
 	baseDriver disableDigitalReportingOnPin: (TMXConstants pinFromGpio: aPin id).
-	50 milliSeconds wait.  "There may be announcements coming"
+	50 milliSeconds wait.  "There may be announcements still under way"
 	diDict removeKey: aPin id
+]
+
+{ #category : 'io protocols' }
+PotsTMXDriver >> connectToI2CDevice: deviceAddressInt [
+	^baseDriver openI2C: deviceAddressInt
 ]
 
 { #category : 'io protocols' }
 PotsTMXDriver >> digitalValue: onezero intoPin: aPin [
 
 	^baseDriver digitalValue: onezero intoPin: (TMXConstants pinFromGpio: aPin id) 
+]
+
+{ #category : 'io protocols' }
+PotsTMXDriver >> digitalValueFromPin: aPin [
+	
+	^diDict at: aPin id
 ]
 
 { #category : 'initialization' }
@@ -159,18 +170,27 @@ PotsTMXDriver >> pinFromDNumber: aDNumber [
 
 { #category : 'as yet unclassified' }
 PotsTMXDriver >> processAIEvent: ann [
-	"we received an AI announcement and update the current role of the pin
+	"we received an AI announcement and update aiDict
 	we also convert to volts"
 	| value gpio |
 	
 	gpio := TMXConstants gpioFromPinNr: ann pinNr.
-	"controller how do I get to the pin, i only have its number"
+	value := (ann pinValue) * 3.4 / 4096.0 .
+	aiDict at: gpio put: value
 	
 ]
 
 { #category : 'as yet unclassified' }
 PotsTMXDriver >> processDIEvent: ann [
-
+	"we received an DI announcement and update the current entry in diDict
+	"
+	| value gpio |
+	
+	gpio := TMXConstants gpioFromPinNr: ann pinNr.
+	value := ann pinValue.
+	diDict at: gpio put: value
+	
+	
 ]
 
 { #category : 'initialization' }
