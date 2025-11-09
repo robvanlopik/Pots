@@ -132,6 +132,14 @@ PotsTMXDriver >> digitalValueFromPin: aPin [
 	^diDict at: aPin id
 ]
 
+{ #category : 'as yet unclassified' }
+PotsTMXDriver >> getI2Cafter: timestamp forAddress: address [
+	"read the data from i2cDict that have a newer timestamp"
+	1 to: 5 do: [ :ann | (i2cDict at: address) timestamp > timestamp ifTrue: [ 
+			^ (i2cDict at: address) bytes ] ].
+	self raise: TimedOut
+]
+
 { #category : 'initialization' }
 PotsTMXDriver >> initialize [
 
