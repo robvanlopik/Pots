@@ -140,6 +140,11 @@ PotsTMXDriver >> getI2Cafter: timestamp forAddress: address [
 	self raise: TimedOut
 ]
 
+{ #category : 'accessing' }
+PotsTMXDriver >> i2cPins [ 
+	^i2cPins
+]
+
 { #category : 'initialization' }
 PotsTMXDriver >> initialize [
 
@@ -207,18 +212,22 @@ PotsTMXDriver >> providePinInfo [
 as we use GPIO numbering we will use these as the key, but we fill it starting from the D-number 2-17 "
 	| pinDict newPin|
 	
+	i2cPins := OrderedCollection new.
 	pinDict := Dictionary new.
 	2 to: 17 do: [ :d | | pin |
 		pin := self pinFromDNumber: d.
 		pin addRole: (PotsDigitalOutputRole new driver: self).
 		pin addRole: (PotsPWMRole new driver: self ).
 		pin addRole: (PotsServoRole new driver: self).
-		pinDict at: (pin id) put: pin].
+		pinDict at: (pin id) put: pin.
+		diDict at: d put: 0].
 	"pin 20 and 21 are input only"
 	newPin := self pinFromDNumber: 20.
 	pinDict at: (newPin id) put: newPin.
+	diDict at: newPin put: 0.
 	newPin := self pinFromDNumber: 21.
 	pinDict at: (newPin id) put: newPin.
+	diDict at: newPin put: 0.
 	"dpin 18 and 19 are only SDA and SCL respectively, 
 	according to one doc their GPIO nrs are 12 and 13 but this isn't in TMXConstants
 	so we create them"
@@ -228,12 +237,14 @@ as we use GPIO numbering we will use these as the key, but we fill it starting f
 		altId: 'SDA';
 		currentRole: (PotsI2CRole new driver: self);
 		yourself).
+	i2cPins add: (pinDict at: 12).
 	pinDict at: 13 put: 
 		(PotsActivePin new
 		id: 13;
 		altId: 'SCL';
 		currentRole: (PotsI2CRole new driver: self);
 		yourself).
+	i2cPins add: (pinDict at: 13).
 	(pinDict at: 12) addRole: ((pinDict at: 12) currentRole).
 	(pinDict at: 13) addRole: ((pinDict at: 13) currentRole).
 	^pinDict
