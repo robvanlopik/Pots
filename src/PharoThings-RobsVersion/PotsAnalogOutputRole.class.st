@@ -1,3 +1,6 @@
+"
+I represent (real) analog output with a DAC, not PWM
+"
 Class {
 	#name : 'PotsAnalogOutputRole',
 	#superclass : 'PotsSoloPinRole',
@@ -14,6 +17,12 @@ PotsAnalogOutputRole class >> short [
 PotsAnalogOutputRole >> activateOn: aPin [
 	driver beAnalogOutputOnPin: aPin
 		
+]
+
+{ #category : 'private - controlling' }
+PotsAnalogOutputRole >> deactivateOn: aPin [
+
+	driver closeAnalogOutputOnPin: aPin
 ]
 
 { #category : 'private - accessing' }

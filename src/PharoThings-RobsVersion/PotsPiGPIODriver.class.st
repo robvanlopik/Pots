@@ -30,6 +30,16 @@ PotsPiGPIODriver class >> onIP: anIpAddressString port: aPortNumber [
 		yourself
 ]
 
+{ #category : 'modes' }
+PotsPiGPIODriver >> beDigitalInputOnPin: aPin [
+	baseDriver pin: aPin id mode: 0
+]
+
+{ #category : 'modes' }
+PotsPiGPIODriver >> beDigitalOutputOnPin: aPin [
+	baseDriver pin: aPin id mode: 1
+]
+
 { #category : 'initialization' }
 PotsPiGPIODriver >> connect [
 	

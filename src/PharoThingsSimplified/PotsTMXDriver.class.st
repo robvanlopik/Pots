@@ -51,7 +51,7 @@ PotsTMXDriver class >> onIP: anIpAddressString port: aPortNumber [
 		yourself
 ]
 
-{ #category : 'as yet unclassified' }
+{ #category : ' private - mode' }
 PotsTMXDriver >> beDigitalInputOnPin: aPin [
 	| d |
 	
@@ -64,15 +64,11 @@ PotsTMXDriver >> beDigitalInputOnPin: aPin [
 	baseDriver enableDigitalReportingOnPin: d
 ]
 
-{ #category : 'as yet unclassified' }
+{ #category : ' private - mode' }
 PotsTMXDriver >> beDigitalOutputOnPin: aPin [
-.
-	aPin currentRole class short = 'DO' ifTrue: [  ^self ].
-	self closeCurrentRoleOfPin: aPin.
-	baseDriver beDigitalOutputOnPin: (TMXConstants pinFromGpio: aPin id)
 ]
 
-{ #category : 'as yet unclassified' }
+{ #category : ' private - mode' }
 PotsTMXDriver >> bePWMOutputOnPin: aPin [
 
 	aPin currentRole class short = 'PWM' ifTrue: [  ^self ].
@@ -80,7 +76,7 @@ PotsTMXDriver >> bePWMOutputOnPin: aPin [
 	baseDriver bePWMOutputOnPin: (TMXConstants pinFromGpio: aPin id)
 ]
 
-{ #category : 'as yet unclassified' }
+{ #category : ' private - mode' }
 PotsTMXDriver >> beServoOnPin: aPin [
 
 	aPin currentRole class short = 'Servo' ifTrue: [  ^self ].
@@ -88,16 +84,17 @@ PotsTMXDriver >> beServoOnPin: aPin [
 	baseDriver attachServoToPin: (TMXConstants pinFromGpio: aPin id)
 ]
 
-{ #category : 'as yet unclassified' }
-PotsTMXDriver >> closeAIOnPin: aPin [
+{ #category : ' private - mode' }
+PotsTMXDriver >> closeAnalogInputOnPin: aPin [
 	"stop reporting"
 	self todo 
 ]
 
-{ #category : 'private-mode' }
+{ #category : ' private - mode' }
 PotsTMXDriver >> closeCurrentRoleOfPin: aPin [
 	"Servo can be detached.
 	AI and DI don't have to be closed, but their reporting has to be stopped"
+	self halt. "should not be called"
 	aPin currentRole class short = 'Servo' ifTrue: [ 
 		baseDriver detachServoFromPin: (TMXConstants pinFromGpio: aPin id). ^self].
 	aPin currentRole class short = 'AI' ifTrue: [ 
@@ -106,8 +103,8 @@ PotsTMXDriver >> closeCurrentRoleOfPin: aPin [
 			self closeDIOnPin: aPin . ^self].
 ]
 
-{ #category : 'as yet unclassified' }
-PotsTMXDriver >> closeDIOnPin: aPin [
+{ #category : ' private - mode' }
+PotsTMXDriver >> closeDigitalOutputOnPin: aPin [
 	"first stop reporting, then remove from diDict"
 	
 	baseDriver disableDigitalReportingOnPin: (TMXConstants pinFromGpio: aPin id).
@@ -115,9 +112,24 @@ PotsTMXDriver >> closeDIOnPin: aPin [
 	diDict removeKey: aPin id
 ]
 
+{ #category : ' private - mode' }
+PotsTMXDriver >> closePWMOnPin: aPin [
+]
+
+{ #category : ' private - mode' }
+PotsTMXDriver >> closeServoOnPin: aPin [
+]
+
 { #category : 'io protocols' }
 PotsTMXDriver >> connectToI2CDevice: deviceAddressInt [
 	^baseDriver openI2C: deviceAddressInt
+]
+
+{ #category : 'utilities' }
+PotsTMXDriver >> dfromg: aGPIONumber [
+	"return the corresponding d number"
+	
+	^TMXConstants pinFromGpio: aGPIONumber 
 ]
 
 { #category : 'io protocols' }
@@ -129,15 +141,23 @@ PotsTMXDriver >> digitalValue: onezero intoPin: aPin [
 { #category : 'io protocols' }
 PotsTMXDriver >> digitalValueFromPin: aPin [
 	
-	^diDict at: aPin id
+	guard critical: [^diDict at: aPin id]
 ]
 
 { #category : 'as yet unclassified' }
 PotsTMXDriver >> getI2Cafter: timestamp forAddress: address [
 	"read the data from i2cDict that have a newer timestamp"
+	self halt. "shouldnt come here as we use the synchronous TMXI2CConnection"
 	1 to: 5 do: [ :ann | (i2cDict at: address) timestamp > timestamp ifTrue: [ 
 			^ (i2cDict at: address) bytes ] ].
 	self raise: TimedOut
+]
+
+{ #category : 'utilities' }
+PotsTMXDriver >> gfromd: aDNumber [
+	"return Nano2040 d number from gpio nr"
+	
+	^TMXConstants gpioFromPinNr: aDNumber 
 ]
 
 { #category : 'accessing' }
@@ -161,7 +181,7 @@ PotsTMXDriver >> onIP: anIpAddressString port: aPortNumber [
 	port := aPortNumber
 ]
 
-{ #category : 'as yet unclassified' }
+{ #category : 'private - initialization' }
 PotsTMXDriver >> pinFromDNumber: aDNumber [
 	"return a PotsPin using the dnumber. with roles DI and DO, currentRole DI and the Dnumber as altId"
 	| gpio aPotsPin inputRole|
@@ -181,7 +201,7 @@ PotsTMXDriver >> pinFromDNumber: aDNumber [
 	
 ]
 
-{ #category : 'as yet unclassified' }
+{ #category : 'private - updating' }
 PotsTMXDriver >> processAIEvent: ann [
 	"we received an AI announcement and update aiDict
 	we also convert to volts"
@@ -189,11 +209,11 @@ PotsTMXDriver >> processAIEvent: ann [
 	
 	gpio := TMXConstants gpioFromPinNr: ann pinNr.
 	value := (ann pinValue) * 3.4 / 4096.0 .
-	aiDict at: gpio put: value
+	guard critical: [aiDict at: gpio put: value]
 	
 ]
 
-{ #category : 'as yet unclassified' }
+{ #category : 'private - updating' }
 PotsTMXDriver >> processDIEvent: ann [
 	"we received an DI announcement and update the current entry in diDict
 	"
@@ -201,7 +221,7 @@ PotsTMXDriver >> processDIEvent: ann [
 	
 	gpio := TMXConstants gpioFromPinNr: ann pinNr.
 	value := ann pinValue.
-	diDict at: gpio put: value
+	guard critical: [diDict at: gpio put: value]
 	
 	
 ]
@@ -224,10 +244,10 @@ as we use GPIO numbering we will use these as the key, but we fill it starting f
 	"pin 20 and 21 are input only"
 	newPin := self pinFromDNumber: 20.
 	pinDict at: (newPin id) put: newPin.
-	diDict at: newPin put: 0.
+	diDict at: newPin id put: 0.
 	newPin := self pinFromDNumber: 21.
 	pinDict at: (newPin id) put: newPin.
-	diDict at: newPin put: 0.
+	diDict at: newPin id put: 0.
 	"dpin 18 and 19 are only SDA and SCL respectively, 
 	according to one doc their GPIO nrs are 12 and 13 but this isn't in TMXConstants
 	so we create them"
@@ -247,6 +267,7 @@ as we use GPIO numbering we will use these as the key, but we fill it starting f
 	i2cPins add: (pinDict at: 13).
 	(pinDict at: 12) addRole: ((pinDict at: 12) currentRole).
 	(pinDict at: 13) addRole: ((pinDict at: 13) currentRole).
+	"to do: analog inputs"
 	^pinDict
 ]
 

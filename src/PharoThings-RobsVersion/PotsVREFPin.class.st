@@ -1,3 +1,6 @@
+"
+a VREF pin
+"
 Class {
 	#name : 'PotsVREFPin',
 	#superclass : 'PotsPassivePin',

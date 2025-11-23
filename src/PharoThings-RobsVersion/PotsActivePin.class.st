@@ -105,6 +105,8 @@ PotsActivePin >> beServoOutput [
 
 { #category : 'inspector extensions' }
 PotsActivePin >> capabilitiesString [
+	"for use by inspector"
+	
 	| response |
 	response := ''.
 	self roles keys  sorted do: [  :role | response := response , role, ' ' ].
@@ -149,6 +151,7 @@ PotsActivePin >> deviceCount: anObject [
 { #category : 'private - controlling' }
 PotsActivePin >> disableReporting [
 	"used by analog input with Firmata, or PinChange announcements in PiGPIO"
+	self halt. "should not come here"
 	isReporting ifFalse: [ ^self ].
 	currentRole disableReportingOnPin: self.
 	isReporting := false.
@@ -157,6 +160,7 @@ PotsActivePin >> disableReporting [
 { #category : 'private - controlling' }
 PotsActivePin >> enableReporting [
 	"used by analog input with Firmata, or PinChange announcements in PiGPIO"
+	self halt. "should not come here"
 	isReporting ifTrue: [ ^self ].
 	currentRole enableReportingOnPin: self.
 	isReporting := true.
@@ -197,6 +201,18 @@ PotsActivePin >> initialize [
 ]
 
 { #category : 'accessing' }
+PotsActivePin >> isReporting [
+
+	^ isReporting
+]
+
+{ #category : 'accessing' }
+PotsActivePin >> isReporting: anObject [
+
+	isReporting := anObject
+]
+
+{ #category : 'accessing' }
 PotsActivePin >> lastValue [
 	^currentRole lastValue
 ]
@@ -206,13 +222,15 @@ PotsActivePin >> playRole: shortName [
 	"change the current role
 	if the pin already has the role, do nothing
 	if one or more devices use the pin raise an error
-	if the role is not available, raise an error	"
+	if the role is not available, raise an error	
+	then the currentrole deactivates itself
+	and the new role activat"
 
 	| newRole |
-	(deviceCount > 0) ifTrue: [ Error signal: 'Pin ', id asString, ' is in use' ].
+	(deviceCount > 0) ifTrue: [ UIManager default confirm: 'Pin ', id asString, ' is in use; no action'. ^self ].
 	(currentRole class short = shortName) ifTrue: [ ^currentRole ].
 	newRole := roles at: shortName
-			ifAbsent: [ PotsError signal: 'Pin ', id asString, ' cannot be ', shortName ].
+			ifAbsent: [ UIManager default inform: 'Pin ', id asString, ' cannot be ', shortName, '; no action'. ^self ].
 	"and now we must tell the driver to change the mode"
 	currentRole deactivateOn: self.
 	newRole activateOn: self.

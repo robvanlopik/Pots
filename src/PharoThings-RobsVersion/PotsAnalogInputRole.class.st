@@ -34,7 +34,7 @@ PotsAnalogInputRole >> activateOn: aPin [
 
 { #category : 'private - controlling' }
 PotsAnalogInputRole >> deactivateOn: aPin [
-	"driver bcloseAnalogInputOnPin: aPin"
+	driver closeAnalogInputOnPin: aPin
 ]
 
 { #category : 'private - controlling' }

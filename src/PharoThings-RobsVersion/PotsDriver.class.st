@@ -26,56 +26,66 @@ Class {
 }
 
 { #category : 'io protocols' }
+PotsDriver >> analogValue: aNumber intoPin: aPin [
+	PotsError signal: 'cannot do Analog Output'
+]
+
+{ #category : 'io protocols' }
 PotsDriver >> analogValueFromPin: aPin [
 	PotsError signal: 'cannot do analog input'
 ]
 
-{ #category : 'as yet unclassified' }
+{ #category : 'modes' }
 PotsDriver >> beAnalogInputOnPin: aPin [
 	"subclass may usee this"
 ]
 
-{ #category : 'as yet unclassified' }
+{ #category : 'modes' }
 PotsDriver >> beDigitalInputOnPin: aPin [
 	"subclass may usee this"
 ]
 
-{ #category : 'as yet unclassified' }
+{ #category : 'modes' }
 PotsDriver >> beDigitalOutputOnPin: aPin [
 	"subclass may usee this"
 ]
 
-{ #category : 'as yet unclassified' }
+{ #category : 'modes' }
 PotsDriver >> bePWMOutputOnPin: aPin [
 	"subclass may usee this"
 ]
 
-{ #category : 'as yet unclassified' }
+{ #category : 'modes' }
 PotsDriver >> beServoOutputOnPin: aPin [
 	"subclass may use this"
 ]
 
-{ #category : 'as yet unclassified' }
+{ #category : 'modes' }
 PotsDriver >> closeAnalogInputOnPin: aPin [
 	"subclass may usee this"
 ]
 
-{ #category : 'as yet unclassified' }
+{ #category : 'modes' }
+PotsDriver >> closeAnalogOutputOnPin: aPin [
+	"subclass may ovberride this, otherwise NOP"
+]
+
+{ #category : 'modes' }
 PotsDriver >> closeDigitalInputOnPin: aPin [
 	"subclass may usee this"
 ]
 
-{ #category : 'as yet unclassified' }
+{ #category : 'modes' }
 PotsDriver >> closeDigitalOutputOnPin: aPin [
 	"subclass may usee this"
 ]
 
-{ #category : 'as yet unclassified' }
+{ #category : 'modes' }
 PotsDriver >> closePWMOutputOnPin: aPin [
 	"subclass may usee this"
 ]
 
-{ #category : 'as yet unclassified' }
+{ #category : 'modes' }
 PotsDriver >> closeServoOutputOnPin: aPin [
 	"subclass may usee this"
 ]

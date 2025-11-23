@@ -66,7 +66,7 @@ PotsLayout >> applyTo: aController [
 						ifFalse: [ aController pinWithId: pin ] ]
 ]
 
-{ #category : 'initialization' }
+{ #category : 'configuration' }
 PotsLayout >> forArduinoUno [
 	"setuo the plainMatrix
 	Uno pins 0 and 1 are not available because they are used for Firmata's serial comms"
@@ -113,7 +113,7 @@ plainMatrix := #(
 	'VIN' '3V3')
 ]
 
-{ #category : 'initialization' }
+{ #category : 'configuration' }
 PotsLayout >> forPi3 [
 	"setuo the plainMatrix"
 	
@@ -140,7 +140,7 @@ PotsLayout >> forPi3 [
 		'GND' 21 )
 ]
 
-{ #category : 'initialization' }
+{ #category : 'configuration' }
 PotsLayout >> forPiZero [
 	"setuo the plainMatrix"
 	
@@ -167,7 +167,7 @@ PotsLayout >> forPiZero [
 		'GND' 21 )
 ]
 
-{ #category : 'initialization' }
+{ #category : 'configuration' }
 PotsLayout >> forPico [
 	"setuo the plainMatrix"
 	
@@ -194,7 +194,7 @@ PotsLayout >> forPico [
 		15    16 )
 ]
 
-{ #category : 'as yet unclassified' }
+{ #category : 'configuration' }
 PotsLayout >> forTMXNano2040 [
 
 	plainMatrix := #(

@@ -38,7 +38,7 @@ Class {
 	#package : 'PharoThings-RobsVersion'
 }
 
-{ #category : 'as yet unclassified' }
+{ #category : 'initialization' }
 PotsDevice >> claimResources [
 	self subclassResponsibility 
 ]
@@ -81,7 +81,7 @@ PotsDevice >> name: anObject [
 	name := anObject
 ]
 
-{ #category : 'as yet unclassified' }
+{ #category : 'finalization' }
 PotsDevice >> releaseResources [
 	self subclassResponsibility 
 ]
