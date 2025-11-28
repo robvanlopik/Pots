@@ -21,12 +21,14 @@ Class {
 
 { #category : 'private - controlling' }
 PotsSoloPinRole >> activateOn: aPin [
+	"let the driver do acivation and reporting
+	will almost always be needed so must implement"
 		self subclassResponsibility 
 ]
 
 { #category : 'private - controlling' }
 PotsSoloPinRole >> deactivateOn: aPin [
-	"only implement when cleanup after use is necessary"
+	"only implement when cleanup after use is necessary, otherwise NOP"
 ]
 
 { #category : 'private - controlling' }
