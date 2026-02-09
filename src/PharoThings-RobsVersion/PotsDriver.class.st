@@ -5,7 +5,7 @@ Almost all of my methods are subclass responsibility
 Especially instance creation is specific for the real driver/board combination
 
 A driver brings a controller to life. There are two types of driver:
-the DriverDriver uses a protocoldriver to control a external device (eg PiGPIO, Firmata)
+the DriverDriver uses a protocoldriver to control a external device (eg PiGPIO, Firmata, Telemetrix)
 the DeviceDriver uses a device (especially one that contain io's that can be controlled) that has already been instantiated on another controller (eg a port extender like the PCF8574)
 
 I have two main responsibilities:

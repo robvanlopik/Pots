@@ -1,6 +1,6 @@
 "
 I am a PotsDriver that uses the PiGPIO driver to communicate with a Raspberry Pi.
-To start with I only serve modern Pi's.
+To start with I only serve modern Pi's, but NOT the Pi5
 I support DI, DO, PWM, Servo and I2C
 I2C is standard on BCM pin numbers 2 and 3
 

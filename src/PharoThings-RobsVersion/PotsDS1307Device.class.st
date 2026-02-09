@@ -1,3 +1,8 @@
+"
+I control the Reaaltime clock device DS1307.
+Apart from the rtc function I also contain some RAM (battery backupped).
+The device also EPROM, but thsis not accesible hfrom here.
+"
 Class {
 	#name : 'PotsDS1307Device',
 	#superclass : 'PotsI2CDevice',
