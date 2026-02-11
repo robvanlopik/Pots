@@ -35,9 +35,9 @@ If you are running this on the Raspberry Pi itself, you should use the localhost
 
 A controller has a number of pins (else it wouldn't be of much use). Pins are designated by their native Id's. Pins can have alternate id's; these are used by the Firmata and Picod driver to denote the analog pins (that can also be digital i/o pins, or i2c) and for the Pi you could use them for the WiringPi numbering scheme. 
 
-Pins respond to the messages `value` or `value:`.  The result or parameter depends on the role the pins play. 
+Pins respond to the messages `value` or `value:`.  The result or parameter depends on the role the pin plays. 
 
-Roles are set by the messages `beDigitalInput`, `beDigitalOutput`, `beAnalogInput`, beAnalogOutput, `bePWMoutput` or `beServoOutput`.  
+Roles are set by the messages `beDigitalInput`, `beDigitalOutput`, `beAnalogInput`, `beAnalogOutput`, `bePWMoutput` or `beServoOutput`.  
 
 Values are returned and provided in meaningful units: 0/1 for digital pins, volts for analog i/o, percentage for PWM and degrees (0 - 180) for servo pins. If you know the internals, you can use `rawValue`.
 
