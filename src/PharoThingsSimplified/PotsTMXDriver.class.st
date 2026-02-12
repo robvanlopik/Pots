@@ -14,11 +14,7 @@ Class {
 	#name : 'PotsTMXDriver',
 	#superclass : 'PotsDriverDriver',
 	#instVars : [
-		'i2cPins',
-		'guard',
-		'diDict',
-		'aiDict',
-		'i2cDict'
+		'i2cPins'
 	],
 	#category : 'PharoThingsSimplified-tests',
 	#package : 'PharoThingsSimplified',
@@ -37,6 +33,15 @@ PotsTMXDriver class >> onIP: anIpAddressString port: aPortNumber [
 	^self new 
 		onIP: anIpAddressString port: aPortNumber;
 		yourself
+]
+
+{ #category : 'io protocols' }
+PotsTMXDriver >> analogValueFromPin: aPin [
+
+	| ref range |
+	ref := aPin currentRole refVoltage.
+	range := 2 ** (aPin currentRole resolution) - 1.
+	^(self rawAnalogValueFromPin: aPin) * ref / range
 ]
 
 { #category : ' private - mode' }
@@ -92,11 +97,7 @@ PotsTMXDriver >> closeCurrentRoleOfPin: aPin [
 
 { #category : ' private - mode' }
 PotsTMXDriver >> closeDigitalOutputOnPin: aPin [
-	"first stop reporting, then remove from diDict"
-	
-	baseDriver disableDigitalReportingOnPin: (TMXConstants pinFromGpio: aPin id).
-	50 milliSeconds wait.  "There may be announcements still under way"
-	diDict removeKey: aPin id
+
 ]
 
 { #category : ' private - mode' }
@@ -140,16 +141,7 @@ PotsTMXDriver >> i2cPins [
 PotsTMXDriver >> initialize [
 
 	super initialize .
-	guard := Mutex new.
-	aiDict := Dictionary new.
-	diDict := Dictionary new.
-	i2cDict := Dictionary new
-]
-
-{ #category : 'instance creation' }
-PotsTMXDriver >> onIP: anIpAddressString port: aPortNumber [
-	ip := anIpAddressString.
-	port := aPortNumber
+	
 ]
 
 { #category : 'private - updating' }
@@ -177,14 +169,27 @@ PotsTMXDriver >> processDIEvent: ann [
 	
 ]
 
+{ #category : 'initialization' }
+PotsTMXDriver >> providePinInfo [ 
+	"return a pinDict with all pins info for digital i/o"
+	| pinDict allPins |
+	allPins := (baseDriver pins di) union: (baseDriver pins do).
+	pinDict := Dictionary new.
+	allPins do: [ :id | pinDict at: id put: 
+			(PotsActivePin new
+				id: id;
+				currentRole: PotsNARole new	;
+				yourself)
+			].
+	baseDriver pins di do: [ :id | (pinDict at: id) addRole: (PotsDigitalInputRole new driver: self) ].
+	baseDriver pins do do: [ :id | (pinDict at: id) addRole: (PotsDigitalOutputRole new driver: self) ].
+	baseDriver pins pwm do: [ :id | (pinDict at: id) addRole: (PotsPWMRole new driver: self) ].
+	baseDriver pins servo do: [ :id | (pinDict at: id) addRole: (PotsServoRole new driver: self) ].
+	^pinDict
+]
+
 { #category : 'io protocols' }
 PotsTMXDriver >> pwmValue: aByte intoPin: aPin [
 	"with default freq=5000 and 8 bits resolution (on ESP32"
 	^baseDriver pwmValue: aByte intoPin: aPin id
-]
-
-{ #category : 'initialization' }
-PotsTMXDriver >> setup [
-	baseDriver := TMXDriver onIP: ip port: port.
-
 ]

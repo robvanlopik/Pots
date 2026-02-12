@@ -28,3 +28,10 @@ Class {
 	#package : 'PharoThingsSimplified',
 	#tag : 'Manifest'
 }
+
+{ #category : 'code-critics' }
+ManifestPharoThingsSimplified class >> ruleTempsReadBeforeWrittenRuleV1FalsePositive [
+
+	<ignoreForCoverage>
+	^ #(#(#(#RGMethodDefinition #(#PotsTMXDriver #providePinInfo #false)) #'2026-02-10T12:48:57.234+00:00') )
+]
