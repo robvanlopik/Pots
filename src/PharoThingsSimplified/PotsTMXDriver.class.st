@@ -47,65 +47,56 @@ PotsTMXDriver >> analogValueFromPin: aPin [
 { #category : ' private - mode' }
 PotsTMXDriver >> beDigitalInputOnPin: aPin [
 	
-	aPin currentRole class short = 'DI' ifTrue: [ ^self ].
-	self closeCurrentRoleOfPin: aPin.
+
 	baseDriver beDigitalInputOnPin: aPin id.
 ]
 
 { #category : ' private - mode' }
 PotsTMXDriver >> beDigitalOutputOnPin: aPin [
-
-	aPin currentRole class short = 'DO' ifTrue: [  ^self ].
-	self closeCurrentRoleOfPin: aPin.
 	baseDriver bePWMOutputOnPin: aPin id
 ]
 
 { #category : 'modes' }
 PotsTMXDriver >> bePWMOutputOnPin: aPin [
+	"use the driver default; maybe put these in PWMRole..."
 
-	aPin currentRole class short = 'PWM' ifTrue: [  ^self ].
-	self closeCurrentRoleOfPin: aPin.
 	baseDriver bePWMOutputOnPin: aPin id
 ]
 
 { #category : 'private - mode' }
 PotsTMXDriver >> beServoOnPin: aPin [
-	"sero on TMX ddefalt to min=544 max=2400 "
-	aPin currentRole class short = 'Servo' ifTrue: [  ^self ].
-	self closeCurrentRoleOfPin: aPin.
-	baseDriver beServoOutputOnPin: aPin id
+	"servo on TMX defalt to min=544 max=2400 , should store that inthe role"
+
+	baseDriver beServoOutputOnPin: aPin id.
+	"(aPin roles) at: 'Servo' "
 ]
 
 { #category : ' private - mode' }
 PotsTMXDriver >> closeAnalogInputOnPin: aPin [
 	"stop reporting"
-	self todo 
+	baseDriver disableAnalogReportingOnPin: aPin id
 ]
 
 { #category : ' private - mode' }
-PotsTMXDriver >> closeCurrentRoleOfPin: aPin [
-	"Servo can be detached.
-	AI and DI don't have to be closed, but their reporting has to be stopped NOT CORRECT!!"
-	self halt. "should not be called"
-	aPin currentRole class short = 'Servo' ifTrue: [ 
-		baseDriver detachServoFromPin: (TMXConstants pinFromGpio: aPin id). ^self].
-	aPin currentRole class short = 'AI' ifTrue: [ 
-			self closeAIOnPin: aPin . ^self].
-	aPin currentRole class short = 'DI' ifTrue: [ 
-			self closeDIOnPin: aPin . ^self].
+PotsTMXDriver >> closeDigitalInputOnPin: aPin [
+	"stop reporting"
+	baseDriver disableDigitalReportingOnPin: aPin id
 ]
 
 { #category : ' private - mode' }
 PotsTMXDriver >> closeDigitalOutputOnPin: aPin [
+"do nothing"
 
 ]
 
 { #category : ' private - mode' }
 PotsTMXDriver >> closePWMOnPin: aPin [
+"do nothing"
 ]
 
 { #category : ' private - mode' }
 PotsTMXDriver >> closeServoOnPin: aPin [
+	baseDriver detachServoFromPin: aPin id.
 ]
 
 { #category : 'io protocols' }
@@ -141,31 +132,6 @@ PotsTMXDriver >> i2cPins [
 PotsTMXDriver >> initialize [
 
 	super initialize .
-	
-]
-
-{ #category : 'private - updating' }
-PotsTMXDriver >> processAIEvent: ann [
-	"we received an AI announcement and update aiDict
-	we also convert to volts"
-	| value gpio |
-	
-	gpio := TMXConstants gpioFromPinNr: ann pinNr.
-	value := (ann pinValue) * 3.4 / 4096.0 .
-	guard critical: [aiDict at: gpio put: value]
-	
-]
-
-{ #category : 'private - updating' }
-PotsTMXDriver >> processDIEvent: ann [
-	"we received an DI announcement and update the current entry in diDict
-	"
-	| value gpio |
-	
-	gpio := TMXConstants gpioFromPinNr: ann pinNr.
-	value := ann pinValue.
-	guard critical: [diDict at: gpio put: value]
-	
 	
 ]
 
