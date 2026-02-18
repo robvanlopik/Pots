@@ -105,6 +105,26 @@ PotsTMXNano2040Driver >> pinFromDNumber: aDNumber [
 	
 ]
 
+{ #category : 'initialization' }
+PotsTMXNano2040Driver >> providePinInfo [ 
+		"fir the nano2040 this is more complicateedm beecause yhe basediver uses native pin numbers, while pots prefers Gpio numbers. We rewrite the superclass version of this method herecfirst"
+		"zuperclass version rewritten"
+	| pinDict allDPins |
+	allDPins := (baseDriver pins di) union: (baseDriver pins do).
+	pinDict := Dictionary new.
+	allDPins do: [ :id | pinDict at: (self gfromd: id) put: 
+			(PotsActivePin new
+				id: (self gfromd: id);
+				currentRole: PotsNARole new	;
+				yourself)
+			].
+	baseDriver pins di do: [ :id | (pinDict at: (self gfromd: id)) addRole: (PotsDigitalInputRole new driver: self) ].
+	baseDriver pins do do: [ :id | (pinDict at: (self gfromd: id)) addRole: (PotsDigitalOutputRole new driver: self) ].
+	baseDriver pins pwm do: [ :id | (pinDict at: (self gfromd: id)) addRole: (PotsPWMRole new driver: self) ].
+	baseDriver pins servo do: [ :id | (pinDict at: (self gfromd: id)) addRole: (PotsServoRole new driver: self) ].
+	^pinDict
+]
+
 { #category : 'io protocols' }
 PotsTMXNano2040Driver >> pwmValue: aByte intoPin: aPin [
 
