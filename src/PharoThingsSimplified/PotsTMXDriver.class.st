@@ -44,14 +44,14 @@ PotsTMXDriver >> analogValueFromPin: aPin [
 	^(self rawAnalogValueFromPin: aPin) * ref / range
 ]
 
-{ #category : ' private - mode' }
+{ #category : 'private - mode' }
 PotsTMXDriver >> beDigitalInputOnPin: aPin [
 	
 
 	baseDriver beDigitalInputOnPin: aPin id.
 ]
 
-{ #category : ' private - mode' }
+{ #category : 'private - mode' }
 PotsTMXDriver >> beDigitalOutputOnPin: aPin [
 	baseDriver bePWMOutputOnPin: aPin id
 ]
@@ -71,30 +71,30 @@ PotsTMXDriver >> beServoOnPin: aPin [
 	"(aPin roles) at: 'Servo' "
 ]
 
-{ #category : ' private - mode' }
+{ #category : 'private - mode' }
 PotsTMXDriver >> closeAnalogInputOnPin: aPin [
 	"stop reporting"
 	baseDriver disableAnalogReportingOnPin: aPin id
 ]
 
-{ #category : ' private - mode' }
+{ #category : 'private - mode' }
 PotsTMXDriver >> closeDigitalInputOnPin: aPin [
 	"stop reporting"
 	baseDriver disableDigitalReportingOnPin: aPin id
 ]
 
-{ #category : ' private - mode' }
+{ #category : 'private - mode' }
 PotsTMXDriver >> closeDigitalOutputOnPin: aPin [
 "do nothing"
 
 ]
 
-{ #category : ' private - mode' }
+{ #category : 'private - mode' }
 PotsTMXDriver >> closePWMOnPin: aPin [
 "do nothing"
 ]
 
-{ #category : ' private - mode' }
+{ #category : 'private - mode' }
 PotsTMXDriver >> closeServoOnPin: aPin [
 	baseDriver detachServoFromPin: aPin id.
 ]

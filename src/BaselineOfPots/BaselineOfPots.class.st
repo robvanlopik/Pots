@@ -1,10 +1,11 @@
 Class {
-	#name : #BaselineOfPots,
-	#superclass : #BaselineOf,
-	#category : #BaselineOfPots
+	#name : 'BaselineOfPots',
+	#superclass : 'BaselineOf',
+	#category : 'BaselineOfPots',
+	#package : 'BaselineOfPots'
 }
 
-{ #category : #baselines }
+{ #category : 'baselines' }
 BaselineOfPots >> baseline: spec [
 
 	<baseline>
@@ -15,13 +16,13 @@ BaselineOfPots >> baseline: spec [
 			declarePicodDriverOn: spec;
 			declareESP32DriverOn: spec.
 		spec
-			package: 'PharoThings-RobsVersion'
+			package: 'PharoThingsSimplified'
 			with: [ spec requires: #( 'Firmata' 'PiGPIO' 'PicodDriver' 'ESP32Driver' ) ];
 			package: 'PharoThingsSimplified-Tests'
-			with: [ spec requires: #( 'PharoThings-RobsVersion' ) ] ]
+			with: [ spec requires: #( 'PharoThingsSimplified' ) ] ]
 ]
 
-{ #category : #'external projects' }
+{ #category : 'external projects' }
 BaselineOfPots >> declareESP32DriverOn: spec [
 
 	spec
@@ -30,7 +31,7 @@ BaselineOfPots >> declareESP32DriverOn: spec [
 		spec repository: 'github://robvanlopik/toit-pharo:main' ]
 ]
 
-{ #category : #'external projects' }
+{ #category : 'external projects' }
 BaselineOfPots >> declareFirmataOn: spec [
 
 	spec
@@ -38,7 +39,7 @@ BaselineOfPots >> declareFirmataOn: spec [
 		with: [ spec repository: 'github://robvanlopik/Firmata' ]
 ]
 
-{ #category : #'external projects' }
+{ #category : 'external projects' }
 BaselineOfPots >> declarePiGPIOOn: spec [
 
 	spec
@@ -47,7 +48,7 @@ BaselineOfPots >> declarePiGPIOOn: spec [
 		spec repository: 'github://robvanlopik/PiGPIO' ]
 ]
 
-{ #category : #'external projects' }
+{ #category : 'external projects' }
 BaselineOfPots >> declarePicodDriverOn: spec [
 
 	spec

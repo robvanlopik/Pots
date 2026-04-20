@@ -68,6 +68,16 @@ SpTableColumn class >> title: aString evaluated: aValuable [
 		yourself
 ]
 
+{ #category : 'as yet unclassified' }
+SpTableColumn class >> title: aString evaluated: aValuable width: aNumber [
+
+	^ self new 
+		title: aString;
+		evaluated: aValuable;
+		width: aNumber;
+		yourself
+]
+
 { #category : 'visiting' }
 SpTableColumn >> acceptColumnVisitor: aBuilder [
 

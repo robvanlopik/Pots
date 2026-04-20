@@ -11,7 +11,7 @@ Class {
 	#tag : 'tests'
 }
 
-{ #category : ' private - mode' }
+{ #category : 'private - mode' }
 PotsTMXNano2040Driver >> beDigitalInputOnPin: aPin [
 	| d |
 	
@@ -22,7 +22,7 @@ PotsTMXNano2040Driver >> beDigitalInputOnPin: aPin [
 
 ]
 
-{ #category : ' private - mode' }
+{ #category : 'private - mode' }
 PotsTMXNano2040Driver >> beDigitalOutputOnPin: aPin [
 	| d |
 	d := self dfromg: aPin id.
@@ -41,7 +41,7 @@ PotsTMXNano2040Driver >> bePWMOutputOnPin: aPin [
 	baseDriver bePWMOutputOnPin: d
 ]
 
-{ #category : ' private - mode' }
+{ #category : 'private - mode' }
 PotsTMXNano2040Driver >> beServoOnPin: aPin [
 
 	aPin currentRole class short = 'Servo' ifTrue: [  ^self ].
@@ -49,7 +49,7 @@ PotsTMXNano2040Driver >> beServoOnPin: aPin [
 	baseDriver attachServoToPin: (TMXConstants pinFromGpio: aPin id)
 ]
 
-{ #category : ' private - mode' }
+{ #category : 'private - mode' }
 PotsTMXNano2040Driver >> beServoOnPin: aPin
 
 beServoOnPin: aPin [
