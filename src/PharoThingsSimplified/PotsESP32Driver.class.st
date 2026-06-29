@@ -1,7 +1,8 @@
 "
 I am a driver for the EPS32 board, to be used in Pots. 
 Basically I forward to ESP32Driver but with PotsPin replaced by its id.
-And I implement getPinfo to flesh out the controller configuration
+And I implement getPinfo to flesh out the controller configuration.
+Note that the base driver uses MQTT for communication while the ESP32 daemon is programmed in the Toit language. Probably the PotsTMXEsp32Driver is a better choice, at least performance wise. 
 "
 Class {
 	#name : 'PotsESP32Driver',

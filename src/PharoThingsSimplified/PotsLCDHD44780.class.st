@@ -1,3 +1,6 @@
+"
+I am a remnant from POT
+"
 Class {
 	#name : 'PotsLCDHD44780',
 	#superclass : 'PotsDevice',

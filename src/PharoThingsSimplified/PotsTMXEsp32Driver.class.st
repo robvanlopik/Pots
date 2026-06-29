@@ -1,3 +1,6 @@
+"
+I use the the Telemetrix driver for ESP32 as a base driver.
+"
 Class {
 	#name : 'PotsTMXEsp32Driver',
 	#superclass : 'PotsTMXDriver',

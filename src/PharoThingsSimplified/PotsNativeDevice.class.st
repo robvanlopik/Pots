@@ -1,6 +1,5 @@
 "
-I am a PotsDevice that is implemented by the native drive, especially the Firmata of Telemetrix driver.
-I do the pin allocation and present the interface to the device, like a DHT11 temp sensor, or a stepper motor
+My subclasses represent attached devices that are driven by code in the controller boards daemon. Availabilty depends on the driver. Notably Firmata and the Telemetrix drivers expose complete devices like the DHT temp sensor, stepper motor, NeoPixels, etc. I am responsible for the pin allocation and device activation. After that I can either pass commands dicrecly to the driver of modify its API
 "
 Class {
 	#name : 'PotsNativeDevice',
