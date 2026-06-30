@@ -73,7 +73,7 @@ The ESP32 has no altId's defined so for analog input you can use pins 32, 33, 34
 #### Inspector and PotsLayout
 When you inspect an instance of PotsController, you get a list of the pins in numerical order. Each line has the following informatio: pin number, alternative pin number, current role, last value and permitted roles (named capabilities). To make this look more like the actual board or connector you can apply a PotsLayout to the controller like
 ```smalltalk
-myArduino installLayout: : PotsLayout forArduinoUno.
+myArduino installLayout: PotsLayout forArduinoUno.
 ```
 There are definitions for the Pi3, Pico, ESP32-30pins and the Uno. The pins are now arranged in two columns with their details on the left and the right. From the code it will be evident how to make your own layout
 
