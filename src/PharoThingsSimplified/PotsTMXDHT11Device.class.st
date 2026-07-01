@@ -10,3 +10,9 @@ Class {
 	#category : 'PharoThingsSimplified',
 	#package : 'PharoThingsSimplified'
 }
+
+{ #category : 'as yet unclassified' }
+PotsTMXDHT11Device >> withPinId: aPinNr [
+
+	pinId := aPinNr
+]
