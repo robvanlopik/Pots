@@ -7,7 +7,8 @@ I describe the layout of a PotsController board. For the time being that will be
 	pinMatrix:		an Array of PotsPins
 	plainMatrix: 	an Array of GPIO numers eand pther pin designations
 	
-
+Usage:
+`myController installLayout: PotsLayout forArduinoUno`
 
     Implementation Points
 "
@@ -101,7 +102,7 @@ plainMatrix := #(
 	39   'NA'
 	34   'NA'
 	35   21
-	32   19
+	32   18
 	33   19
 	25   5
 	26   17

@@ -13,6 +13,12 @@ Class {
 	#tag : 'tests'
 }
 
+{ #category : 'initialization' }
+PotsTMXUnoDriver >> onPort: aSerialportName [ 
+
+	self onPort: aSerialportName baudRate: 115200
+]
+
 { #category : 'instance creation' }
 PotsTMXUnoDriver >> onPort: aSerialPortName baudRate: aNumber [
 	"just save the data to make a connection later"
