@@ -14,7 +14,7 @@ Class {
 { #category : 'initialization' }
 PotsTMXDHT11Device >> claimResources [
 	| myPin |
-	
+	"may want tocheck whether the base driver supports the use of this pin"
 	((controller pinWithId: pinId) deviceCount = 0) ifFalse: [  self error: 'pin not available'. ^self ].
 	(controller pinWithId: pinId) deviceCount: 1
 ]

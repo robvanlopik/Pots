@@ -32,10 +32,12 @@ PotsTMXUnoDriver >> providePinInfo [
 	
 	| pinDict |
 	pinDict := super providePinInfo.
-	baseDriver pins ai do: [ :id | (pinDict at: id) addRole: (PotsAnalogInputRole new driver: self;
+	baseDriver pins ai do: [ :id | (pinDict at: (id + 14)) addRole: (PotsAnalogInputRole new driver: self;
 																				refVoltage: 5.0;
 																				resolution: 10;
-																				yourself)].
+																				yourself);
+																			altId: id.].
+	
 	^pinDict
 ]
 
